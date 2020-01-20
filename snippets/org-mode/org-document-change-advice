@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: 修改建议自动补全
+# key: org-document-change-advice
+# condition: t
+# --
+
++ 修改建议：
+  -

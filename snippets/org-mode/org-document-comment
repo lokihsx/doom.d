@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: 自动插入文档批注
+# uuid: org-document-comment
+# key: org-document-comment                        
+# --
+
+`
+(let* ((cperson (call-interactively 'loki/org-document-comment-person))
+      (ctime (format-time-string "%Y-%m-%d %a"))
+      (dtime (call-interactively 'loki/org-document-comment-deadline)))
+
+  (format "DEADLINE: <%s> SCHEDULED: <%s>
++ 负责人：[%s]
++ 标注时间：[%s]
++ 截止时间：[%s]" dtime ctime cperson ctime dtime))
+`
