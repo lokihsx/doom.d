@@ -1,16 +1,23 @@
 # -*- mode: snippet -*-
 # name: 自动插入文档批注
 # uuid: org-document-comment
-# key: org-document-comment                        
+# key: org-document-comment                                           
 # --
 
 `
-(let* ((cperson (call-interactively 'loki/org-document-comment-person))
-      (ctime (format-time-string "%Y-%m-%d %a"))
-      (dtime (call-interactively 'loki/org-document-comment-deadline)))
+(let ((cperson (+loki/org-document-comment-select loki/persons-in-charge-prompt loki/persons-in-charge-list))
+      (ctime (format-time-string loki/task-date-format))
+      (dtime (+loki/org-document-comment-select
+              loki/task-deadline-prompt
+              (mapcar #'number-to-string (number-sequence 0 365 1))
+              (lambda (days)
+                (setq days (if (string-empty-p days) 0 (string-to-number days)))
+                (format-time-string loki/task-date-format
+                                    (time-add (current-time) (days-to-time days)))))))
 
   (format "DEADLINE: <%s> SCHEDULED: <%s>
 + 负责人：[%s]
 + 标注时间：[%s]
 + 截止时间：[%s]" dtime ctime cperson ctime dtime))
+
 `
