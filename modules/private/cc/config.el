@@ -139,18 +139,20 @@ This is ignored by ccls.")
 ;;
 ;; LSP
 
-(add-hook! '(c-mode-local-vars-hook
-             c++-mode-local-vars-hook
-             objc-mode-local-vars-hook)
-  (defun +cc-init-lsp-h ()
-    (setq-local company-transformers nil)
-    (setq-local company-lsp-async t)
-    (setq-local company-lsp-cache-candidates nil)
-    (lsp)))
-
+;; (add-hook! '(c-mode-local-vars-hook
+;;              c++-mode-local-vars-hook
+;;              objc-mode-local-vars-hook)
+;;   (defun +cc-init-lsp-h ()
+;;     (setq-local company-transformers nil)
+;;     (setq-local company-lsp-async t)
+;;     (setq-local company-lsp-cache-candidates nil)
+;;     (lsp)))
 
 (use-package! ccls
-  :after lsp
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda ()
+           (lsp)
+           (push 'company-lsp company-backends)))
   :init
   (after! projectile
     (add-to-list 'projectile-globally-ignored-directories ".ccls-cache")

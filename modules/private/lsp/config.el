@@ -129,13 +129,15 @@ This also logs the resolved project root, if found, so we know where we are."
                 (setq-local lsp-prefer-capf t)
                 (setq-local company-backends
                             (cons 'company-capf (remq 'company-capf company-backends))))
-            ;; use company-lsp backend (may need to be loaded first)
-            (require 'company-lsp)
-            (setq-local lsp-enable-completion-at-point nil)
-            (setq-local lsp-prefer-capf nil)
-            (setq-local company-backends
-                        (cons 'company-lsp (remq 'company-capf company-backends)))
-            (setq-default company-lsp-cache-candidates 'auto))
+            (progn
+              ;; use company-lsp backend (may need to be loaded first)
+              ((require 'package) 'company-lsp)
+              (setq-local lsp-enable-completion-at-point nil)
+              (setq-local lsp-prefer-capf nil)
+              (setq-local company-backends
+                          (cons 'company-lsp
+                                (remq 'company-capf company-backends)))
+              (setq-default company-lsp-cache-candidates 'auto)))
           (remove-hook 'company-mode-hook #'+lsp-init-company-h t))))
     (defun +lsp-init-flycheck-or-flymake-h ()
       "Set up flycheck-mode or flymake-mode, depending on `lsp-diagnostic-package'."
