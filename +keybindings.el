@@ -54,7 +54,14 @@
 
       ;; Smarter newlines
       :i [remap newline] #'newline-and-indent  ; auto-indent on newline
-      :i "C-j"           #'+default/newline    ; default behavior
+
+      ;; insert mode direct key
+      :i "C-j"   #'next-line
+      :i "C-k"   #'previous-line
+      :i "C-a"   #'doom/backward-to-bol-or-indent
+      :i "C-e"   #'end-of-line
+      :i "C-h"   #'backward-delete-char-untabify
+      :i "C-d"   #'delete-char
 
       (:after help :map help-mode-map
         :n "o"       #'link-hint-open-link)
@@ -260,6 +267,8 @@
 ;;; <leader>
 
 (map! :leader
+      :desc "Run PostgreSQL command" "rsp" #'sql-postgres
+
       :desc "Eval expression"       ";"    #'pp-eval-expression
       :desc "M-x"                   ":"    #'execute-extended-command
       :desc "Pop up scratch buffer" "x"    #'doom/open-scratch-buffer
