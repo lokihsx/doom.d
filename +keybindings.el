@@ -540,11 +540,11 @@
           :desc "Toggle shell popup"    "t" #'+shell/toggle
           :desc "Open shell here"       "T" #'+shell/here)
         (:when (featurep! :term term)
-          :desc "Toggle terminal popup" "t" #'+term/toggle
-          :desc "Open terminal here"    "T" #'+term/here)
+          :desc "Toggle terminal popup" "T" #'+term/toggle
+          :desc "Open terminal here"    "t" #'+term/here)
         (:when (featurep! :term vterm)
-          :desc "Toggle vterm popup"    "t" #'+vterm/toggle
-          :desc "Open vterm here"       "T" #'+vterm/here)
+          :desc "Toggle vterm popup"    "T" #'+vterm/toggle
+          :desc "Open vterm here"       "t" #'+vterm/here)
         (:when (featurep! :term eshell)
           :desc "Toggle eshell popup"   "e" #'+eshell/toggle
           :desc "Open eshell here"      "E" #'+eshell/here)
