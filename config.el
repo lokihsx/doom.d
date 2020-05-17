@@ -60,7 +60,7 @@
   (defun treemacs-custom-filter (file _)
     (or (s-ends-with? ".o" file)
         (s-ends-with? ".log" file)))
-  (setq treemacs-width 45)
+  (setq treemacs-width 30)
   (treemacs-follow-mode)
   (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
 
