@@ -64,5 +64,8 @@
   (treemacs-follow-mode)
   (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
 
+(unless window-system
+  (setq fcitx-remote-command (concat doom-private-dir "osx-fcitx.sh")))
+
 (setq url-gateway-method 'socks)
 (setq socks-server '("Default server" "127.0.0.1" 1080 5))
