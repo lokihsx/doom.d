@@ -2,7 +2,7 @@
 set -euo pipefail
 
 User=loki
-Addr=192.168.222.201
+Addr=loki-mac
 
 if [ $# -eq 1 ]; then
     ssh $User@$Addr "/usr/local/bin/fcitx-remote $1"
