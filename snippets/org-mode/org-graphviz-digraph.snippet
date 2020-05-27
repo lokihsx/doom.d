@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: org-graphviz-digraph
+# uuid: org-graphviz-digraph
+# key: org-graphviz-digraph
+# condition: t
+# expand-env: ((yas-indent-line 'fixed))
+# --
+
+#+BEGIN_SRC dot :file images/$1.png :exports results
+   digraph $1 {
+           bgcolor=transparent
+
+           node[color=white,fontcolor=white]
+           edge[color=white,fontcolor=white]
+   }
+#+END_SRC
