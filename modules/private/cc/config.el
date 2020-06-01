@@ -208,7 +208,7 @@ If rtags or rdm aren't available, fail silently instead of throwing a breaking e
         ;; ...and don't auto-jump to first match before making a selection.
         rtags-jump-to-first-match nil)
 
-  (set-lookup-handlers! '(c-mode c++-mode)
+  (set-lookup-handlers! '(c-mode c++-mode) :async t
     :definition #'rtags-find-symbol-at-point
     :references #'rtags-find-references-at-point)
 
