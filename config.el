@@ -53,8 +53,15 @@
 
 (load! "+keybindings")
 
-;; (toggle-frame-fullscreen)
-(toggle-truncate-lines)
+(defun loki/frame-opacity ()
+  (doom/set-frame-opacity 80))
+
+(loki/frame-opacity)
+
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (select-frame frame)
+            (loki/frame-opacity)))
 
 (with-eval-after-load 'treemacs
   (defun treemacs-custom-filter (file _)
@@ -66,6 +73,13 @@
 
 (unless window-system
   (setq fcitx-remote-command (concat doom-private-dir "osx-fcitx.sh")))
+
+(after! ivy
+  (global-set-key (kbd "s-,") '+ivy/switch-workspace-buffer))
+
+(after! vterm
+  (global-set-key (kbd "s-t") '+vterm/here))
+
 
 ;; (setq url-gateway-method 'socks)
 ;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
