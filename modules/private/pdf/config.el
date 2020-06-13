@@ -22,6 +22,7 @@
   :config
   (map! :map pdf-view-mode-map
         :gn "J" #'pdf-view-next-page-command
+        :gn "O" #'pdf-edit-outline
         :gn "K" #'pdf-view-previous-page-command)
 
   (setq-default pdf-view-display-size 'fit-width)
@@ -44,7 +45,7 @@
              (setq-local +pdf--page-restored-p t)))))
 
   ;; Add retina support for MacOS users
-  ;;(when IS-MAC
+  (when IS-MAC
     (advice-add #'pdf-util-frame-scale-factor :around #'+pdf--util-frame-scale-factor-a)
     (advice-add #'pdf-view-use-scaling-p :before-until #'+pdf--view-use-scaling-p-a)
     (defadvice! +pdf--supply-width-to-create-image-calls-a (orig-fn &rest args)
@@ -55,8 +56,7 @@
                (apply create-image file-or-data type data-p
                       :width (car (pdf-view-image-size))
                       props))
-        (apply orig-fn args)))
-    ;;)
+        (apply orig-fn args))))
 
   ;; Handle PDF-tools related popups better
   (set-popup-rules!
@@ -68,6 +68,12 @@
 
   ;; HACK Fix #1107: flickering pdfs when evil-mode is enabled
   (setq-hook! 'pdf-view-mode-hook evil-normal-state-cursor (list nil))
+
+  (add-hook 'doom-switch-window-hook
+            (lambda ()
+              (when (eq major-mode 'pdf-view-mode)
+                (fcitx--deactivate))))
+
 
   ;; Install epdfinfo binary if needed, blocking until it is finished
   (when doom-interactive-p
@@ -97,3 +103,10 @@
     ;; Sets up `pdf-tools-enable-minor-modes', `pdf-occur-global-minor-mode' and
     ;; `pdf-virtual-global-minor-mode'.
     (pdf-tools-install-noverify)))
+
+(use-package! pdf-edit-outline
+  :load-path "./pdf-edit-outline/"
+  :after pdf-view
+  :config
+  (define-key pdf-edit-outline-buffer-mode-map
+    [remap save-buffer] 'pdf-edit-outline-edited))
