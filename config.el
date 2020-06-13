@@ -18,14 +18,16 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Hack" :size 12))
+(setq doom-font (font-spec :family "Hack" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(if window-system
-(setq doom-theme 'doom-dracula)
-  (setq doom-theme 'doom-challenger-deep))
+;; (if window-system
+;;     (setq doom-theme 'doom-spacegrey)
+;;   (setq doom-theme 'doom-challenger-deep))
+(setq doom-theme 'doom-spacegrey)
+;;(setq doom-theme 'doom-dracula)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -53,27 +55,26 @@
 
 (load! "+keybindings")
 
-(defun loki/frame-opacity ()
-  (doom/set-frame-opacity 100))
+(defun loki/frame-helper ()
+  (doom/set-frame-opacity 100)
+  (toggle-frame-fullscreen))
 
-(loki/frame-opacity)
+(loki/frame-helper)
 
 (add-hook 'after-make-frame-functions
           (lambda (frame)
             (select-frame frame)
-            (loki/frame-opacity)))
+            (loki/frame-helper)))
 
 (with-eval-after-load 'treemacs
   (defun treemacs-custom-filter (file _)
     (or (s-ends-with? ".o" file)
         (s-ends-with? ".log" file)))
-  (setq treemacs-width 38
-        treemacs-show-cursor nil)
   (treemacs-follow-mode)
   (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
 
 (unless window-system
   (setq fcitx-remote-command (concat doom-private-dir "osx-fcitx.sh")))
 
-(setq url-gateway-method 'socks)
-(setq socks-server '("Default server" "127.0.0.1" 1080 5))
+;; (setq url-gateway-method 'socks)
+;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))

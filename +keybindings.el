@@ -1,5 +1,10 @@
 ;;; config/default/+bindings.el -*- lexical-binding: t; -*-
 
+(global-set-key (kbd "s-s") (lambda () (interactive) (setq current-prefix-arg '(1)) (call-interactively '+workspace/save)))
+(global-set-key (kbd "s-a") 'previous-buffer)
+(global-set-key (kbd "s-d") 'next-buffer)
+
+(global-set-key (kbd "s-.") '+workspace/switch-to)
 (global-set-key (kbd "s-,") '+ivy/switch-workspace-buffer)
 (global-set-key (kbd "s-t") '+vterm/here)
 
@@ -59,12 +64,12 @@
       :i [remap newline] #'newline-and-indent  ; auto-indent on newline
 
       ;; insert mode direct key
-      :i "C-j"   #'next-line
-      :i "C-k"   #'previous-line
-      :i "C-a"   #'doom/backward-to-bol-or-indent
-      :i "C-e"   #'end-of-line
-      :i "C-h"   #'backward-delete-char-untabify
-      :i "C-d"   #'delete-char
+      ;; :i "C-j"   #'next-line
+      ;; :i "C-k"   #'previous-line
+      ;; :i "C-a"   #'doom/backward-to-bol-or-indent
+      ;; :i "C-e"   #'end-of-line
+      ;; :i "C-h"   #'backward-delete-char-untabify
+      ;; :i "C-d"   #'delete-char
 
       (:after help :map help-mode-map
         :n "o"       #'link-hint-open-link)
