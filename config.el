@@ -54,7 +54,7 @@
 (load! "+keybindings")
 
 (defun loki/frame-opacity ()
-  (doom/set-frame-opacity 80))
+  (doom/set-frame-opacity 100))
 
 (loki/frame-opacity)
 
@@ -67,19 +67,13 @@
   (defun treemacs-custom-filter (file _)
     (or (s-ends-with? ".o" file)
         (s-ends-with? ".log" file)))
-  (setq treemacs-width 38)
+  (setq treemacs-width 38
+        treemacs-show-cursor nil)
   (treemacs-follow-mode)
   (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
 
 (unless window-system
   (setq fcitx-remote-command (concat doom-private-dir "osx-fcitx.sh")))
 
-(after! ivy
-  (global-set-key (kbd "s-,") '+ivy/switch-workspace-buffer))
-
-(after! vterm
-  (global-set-key (kbd "s-t") '+vterm/here))
-
-
-;; (setq url-gateway-method 'socks)
-;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+(setq url-gateway-method 'socks)
+(setq socks-server '("Default server" "127.0.0.1" 1080 5))

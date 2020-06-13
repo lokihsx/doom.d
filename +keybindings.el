@@ -1,5 +1,8 @@
 ;;; config/default/+bindings.el -*- lexical-binding: t; -*-
 
+(global-set-key (kbd "s-,") '+ivy/switch-workspace-buffer)
+(global-set-key (kbd "s-t") '+vterm/here)
+
 (when (featurep! :editor evil +everywhere)
   ;; NOTE SPC u replaces C-u as the universal argument.
 
