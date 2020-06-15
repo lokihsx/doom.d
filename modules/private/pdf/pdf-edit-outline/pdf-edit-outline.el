@@ -92,7 +92,7 @@ buffer, unless NO-SELECT-WINDOW-P is non-nil."
          (pdf-filename pdf-filename)
          (pdf-buffer pdf-buffer))
 
-    ;; (message cmd)
+    (message cmd)
     (with-current-buffer (current-buffer)
       (write-file filename))
     (shell-command cmd nil (get-buffer-create errbuf))
@@ -114,7 +114,8 @@ buffer, unless NO-SELECT-WINDOW-P is non-nil."
 
     (when (or (string-equal (buffer-name (current-buffer)) pdf-buffer)
               (string-equal (buffer-name (current-buffer)) "*scratch*"))
-      (+workspace/close-window-or-workspace))))
+      (+workspace/close-window-or-workspace)
+      (pdf-outline))))
 
 
 (provide 'pdf-edit-outline)
