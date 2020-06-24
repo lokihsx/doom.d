@@ -17,8 +17,8 @@
 ;; + `doom-big-font' -- used for `doom-big-font-mode'
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Hack" :size 28))
+;; font string. You generally only need these two4
+(setq doom-font (font-spec :family "Hack" :size 12))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -53,11 +53,13 @@
 ;; they are implemented.
 ;;
 
-(load! "+emacs-bindings")
+(load! "+evil-bindings")
 
 (defun loki/frame-helper ()
-  (doom/set-frame-opacity 100)
-  (toggle-frame-fullscreen))
+  (doom/set-frame-opacity 88))
+  ;; (toggle-frame-fullscreen))
+
+(setq line-spacing 0.66)
 
 (loki/frame-helper)
 
