@@ -1,12 +1,7 @@
 ;;; config/default/+bindings.el -*- lexical-binding: t; -*-
 
-(global-set-key (kbd "s-s") (lambda () (interactive) (setq current-prefix-arg '(1)) (call-interactively '+workspace/save)))
-(global-set-key (kbd "s-a") 'previous-buffer)
-(global-set-key (kbd "s-d") 'next-buffer)
-
-(global-set-key (kbd "s-.") '+workspace/switch-to)
-(global-set-key (kbd "s-,") '+ivy/switch-workspace-buffer)
-(global-set-key (kbd "s-t") '+vterm/here)
+(global-set-key [remap ivy-switch-buffer] #'+ivy/switch-workspace-buffer)
+(global-set-key (kbd "C-c t") '+vterm/here)
 
 (when (featurep! :editor evil +everywhere)
   ;; NOTE SPC u replaces C-u as the universal argument.
