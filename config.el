@@ -53,7 +53,7 @@
 ;; they are implemented.
 ;;
 
-(load! "+evil-bindings")
+(load! "+emacs-bindings")
 
 (defun loki/frame-helper ()
   (doom/set-frame-opacity 88))
