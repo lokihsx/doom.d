@@ -11,9 +11,9 @@
 (use-package! framemove
   :load-path "./"
   :init
-  (global-set-key (kbd "s-k") 'windmove-up)
-  (global-set-key (kbd "s-j") 'windmove-down)
-  (global-set-key (kbd "s-h") 'windmove-left)
-  (global-set-key (kbd "s-l") 'windmove-right)
+  (global-set-key (kbd "C-c k") 'windmove-up)
+  (global-set-key (kbd "C-c j") 'windmove-down)
+  (global-set-key (kbd "C-c h") 'windmove-left)
+  (global-set-key (kbd "C-c l") 'windmove-right)
   :config
   (setq framemove-hook-into-windmove t))

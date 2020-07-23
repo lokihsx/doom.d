@@ -569,11 +569,5 @@
         "<f9>"   #'+treemacs/toggle
         "<C-f9>" #'treemacs-find-file))
 
-(global-set-key (kbd "s-s") (lambda () (interactive) (setq current-prefix-arg '(1)) (call-interactively '+workspace/save)))
-(global-set-key (kbd "s-a") 'previous-buffer)
-(global-set-key (kbd "s-d") 'next-buffer)
 
-(global-set-key (kbd "s-.") '+workspace/switch-to)
-(global-set-key (kbd "s-t") '+vterm/here)
-(after! vterm
-  (define-key vterm-mode-map (kbd "s-c") 'vterm-copy-mode))
+(global-set-key (kbd "C-h") #'backward-delete-char)

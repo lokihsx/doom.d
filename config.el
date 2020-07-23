@@ -56,7 +56,7 @@
 (load! "+emacs-bindings")
 
 (defun loki/frame-helper ()
-  (doom/set-frame-opacity 88))
+  (doom/set-frame-opacity 100))
   ;; (toggle-frame-fullscreen))
 
 (setq line-spacing 0.66)
