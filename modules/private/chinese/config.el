@@ -1,11 +1,22 @@
 ;;; input/chinese/config.el -*- lexical-binding: t; -*-
 
 
+;; (use-package! fcitx
+;;   :after evil
+;;   :config
+;;   (when (executable-find "fcitx-remote")
+;;     (fcitx-evil-turn-on)))
+
 (use-package! fcitx
   :after evil
   :config
-  (when (executable-find "fcitx-remote")
-    (fcitx-evil-turn-on)))
+  (let ((is-fcitx4 (executable-find "fcitx-remote"))
+        (is-fcitx5 (executable-find "fcitx5-remote")))
+    (when (or is-fcitx4 is-fcitx5)
+      (if is-fcitx4
+          (setq fcitx-remote-command "fcitx-remote")
+        (setq fcitx-remote-command "fcitx5-remote"))
+      (fcitx-evil-turn-on))))
 
 (use-package! youdao-dictionary
   :config

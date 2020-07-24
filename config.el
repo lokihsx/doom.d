@@ -18,7 +18,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two4
-(setq doom-font (font-spec :family "Hack" :size 12))
+(setq doom-font (font-spec :family "Hack" :size 22))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -57,7 +57,7 @@
 
 (defun loki/frame-helper ()
   (doom/set-frame-opacity 100))
-  ;; (toggle-frame-fullscreen))
+;; (toggle-frame-fullscreen))
 
 (setq line-spacing 0.66)
 
@@ -78,5 +78,7 @@
 (unless window-system
   (setq fcitx-remote-command (concat doom-private-dir "osx-fcitx.sh")))
 
+(setq url-proxy-services '(("http" . "127.0.0.1:12333")
+                           ("https" . "127.0.0.1:12333")))
 ;; (setq url-gateway-method 'socks)
 ;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
