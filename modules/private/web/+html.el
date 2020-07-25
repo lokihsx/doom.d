@@ -22,22 +22,21 @@
   :mode "\\.vue\\'"
   :config
   (set-docsets! 'web-mode "HTML" "CSS" "Twig" "WordPress")
-  (setq web-mode-indent-level 2
-	web-mode-markup-indent-offset 2
-	web-mode-css-indent-offset 2
-	web-mode-code-init-offset 2)
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2)
 
   ;; tidy is already defined by the format-all package. We redefine it to add
   ;; more sensible arguments to the tidy command.
   (set-formatter! 'html-tidy
-    '("tidy" "-q" "-indent"
-      "--tidy-mark" "no"
-      "--drop-empty-elements" "no"
-      ("--show-body-only" "%s" (if +format-region-p "true" "auto"))
-      ("--indent-spaces" "%d" tab-width)
-      ("--indent-with-tabs" "%s" (if indent-tabs-mode "yes" "no"))
-      ("-xml" (memq major-mode '(nxml-mode xml-mode))))
-    :ok-statuses '(0 1))
+                  '("tidy" "-q" "-indent"
+                    "--tidy-mark" "no"
+                    "--drop-empty-elements" "no"
+                    ("--show-body-only" "%s" (if +format-region-p "true" "auto"))
+                    ("--indent-spaces" "%d" tab-width)
+                    ("--indent-with-tabs" "%s" (if indent-tabs-mode "yes" "no"))
+                    ("-xml" (memq major-mode '(nxml-mode xml-mode))))
+                  :ok-statuses '(0 1))
 
   (setq web-mode-enable-html-entities-fontification t
         web-mode-auto-close-style 1)
@@ -91,60 +90,60 @@
 
   (map! :map web-mode-map
         (:localleader
-          :desc "Rehighlight buffer" "h" #'web-mode-buffer-highlight
-          :desc "Indent buffer"      "i" #'web-mode-buffer-indent
-          (:prefix ("a" . "attribute")
-            "b" #'web-mode-attribute-beginning
-            "e" #'web-mode-attribute-end
-            "i" #'web-mode-attribute-insert
-            "n" #'web-mode-attribute-next
-            "s" #'web-mode-attribute-select
-            "k" #'web-mode-attribute-kill
-            "p" #'web-mode-attribute-previous
-            "p" #'web-mode-attribute-transpose)
-          (:prefix ("b" . "block")
-            "b" #'web-mode-block-beginning
-            "c" #'web-mode-block-close
-            "e" #'web-mode-block-end
-            "k" #'web-mode-block-kill
-            "n" #'web-mode-block-next
-            "p" #'web-mode-block-previous
-            "s" #'web-mode-block-select)
-          (:prefix ("d" . "dom")
-            "a" #'web-mode-dom-apostrophes-replace
-            "d" #'web-mode-dom-errors-show
-            "e" #'web-mode-dom-entities-encode
-            "n" #'web-mode-dom-normalize
-            "q" #'web-mode-dom-quotes-replace
-            "t" #'web-mode-dom-traverse
-            "x" #'web-mode-dom-xpath)
-          (:prefix ("e" . "element")
-            "/" #'web-mode-element-close
-            "a" #'web-mode-element-content-select
-            "b" #'web-mode-element-beginning
-            "c" #'web-mode-element-clone
-            "d" #'web-mode-element-child
-            "e" #'web-mode-element-end
-            "f" #'web-mode-element-children-fold-or-unfold
-            "i" #'web-mode-element-insert
-            "k" #'web-mode-element-kill
-            "m" #'web-mode-element-mute-blanks
-            "n" #'web-mode-element-next
-            "p" #'web-mode-element-previous
-            "r" #'web-mode-element-rename
-            "s" #'web-mode-element-select
-            "t" #'web-mode-element-transpose
-            "u" #'web-mode-element-parent
-            "v" #'web-mode-element-vanish
-            "w" #'web-mode-element-wrap)
-          (:prefix ("t" . "tag")
-            "a" #'web-mode-tag-attributes-sort
-            "b" #'web-mode-tag-beginning
-            "e" #'web-mode-tag-end
-            "m" #'web-mode-tag-match
-            "n" #'web-mode-tag-next
-            "p" #'web-mode-tag-previous
-            "s" #'web-mode-tag-select))
+         :desc "Rehighlight buffer" "h" #'web-mode-buffer-highlight
+         :desc "Indent buffer"      "i" #'web-mode-buffer-indent
+         (:prefix ("a" . "attribute")
+          "b" #'web-mode-attribute-beginning
+          "e" #'web-mode-attribute-end
+          "i" #'web-mode-attribute-insert
+          "n" #'web-mode-attribute-next
+          "s" #'web-mode-attribute-select
+          "k" #'web-mode-attribute-kill
+          "p" #'web-mode-attribute-previous
+          "p" #'web-mode-attribute-transpose)
+         (:prefix ("b" . "block")
+          "b" #'web-mode-block-beginning
+          "c" #'web-mode-block-close
+          "e" #'web-mode-block-end
+          "k" #'web-mode-block-kill
+          "n" #'web-mode-block-next
+          "p" #'web-mode-block-previous
+          "s" #'web-mode-block-select)
+         (:prefix ("d" . "dom")
+          "a" #'web-mode-dom-apostrophes-replace
+          "d" #'web-mode-dom-errors-show
+          "e" #'web-mode-dom-entities-encode
+          "n" #'web-mode-dom-normalize
+          "q" #'web-mode-dom-quotes-replace
+          "t" #'web-mode-dom-traverse
+          "x" #'web-mode-dom-xpath)
+         (:prefix ("e" . "element")
+          "/" #'web-mode-element-close
+          "a" #'web-mode-element-content-select
+          "b" #'web-mode-element-beginning
+          "c" #'web-mode-element-clone
+          "d" #'web-mode-element-child
+          "e" #'web-mode-element-end
+          "f" #'web-mode-element-children-fold-or-unfold
+          "i" #'web-mode-element-insert
+          "k" #'web-mode-element-kill
+          "m" #'web-mode-element-mute-blanks
+          "n" #'web-mode-element-next
+          "p" #'web-mode-element-previous
+          "r" #'web-mode-element-rename
+          "s" #'web-mode-element-select
+          "t" #'web-mode-element-transpose
+          "u" #'web-mode-element-parent
+          "v" #'web-mode-element-vanish
+          "w" #'web-mode-element-wrap)
+         (:prefix ("t" . "tag")
+          "a" #'web-mode-tag-attributes-sort
+          "b" #'web-mode-tag-beginning
+          "e" #'web-mode-tag-end
+          "m" #'web-mode-tag-match
+          "n" #'web-mode-tag-next
+          "p" #'web-mode-tag-previous
+          "s" #'web-mode-tag-select))
 
         :g  "M-/" #'web-mode-comment-or-uncomment
         :i  "SPC" #'self-insert-command

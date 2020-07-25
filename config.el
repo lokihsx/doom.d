@@ -6,8 +6,8 @@
 
 ;; These are used for a number of things, particularly for GPG configuration,
 ;; some email clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Loki Huang"
+      user-mail-address "lokihsx@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -55,30 +55,4 @@
 
 (load! "+emacs-bindings")
 
-(defun loki/frame-helper ()
-  (doom/set-frame-opacity 80))
-;; (toggle-frame-fullscreen))
-
-(setq line-spacing 0.66)
-
-(loki/frame-helper)
-
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (select-frame frame)
-            (loki/frame-helper)))
-
-(with-eval-after-load 'treemacs
-  (defun treemacs-custom-filter (file _)
-    (or (s-ends-with? ".o" file)
-        (s-ends-with? ".log" file)))
-  (treemacs-follow-mode)
-  (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
-
-(unless window-system
-  (setq fcitx-remote-command (concat doom-private-dir "osx-fcitx.sh")))
-
-(setq url-proxy-services '(("http" . "127.0.0.1:12333")
-                           ("https" . "127.0.0.1:12333")))
-;; (setq url-gateway-method 'socks)
-;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+(load! "custom-config")
