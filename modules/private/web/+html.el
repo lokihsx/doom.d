@@ -27,7 +27,8 @@
         web-mode-part-padding 0
         web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2)
+        web-mode-code-indent-offset 2
+        web-mode-enable-current-element-highlight t)
 
   ;; tidy is already defined by the format-all package. We redefine it to add
   ;; more sensible arguments to the tidy command.
