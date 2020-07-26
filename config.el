@@ -56,3 +56,6 @@
 (load! "+emacs-bindings")
 
 (load! "custom-config")
+
+;; work through
+(add-to-list 'projectile-globally-ignored-directories "*node_modules")
