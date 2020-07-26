@@ -22,7 +22,10 @@
   :mode "\\.vue\\'"
   :config
   (set-docsets! 'web-mode "HTML" "CSS" "Twig" "WordPress")
-  (setq web-mode-markup-indent-offset 2
+  (setq web-mode-style-padding 0
+        web-mode-script-padding 0
+        web-mode-part-padding 0
+        web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2)
 
