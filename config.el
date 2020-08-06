@@ -78,6 +78,18 @@
 (use-package! evil-terminal-cursor-changer
   :hook (tty-setup . evil-terminal-cursor-changer-activate))
 
+(after! web-mode
+  (setq web-mode-style-padding 0
+        web-mode-script-padding 0
+        web-mode-part-padding 0
+        web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-enable-current-element-highlight t))
+
+(after! js2-mode
+  (setq js2-basic-offset 2))
+
 (load! "+emacs-bindings")
 (load! "custom-config")
 

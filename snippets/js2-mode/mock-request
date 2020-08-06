@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: mock-request
+# uuid: mock-request
+# key: mock-request
+# condition: t
+# expand-env: ((yas-indent-line 'fixed))                     
+# --
+{
+  url: '/`(s-replace "-" "/" (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))`/$1',
+  type: '${2:$$(yas-choose-value '("get" "post" "put"))}',
+  response: config => {
+    return {
+      code: 0,
+      body: $3
+    }
+  }
+}$0
