@@ -1,0 +1,126 @@
+# -*- mode: snippet -*-
+# name: new-api0request
+# uuid: new-api-request
+# key: new-api-request
+# condition: t
+# expand-env: ((yas-indent-line 'fixed))
+# --
+
+`
+(defun api-name (interface)
+  (format "url: '/%s/%s',"
+    (s-replace "-" "/" (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))
+    interface))
+`
+
+import request from '@/utils/request'
+
+export function fetchAll($1) {
+  return request({
+    `(api-name "fetchall")`
+    method: 'get',
+    data: {
+      $1: $1
+    }
+  })
+}
+
+export function fetchByIds($2) {
+  return request({
+    `(api-name "fetchbyid")`
+    method: 'get',
+    data: {
+      $2: $2
+    }
+  })
+}
+
+export function fetchById($3) {
+  return request({
+    `(api-name "fetchbyid")`
+    method: 'get',
+    data: {
+      $3: $3
+    }
+  })
+}
+
+export function listAll($1) {
+  return request({
+    `(api-name "listall")`
+    method: 'get',
+    data: {
+      $1: $1
+    }
+  })
+}
+
+export function listByIds($2) {
+  return request({
+    `(api-name "listbyid")`
+    method: 'get',
+    data: {
+      $2: $2
+    }
+  })
+}
+
+export function getById($3) {
+  return request({
+    `(api-name "getbyid")`
+    method: 'get',
+    data: {
+      $3: $3
+    }
+  })
+}
+
+export function insert($4) {
+  return request({
+    `(api-name "insert")`
+    method: 'post',
+    data: {
+      $4: $4
+    }
+  })
+}
+
+export function update($5) {
+  return request({
+    `(api-name "update")`
+    method: 'put',
+    data: {
+      $5: $5
+    }
+  })
+}
+
+export function deleteAll($1) {
+  return request({
+    `(api-name "deleteall")`
+    method: 'put',
+    data: {
+      $1: $1
+    }
+  })
+}
+
+export function deleteById($3) {
+  return request({
+    `(api-name "deletebyid")`
+    method: 'put',
+    data: {
+      $3: $3
+    }
+  })
+}
+
+export function deleteByIds($2) {
+  return request({
+    `(api-name "deletebyids")`
+    method: 'put',
+    data: {
+      $2: $2
+    }
+  })
+}

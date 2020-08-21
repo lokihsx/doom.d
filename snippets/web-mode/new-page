@@ -1,0 +1,39 @@
+# -*- mode: snippet -*-
+# name: new-page
+# uuid: new-page
+# key: new-page
+# condition: t
+# expand-env: ((yas-indent-line 'fixed))
+# --
+
+<template>
+
+</template>
+
+<script>
+export default {
+  name: 'StatisticsRules',
+  components: {
+  },
+  props: {
+
+  },
+  data() {
+    return {
+
+    }
+  },
+  watch: {
+
+  },
+  created() {
+
+  },
+  mounted() {
+
+  },
+  methods: {
+
+  }
+}
+</script>
