@@ -53,26 +53,24 @@
 ;; they are implemented.
 ;;
 
-
 ;; remember frame status
-;; (when-let (dims (doom-store-get 'last-frame-size))
-;;   (cl-destructuring-bind ((left . top) width height fullscreen) dims
-;;     (setq initial-frame-alist
-;;           (append initial-frame-alist
-;;                   `((left . ,left)
-;;                     (top . ,top)
-;;                     (width . ,width)
-;;                     (height . ,height)
-;;                     (fullscreen . ,fullscreen))))))
+(when-let (dims (doom-store-get 'last-frame-size))
+  (cl-destructuring-bind ((left . top) width height fullscreen) dims
+    (setq initial-frame-alist
+          (append initial-frame-alist
+                  `((left . ,left)
+                    (top . ,top)
+                    (width . ,width)
+                    (height . ,height)
+                    (fullscreen . ,fullscreen))))))
 
-;; (defun save-frame-dimensions ()
-;;   (doom-store-put 'last-frame-size
-;;                   (list (frame-position)
-;;                         (frame-width)
-;;                         (frame-height)
-;;                         (frame-parameter nil 'fullscreen))))
-
-;; (add-hook 'kill-emacs-hook #'save-frame-dimensions)
+(defun save-frame-dimensions ()
+  (doom-store-put 'last-frame-size
+                  (list (frame-position)
+                        (frame-width)
+                        (frame-height)
+                        (frame-parameter nil 'fullscreen))))
+(add-hook 'kill-emacs-hook #'save-frame-dimensions)
 
 (use-package! evil-terminal-cursor-changer
   :hook (tty-setup . evil-terminal-cursor-changer-activate))
@@ -89,7 +87,6 @@
 (after! js2-mode
   (setq js2-basic-offset 2))
 
-;(load! "+emacs-bindings")
 (map! :n "gi" #'indent-region)
 (load! "custom-config")
 
