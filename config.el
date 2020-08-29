@@ -87,9 +87,4 @@
 (after! js2-mode
   (setq js2-basic-offset 2))
 
-(map! :n "gi" #'indent-region)
 (load! "custom-config")
-
-;; work through
-(after! projectile
-  (add-to-list 'projectile-globally-ignored-directories "*node_modules"))
