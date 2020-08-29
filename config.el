@@ -26,7 +26,7 @@
 ;; (if window-system
 ;;     (setq doom-theme 'doom-spacegrey)
 ;;   (setq doom-theme 'doom-challenger-deep))
-(setq doom-theme 'doom-spacegrey)
+(setq doom-theme 'doom-one)
 ;;(setq doom-theme 'doom-dracula)
 
 ;; If you intend to use org, it is recommended you change this!
@@ -52,7 +52,6 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 ;;
-
 
 ;; remember frame status
 (when-let (dims (doom-store-get 'last-frame-size))
@@ -92,13 +91,5 @@
 (after! vue-mode
   (add-hook 'vue-mode-hook #'lsp!))
 
-(setq company-idle-delay 0)
-
 ;(load! "+emacs-bindings")
-(map! :n "gi" #'indent-region)
 (load! "custom-config")
-
-
-;; work through
-(after! projectile
-  (add-to-list 'projectile-globally-ignored-directories "*node_modules"))
