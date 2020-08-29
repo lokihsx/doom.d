@@ -52,3 +52,5 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 (package! evil-terminal-cursor-changer)
+
+(package! vue-mode)

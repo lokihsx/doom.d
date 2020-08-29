@@ -92,6 +92,8 @@
 (after! vue-mode
   (add-hook 'vue-mode-hook #'lsp!))
 
+(setq company-idle-delay 0)
+
 ;(load! "+emacs-bindings")
 (map! :n "gi" #'indent-region)
 (load! "custom-config")
