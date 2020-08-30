@@ -70,6 +70,7 @@
                         (frame-width)
                         (frame-height)
                         (frame-parameter nil 'fullscreen))))
+
 (add-hook 'kill-emacs-hook #'save-frame-dimensions)
 
 (use-package! evil-terminal-cursor-changer
@@ -87,4 +88,8 @@
 (after! js2-mode
   (setq js2-basic-offset 2))
 
+(after! vue-mode
+  (add-hook 'vue-mode-hook #'lsp!))
+
+;(load! "+emacs-bindings")
 (load! "custom-config")
