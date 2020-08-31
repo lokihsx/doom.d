@@ -87,6 +87,8 @@
         web-mode-code-indent-offset 2
         web-mode-enable-current-element-highlight t))
 
+(setq-default line-spacing 0.5)
+
 (after! js2-mode
   (setq js2-basic-offset 2))
 
