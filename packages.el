@@ -53,4 +53,4 @@
 
 (package! evil-terminal-cursor-changer)
 
-(package! vue-mode)
+;; (package! vue-mode)

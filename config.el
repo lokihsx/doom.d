@@ -78,22 +78,27 @@
 (use-package! evil-terminal-cursor-changer
   :hook (tty-setup . evil-terminal-cursor-changer-activate))
 
+(setq-default line-spacing 0.5)
+
 (after! web-mode
   (setq web-mode-style-padding 0
         web-mode-script-padding 0
-        web-mode-part-padding 0
+        web-mode-part-padding 2
         web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2
         web-mode-enable-current-element-highlight t))
 
-(setq-default line-spacing 0.5)
-
 (after! js2-mode
   (setq js2-basic-offset 2))
 
-(after! vue-mode
-  (add-hook 'vue-mode-hook #'lsp!))
+;; (use-package vue-mode
+;;   :mode "\\.vue$"
+;;   :config
+;;   (add-to-list 'mmm-save-local-variables '(syntax-ppss-table buffer))
+;;   (add-to-list 'mmm-save-local-variables '(c-current-comment-prefix region))
+;;   (add-hook 'vue-mode-hook #'lsp!))
 
-;(load! "+emacs-bindings")
+(setq-default company-idle-delay 0)
+
 (load! "custom-config")
