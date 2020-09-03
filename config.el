@@ -101,4 +101,8 @@
 
 (setq-default company-idle-delay 0)
 
+(add-hook! '(+doom-dashboard-mode-hook)
+           ;; Crypto logo
+           (setq fancy-splash-image "~/.doom.d/images/logo.png"))
+
 (load! "custom-config")

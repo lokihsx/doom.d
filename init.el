@@ -146,7 +146,12 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org
-        +pandoc)               ; organize your plain life in plain text
+        +brain
+        +hugo
+        +noter
+        ;; +pretty
+        +pandoc
+        +roam)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -184,9 +189,7 @@
        (default +bindings +smartparens)
 
        :private
-       loki-org-helper
        loki-window-helper
-       postgres-run-helper
 
        protobuf
        pdf)
