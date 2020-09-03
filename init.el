@@ -149,7 +149,7 @@
         +brain
         +hugo
         +noter
-        ;; +pretty
+        +pretty
         +pandoc
         +roam)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
