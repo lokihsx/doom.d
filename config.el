@@ -101,4 +101,9 @@
   (treemacs-follow-mode)
   (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
 
+;; fix mac vterm chinese wrong code
+(when IS-MAC
+  (add-hook 'vterm-mode-hook (lambda () (setenv "LANG" "en_US.UTF-8"))))
+                               ;; (vterm-send-string "export LANG=en_US.UTF-8")
+                               ;; (vterm-send-return))))
 (load! "proxy")
