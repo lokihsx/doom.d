@@ -3,10 +3,11 @@
 # uuid: create-table
 # key: create-table
 # condition: t
+# expand-env: ((yas-indent-line 'fixed))
 # --
 
 DROP TABLE IF EXISTS $1;
 CREATE TABLE $1 (
-    id SERIAL,
+    id SERIAL NOT NULL PRIMARY KEY,
     $0
 )
