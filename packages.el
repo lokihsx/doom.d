@@ -53,4 +53,7 @@
 
 (package! evil-terminal-cursor-changer)
 
-;; (package! cnfonts)
+(package! rime)
+(package! youdao-dictionary)
+
+; (package! cnfonts)
