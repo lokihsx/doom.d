@@ -56,7 +56,5 @@
 
 (package! fcitx)
 (package! youdao-dictionary)
-
 ;; (package! rime)
-
 ;; (package! cnfonts)
