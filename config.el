@@ -100,13 +100,13 @@
 
 (load! "proxy")
 
-;; (use-package! fcitx
-;;   :after evil
-;;   :config
-;;   (when (setq fcitx-remote-command
-;;               (or (executable-find "fcitx5-remote")
-;;                   (executable-find "fcitx-remote")))
-;;     (fcitx-evil-turn-on)))
+(use-package! fcitx
+  :after evil
+  :config
+  (when (setq fcitx-remote-command
+              (or (executable-find "fcitx5-remote")
+                  (executable-find "fcitx-remote")))
+    (fcitx-evil-turn-on)))
 
 ;; (use-package! rime
 ;;   :after-call after-find-file pre-command-hook
