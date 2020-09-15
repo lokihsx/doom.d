@@ -82,13 +82,6 @@
 (after! js2-mode
   (setq js2-basic-offset 2))
 
-;; (use-package vue-mode
-;;   :mode "\\.vue$"
-;;   :config
-;;   (add-to-list 'mmm-save-local-variables '(syntax-ppss-table buffer))
-;;   (add-to-list 'mmm-save-local-variables '(c-current-comment-prefix region))
-;;   (add-hook 'vue-mode-hook #'lsp!))
-
 (setq-default company-idle-delay 0)
 
 (add-hook! '(+doom-dashboard-mode-hook)
@@ -107,36 +100,38 @@
 
 (load! "proxy")
 
-;; config.el
-(use-package! rime
-  :after-call after-find-file pre-command-hook
-  :init
-  (setq rime-user-data-dir "~/.doom.d/rime-config")
-  :config
-  (setq rime-show-candidate 'posframe
-        default-input-method "rime")
+;; (use-package! fcitx
+;;   :after evil
+;;   :config
+;;   (when (setq fcitx-remote-command
+;;               (or (executable-find "fcitx5-remote")
+;;                   (executable-find "fcitx-remote")))
+;;     (fcitx-evil-turn-on)))
 
-  (setq rime-disable-predicates
-        '(rime-predicate-evil-mode-p
-          rime-predicate-after-alphabet-char-p
-          rime-predicate-prog-in-code-p))
+;; (use-package! rime
+;;   :after-call after-find-file pre-command-hook
+;;   :init
+;;   (setq rime-user-data-dir "~/.doom.d/rime-config")
+;;   :config
+;;   (setq rime-show-candidate 'posframe
+;;         default-input-method "rime")
 
-  ;; 临时英文状态提示
-  (setq mode-line-mule-info '((:eval (rime-lighter))))
+;;   ;; 临时英文状态提示
+;;   (setq mode-line-mule-info '((:eval (rime-lighter))))
 
-  (defun +rime--posframe-display-content-a (args)
-    "给 `rime--posframe-display-content' 传入的字符串加一个全角空格，以解决 `posframe' 偶尔吃字的问题。"
-    (cl-destructuring-bind (content) args
-      (let ((newresult (if (string-blank-p content)
-                           content
-                         (concat content "　"))))
-        (list newresult))))
+;;   (defun +rime--posframe-display-content-a (args)
+;;     "给 `rime--posframe-display-content' 传入的字符串加一个全角空格，以解决 `posframe' 偶尔吃字的问题。"
+;;     (cl-destructuring-bind (content) args
+;;       (let ((newresult (if (string-blank-p content)
+;;                            content
+;;                          (concat content "　"))))
+;;         (list newresult))))
 
-  (if (fboundp 'rime--posframe-display-content)
-      (advice-add 'rime--posframe-display-content
-                  :filter-args
-                  #'+rime--posframe-display-content-a)
-    (error "Function `rime--posframe-display-content' is not available.")))
+;;   (if (fboundp 'rime--posframe-display-content)
+;;       (advice-add 'rime--posframe-display-content
+;;                   :filter-args
+;;                   #'+rime--posframe-display-content-a)
+;;     (error "Function `rime--posframe-display-content' is not available.")))
 
 (use-package! youdao-dictionary
   :config
