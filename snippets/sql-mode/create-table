@@ -10,4 +10,6 @@ DROP TABLE IF EXISTS $1;
 CREATE TABLE $1 (
     id SERIAL NOT NULL PRIMARY KEY,
     $0
-)
+    last_modify_time TIMESTAMP,
+    create_time TIMESTAMP
+);
