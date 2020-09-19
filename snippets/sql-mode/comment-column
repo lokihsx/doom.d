@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: comment-column
+# uuid: comment-column
+# key: comment-column
+# condition: t      
+# expand-env: ((yas-indent-line 'fixed))
+# --
+
+COMMENT ON COLUMN `(file-name-sans-extension (buffer-name))`.$1 IS '$2';
