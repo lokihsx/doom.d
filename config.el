@@ -99,3 +99,5 @@
   (add-hook 'vterm-mode-hook (lambda () (setenv "LANG" "en_US.UTF-8"))))
 
 (load! "proxy")
+
+(load! "+evil-bindings")
