@@ -30,9 +30,10 @@
 (use-package! rime
   :when (featurep! +rime)
   :after-call after-find-file pre-command-hook
-  :custom
+  :init
   (when IS-MAC
-    (rime-librime-root "~/.emacs.d/librime/dist"))
+    (setq rime-librime-root "~/.emacs.d/librime/dist"))
+  :custom
   (default-input-method "rime")
   (rime-user-data-dir (format "%smodules/private/chinese/rime-config" doom-private-dir))
   (rime-show-candidate 'posframe)
