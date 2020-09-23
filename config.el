@@ -92,11 +92,16 @@
     (or (s-ends-with? ".o" file)
         (s-ends-with? ".log" file)))
   (treemacs-follow-mode)
+  (setq treemacs-width 40)
   (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
 
+(after! warnings
+  (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
 ;; fix mac vterm chinese wrong code
 (when IS-MAC
   (add-hook 'vterm-mode-hook (lambda () (setenv "LANG" "en_US.UTF-8"))))
+
+(add-hook 'eshell-mode-hook '(lambda () (company-mode -1)))
 
 (load! "proxy")
 

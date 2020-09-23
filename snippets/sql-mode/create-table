@@ -13,8 +13,3 @@ CREATE TABLE $1 (
     last_modify_time TIMESTAMP,
     create_time TIMESTAMP
 );
-
-COMMENT ON TABLE $1 IS '';
-COMMENT ON COLUMN $1.id IS '主键自增ID';
-COMMENT ON COLUMN $1.lastmodify_time IS '最后修改时间';
-COMMENT ON COLUMN $1.create_time IS '创建时间';

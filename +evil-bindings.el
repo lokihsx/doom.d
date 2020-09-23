@@ -522,12 +522,25 @@
        :desc "REPL"               "r"  #'+eval/open-repl-other-window
        :desc "REPL (same window)" "R"  #'+eval/open-repl-same-window
        :desc "Dired"              "-"  #'dired-jump
-       :desc "Toggle vterm popup"    "t" #'+vterm/toggle
-       :desc "Open vterm here"       "T" #'+vterm/here
-      (:when (featurep! :ui treemacs)
+       (:when (featurep! :ui neotree)
+        :desc "Project sidebar"              "p" #'+neotree/open
+        :desc "Find file in project sidebar" "P" #'+neotree/find-this-file)
+       (:when (featurep! :ui treemacs)
         :desc "Project sidebar" "p" #'+treemacs/toggle
         :desc "Find file in project sidebar" "P" #'treemacs-find-file)
-
+       (:when (featurep! :term shell)
+        :desc "Toggle shell popup"    "t" #'+shell/toggle
+        :desc "Open shell here"       "T" #'+shell/here)
+       (:when (featurep! :term term)
+        :desc "Toggle terminal popup" "t" #'+term/toggle
+        :desc "Open terminal here"    "T" #'+term/here)
+       ;; Hacks
+       (:when (featurep! :private vterm)
+        :desc "Toggle vterm popup"    "t" #'+vterm/toggle
+        :desc "Open vterm here"       "T" #'+vterm/here)
+       (:when (featurep! :term eshell)
+        :desc "Toggle eshell popup"   "e" #'+eshell/toggle
+        :desc "Open eshell here"      "E" #'+eshell/here)
        (:when (featurep! :os macos)
         :desc "Reveal in Finder"           "o" #'+macos/reveal-in-finder
         :desc "Reveal project in Finder"   "O" #'+macos/reveal-project-in-finder
@@ -665,7 +678,6 @@
 (map!
  :n "gi" #'indent-region)
 
-(map! )
 (after! which-key
   (let ((prefix-re (regexp-opt (list doom-leader-key doom-leader-alt-key))))
     (cl-pushnew `((,(format "\\`\\(?:C-w\\|%s w\\) m\\'" prefix-re))
