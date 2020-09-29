@@ -189,7 +189,7 @@
        (default +bindings +smartparens)
 
        :private
-       chinese
+       (chinese +rime)
        vterm
        loki-window-helper
 

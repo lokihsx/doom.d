@@ -53,8 +53,4 @@
 
 (package! evil-terminal-cursor-changer)
 
-
-(package! fcitx)
-(package! youdao-dictionary)
-;; (package! rime)
 ;; (package! cnfonts)
