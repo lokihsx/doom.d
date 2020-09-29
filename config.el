@@ -83,8 +83,8 @@
 
 (setq-default company-idle-delay 0)
 
-(add-hook! '(+doom-dashboard-mode-hook)
-           (setq fancy-splash-image "~/.doom.d/images/logo.png"))
+;; (add-hook! '(+doom-dashboard-mode-hook)
+;;            (setq fancy-splash-image "~/.doom.d/images/logo.png"))
 
 (after! treemacs
   (defun treemacs-custom-filter (file _)
