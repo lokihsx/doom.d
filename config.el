@@ -83,9 +83,6 @@
 
 (setq-default company-idle-delay 0)
 
-;; (add-hook! '(+doom-dashboard-mode-hook)
-;;            (setq fancy-splash-image "~/.doom.d/images/logo.png"))
-
 (after! treemacs
   (defun treemacs-custom-filter (file _)
     (or (s-ends-with? ".o" file)
@@ -105,3 +102,13 @@
 (load! "proxy")
 
 (load! "+evil-bindings")
+
+
+(after! projectile
+  (defun workspace-tramp-project-name (project-root)
+    (setq pname (file-name-nondirectory (directory-file-name project-root)))
+    (when (string-match "\\(ssh:[A-Z0-9a-z-_]+\\)@\\([A-Za-z0-9-\\.]+\\)" project-root)
+      (setq pname (concat (match-string 2 project-root) ":" pname)))
+    pname)
+  ;; add to projectile project name function replace default action
+  (setq projectile-project-name-function 'workspace-tramp-project-name))
