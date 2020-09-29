@@ -35,7 +35,6 @@
     (setq rime-librime-root "~/.emacs.d/librime/dist"))
   :custom
   (default-input-method "rime")
-  (rime-user-data-dir (format "%smodules/private/chinese/rime-config" doom-private-dir))
   (rime-show-candidate 'posframe)
   ;; :init
   ;; (setq rime-user-data-dir (format "%smodules/private/chinese/rime-config" doom-private-dir))
