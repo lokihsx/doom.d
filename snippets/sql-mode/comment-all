@@ -1,0 +1,54 @@
+# -*- mode: snippet -*-
+# name: comment-all
+# uuid: comment-all
+# key: comment-all
+# condition: t
+# expand-env: ((yas-indent-line 'fixed))                                                     
+# --
+
+`
+(let* ((table (file-name-sans-extension (buffer-name)))
+       (str (format "COMMENT ON TABLE %s IS '" table))
+       (iter 2))
+  (save-excursion
+    (goto-char (point-min))
+
+    (save-excursion
+      (cond ((search-forward str nil t)
+             (setq str (concat str (buffer-substring (point) (line-end-position))))
+             (kill-whole-line))
+            (t (setq str (concat str "';"))))
+      (setq str (concat str "\n")))
+
+    (while (search-forward-regexp "^ +\\([a-zA-Z0-9_]+\\)" nil t)
+      (let* ((column (match-string 1))
+             (comment (format "$%d" iter))
+             (comment-prefix (format "COMMENT ON COLUMN %s.%s IS '" table column))
+             (has-import nil))
+        (save-excursion
+          (when (search-forward comment-prefix nil t)
+            (setq comment (buffer-substring (point) (line-end-position)))
+            (kill-whole-line)
+            (setq has-import t)))
+
+        (unless has-import
+          (cond ((string= column "id") (setq comment "主键自增id"))
+                ((string= column "user_id") (setq comment "所属用户"))
+                ((string= column "admin_id") (setq comment "添加管理员"))
+                ((string= column "group_id") (setq comment "所属分组"))
+                ((string= column "solution_id") (setq comment "所属解决方案"))
+                ((string= column "title") (setq comment "标题"))
+                ((string= column "name") (setq comment "名称（仅限英文）"))
+                ((string= column "label") (setq comment "名称"))
+                ((string= column "type") (setq comment "类型"))
+                ((string= column "description") (setq comment "详细描述"))
+                ((string= column "last_modify_time") (setq comment "最后修改时间"))
+                ((string= column "create_time") (setq comment "创建时间"))
+                ((string-match-p "^template_" column)
+                 (setq comment (format "$%d模板ID" iter))
+                 (setq iter (1+ iter)))
+                (t (setq iter (1+ iter))))
+          (setq comment (format "%s';" comment)))
+        (setq str (format "%s%s%s\n" str comment-prefix comment)))))
+  (insert str))
+`

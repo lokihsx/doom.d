@@ -1,0 +1,14 @@
+# luna_pinyin.custom.yaml
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: zh_simp           # 注意這裏（※1）
+    reset: 1
+    states: [ 漢字, 汉字 ]
+
+simplifier:
+  option_name: zh_simp      # 和這裏（※2）
