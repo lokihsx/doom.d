@@ -58,7 +58,7 @@
 
 (use-package! youdao-dictionary
   :config
-  (global-set-key (kbd "s-y") 'youdao-dictionary-search-at-point+)
+  ;; (global-set-key (kbd "s-y") 'youdao-dictionary-search-at-point+)
   (global-set-key (kbd "C-c y") 'youdao-dictionary-search-at-point+))
 
 ;;; Hacks

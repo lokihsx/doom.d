@@ -675,8 +675,7 @@
         :desc "Zen mode"                   "z" #'writeroom-mode)))
 
 ;; my customize shortcut
-(map!
- :n "gi" #'indent-region)
+(map! :n "gi" #'indent-region)
 
 (after! which-key
   (let ((prefix-re (regexp-opt (list doom-leader-key doom-leader-alt-key))))
