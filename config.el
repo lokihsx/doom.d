@@ -89,7 +89,7 @@
     (or (s-ends-with? ".o" file)
         (s-ends-with? ".log" file)))
   (treemacs-follow-mode)
-  (setq treemacs-width 40)
+  (setq treemacs-width 35)
   (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
 
 (after! warnings
@@ -102,14 +102,19 @@
 
 (load! "proxy")
 
-(load! "+evil-bindings")
-
-
 (after! projectile
   (defun workspace-tramp-project-name (project-root)
     (setq pname (file-name-nondirectory (directory-file-name project-root)))
-    (when (string-match "\\(ssh:[A-Z0-9a-z-_]+\\)@\\([A-Za-z0-9-\\.]+\\)" project-root)
+    (when (and (featurep 'tramp)
+               (tramp-tramp-file-p project-root)
+               (string-match "\\(ssh:[A-Z0-9a-z-_]+\\)@\\([A-Za-z0-9-\\.]+\\)" project-root))
       (setq pname (concat (match-string 2 project-root) ":" pname)))
     pname)
   ;; add to projectile project name function replace default action
   (setq projectile-project-name-function 'workspace-tramp-project-name))
+
+(after! vterm
+  (add-hook! 'vterm-mode-hook
+    (when (doom-project-p)
+      (setq vterm-buffer-name-string (format "%s-console" (doom-project-name))))
+    (define-key vterm-mode-map (kbd "C-\\") #'toggle-input-method)))
