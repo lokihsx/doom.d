@@ -115,6 +115,6 @@
 
 (after! vterm
   (add-hook! 'vterm-mode-hook
-    (when (doom-project-p)
-      (setq vterm-buffer-name-string (format "%s-console" (doom-project-name))))
+    ;; (when (doom-project-p)
+    ;;   (setq vterm-buffer-name-string (format "%s-console" (doom-project-name))))
     (define-key vterm-mode-map (kbd "C-\\") #'toggle-input-method)))
