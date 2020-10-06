@@ -30,13 +30,11 @@ If prefix ARG is non-nil, recreate vterm buffer in the current project's root."
             (evil-change-to-initial-state))
           (goto-char (point-max)))
 
-      (let* ((project-root (or (doom-project-root) default-directory))
-             (default-directory
-               (if arg
-                   default-directory
-                 project-root))
+      (let ((project-root (or (doom-project-root) default-directory))
              display-buffer-alist)
+        (setq default-directory (if arg default-directory project-root))
         (setenv "PROOT" project-root))
+
         (let ((buffer (get-buffer-create buffer-name)))
           (with-current-buffer buffer
             (unless (eq major-mode 'vterm-mode)
