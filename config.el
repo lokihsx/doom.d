@@ -89,7 +89,7 @@
     (or (s-ends-with? ".o" file)
         (s-ends-with? ".log" file)))
   (treemacs-follow-mode)
-  (setq treemacs-width 35)
+  (setq treemacs-width 66)
   (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
 
 (after! warnings
