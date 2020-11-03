@@ -3,6 +3,5 @@
 
 (package! youdao-dictionary)
 
-(if (featurep! +rime)
-    (package! rime)
-  (package! fcitx))
+(package! rime)
+(package! fcitx)

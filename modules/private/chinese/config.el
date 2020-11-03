@@ -19,7 +19,6 @@
 
 
 (use-package! fcitx
-  :unless (featurep! +rime)
   :after evil
   :config
   (when (setq fcitx-remote-command
@@ -28,7 +27,6 @@
     (fcitx-evil-turn-on)))
 
 (use-package! rime
-  :when (featurep! +rime)
   :after-call after-find-file pre-command-hook
   :init
   (when IS-MAC
