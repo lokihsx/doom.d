@@ -1,0 +1,108 @@
+# -*- mode: snippet -*-
+# name: graphql-datafetchers
+# uuid: graphql-datafetchers
+# key: graphql-datafetchers
+# condition: t
+# expand-env: ((yas-indent-line 'fixed))
+# --
+
+package com.ainog.backend.web.admin.`(ainog-graphql/package-name)`;
+
+import static org.mybatis.dynamic.sql.SqlBuilder.*;
+
+import java.util.List;
+
+import com.ainog.backend.web.models.`(ainog-graphql/module-name)`DynamicSqlSupport;
+import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`;
+
+import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`Mapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.mybatis.dynamic.sql.select.render.SelectStatementProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+
+import graphql.schema.DataFetcher;
+
+@Component
+@ComponentScan("com.ainog.backend.web.models")
+public class `(ainog-graphql/module-name)`DataFetchers
+{
+    @Autowired
+    `(ainog-graphql/module-name)`Mapper `(ainog-graphql/module-name-camel)`Mapper;
+
+    public DataFetcher getList() {
+        return DataFetchingEnvironment -> {
+            ObjectMapper mapper = new ObjectMapper();
+            `(ainog-graphql/module-name)`Condition `(ainog-graphql/module-name-camel)`Condition = mapper.convertValue(DataFetchingEnvironment.getArgument("condition"),
+                    `(ainog-graphql/module-name)`Condition.class);
+
+            return `(ainog-graphql/module-name-camel)`Mapper.select(c -> {
+                // TODO 完善筛选条件
+                return c;
+            });
+        };
+    }
+
+    public DataFetcher getObject() {
+        return DataFetchingEnvironment -> {
+            ObjectMapper mapper = new ObjectMapper();
+            `(ainog-graphql/module-name)`Condition `(ainog-graphql/module-name-camel)`Condition = mapper.convertValue(DataFetchingEnvironment.getArgument("condition"),
+                    `(ainog-graphql/module-name)`Condition.class);
+
+            return `(ainog-graphql/module-name-camel)`Mapper.selectOne(c -> {
+                   // TODO 完善筛选条件
+                   return c;
+            });
+        };
+    }
+
+    public DataFetcher create() {
+        return DataFetchingEnvironment -> {
+            ObjectMapper mapper = new ObjectMapper();
+            `(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)` = mapper.convertValue(DataFetchingEnvironment.getArgument("`(ainog-graphql/module-name-camel)`"), `(ainog-graphql/module-name)`.class);
+
+            // TODO 验证权限
+            // TODO 根据权限验证，插入对应的管理员ID
+            `(ainog-graphql/module-name-camel)`.setAdminId(1);
+
+            // TODO 插入失败异常捕捉
+            if (`(ainog-graphql/module-name-camel)`Mapper.insertSelective(`(ainog-graphql/module-name-camel)`) > 0) {
+                Integer `(ainog-graphql/module-name-camel)`Id = `(ainog-graphql/module-name-camel)`.getId();
+
+                return `(ainog-graphql/module-name-camel)`Mapper.selectByPrimaryKey(`(ainog-graphql/module-name-camel)`Id);
+            }
+
+            return null;
+        };
+    }
+
+    public DataFetcher updateById() {
+        return DataFetchingEnvironment -> {
+            ObjectMapper mapper = new ObjectMapper();
+            `(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)` = mapper.convertValue(DataFetchingEnvironment.getArgument("`(ainog-graphql/module-name-camel)`"), `(ainog-graphql/module-name)`.class);
+            `(ainog-graphql/module-name-camel)`.setId(DataFetchingEnvironment.getArgument("id"));
+
+            // TODO 验证权限
+            `(ainog-graphql/module-name-camel)`Mapper.updateByPrimaryKeySelective(`(ainog-graphql/module-name-camel)`);
+
+            return `(ainog-graphql/module-name-camel)`Mapper.selectByPrimaryKey(`(ainog-graphql/module-name-camel)`.getId());
+        };
+    }
+
+    public DataFetcher delete() {
+        return DataFetchingEnvironment -> {
+            ObjectMapper mapper = new ObjectMapper();
+            `(ainog-graphql/module-name)`Condition `(ainog-graphql/module-name-camel)`Condition = mapper
+                    .convertValue(DataFetchingEnvironment.getArgument("condition"), `(ainog-graphql/module-name)`Condition.class);
+
+            // TODO 验证权限
+            return `(ainog-graphql/module-name-camel)`Mapper.delete(c -> {
+                // TODO 完善筛选条件
+                return c;
+            });
+        };
+    }
+}
+`(ainog-graphql/create-condition-file)`
