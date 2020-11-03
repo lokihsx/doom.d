@@ -12,7 +12,7 @@
 ;;;###autoload
 (defun ainog-graphql/module-name ()
   (let ((str (buffer-name)))
-    (string-match "\\(.+\\)DataFetchers" str)
+    (string-match "\\(.+\\)Provider\\|DataFetchers" str)
     (match-string 1 str)))
 
 ;;;###autoload

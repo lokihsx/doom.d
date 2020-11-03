@@ -1,0 +1,46 @@
+# -*- mode: snippet -*-
+# name: graphql-provider
+# uuid: graphql-provider
+# key: graphql-provider
+# condition: t
+# --
+
+package com.ainog.backend.web.admin.`(ainog-graphql/package-name)`;
+
+import graphql.schema.idl.TypeRuntimeWiring;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
+
+import com.ainog.backend.web.admin.admin.AdminDataFetchers;
+
+@Component
+public class `(ainog-graphql/module-name)`Provider
+{
+    @Autowired
+    AdminDataFetchers AdminDataFetchers;
+
+    @Autowired
+    `(ainog-graphql/module-name)`DataFetchers `(ainog-graphql/module-name-camel)`DataFetchers;
+
+    public final String schema = "graphql_schema/`(ainog-graphql/package-name)`.graphqls";
+
+    public TypeRuntimeWiring.Builder buildQuery() {
+        return newTypeWiring("Query")
+                .dataFetcher("`(ainog-graphql/module-name-camel)`List", `(ainog-graphql/module-name-camel)`DataFetchers.getList())
+                .dataFetcher("`(ainog-graphql/module-name-camel)`Object", `(ainog-graphql/module-name-camel)`DataFetchers.getObject());
+    }
+
+    public TypeRuntimeWiring.Builder buildMutation() {
+        return newTypeWiring("Mutation")
+            .dataFetcher("`(ainog-graphql/module-name-camel)`Create", `(ainog-graphql/module-name-camel)`DataFetchers.create())
+            .dataFetcher("`(ainog-graphql/module-name-camel)`Update", `(ainog-graphql/module-name-camel)`DataFetchers.updateById())
+            .dataFetcher("`(ainog-graphql/module-name-camel)`Delete", `(ainog-graphql/module-name-camel)`DataFetchers.delete());
+    }
+
+    public TypeRuntimeWiring.Builder build`(ainog-graphql/module-name)`() {
+        return newTypeWiring("`(ainog-graphql/module-name)`")
+            .dataFetcher("admin", AdminDataFetchers.getAdmin());
+    }
+}
