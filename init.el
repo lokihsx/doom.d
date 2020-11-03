@@ -198,4 +198,5 @@
        vterm
        protobuf
        graphql
-       pdf)
+       pdf
+       ainog)

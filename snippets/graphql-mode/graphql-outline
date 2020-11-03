@@ -1,0 +1,34 @@
+# -*- mode: snippet -*-
+# name: graphql-outline
+# uuid: graphql-outline
+# key: graphql-outline
+# condition: t
+# expand-env: ((yas-indent-line 'fixed))
+# --
+
+type `(ainog-graphql/type-name)` {
+    id: Int
+
+    lastModifyTime: String
+    createTime: String
+}
+
+input `(ainog-graphql/type-name)`Condition {
+    id: Int
+    ids: [Int]
+}
+
+input `(ainog-graphql/type-name)`Input {
+
+}
+
+extend type Query {
+    `(ainog-graphql/type-name-camel)`List(condition: `(ainog-graphql/type-name)`Condition): [`(ainog-graphql/type-name)`]
+    `(ainog-graphql/type-name-camel)`Object(condition: `(ainog-graphql/type-name)`Condition): `(ainog-graphql/type-name)`
+}
+
+extend type Mutation {
+    `(ainog-graphql/type-name-camel)`Create(`(ainog-graphql/type-name-camel)`: `(ainog-graphql/type-name)`Input): `(ainog-graphql/type-name)`
+    `(ainog-graphql/type-name-camel)`Update(id: Int, `(ainog-graphql/type-name-camel)`: `(ainog-graphql/type-name)`Input): `(ainog-graphql/type-name)`
+    `(ainog-graphql/type-name-camel)`Delete(condition: `(ainog-graphql/type-name)`Condition): Int
+}

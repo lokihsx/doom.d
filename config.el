@@ -89,7 +89,7 @@
     (or (s-ends-with? ".o" file)
         (s-ends-with? ".log" file)))
   (treemacs-follow-mode)
-  (setq treemacs-width 66)
+  (setq treemacs-width 50)
   (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
 
 (after! warnings
@@ -111,7 +111,10 @@
       (setq pname (concat (match-string 2 project-root) ":" pname)))
     pname)
   ;; add to projectile project name function replace default action
-  (setq projectile-project-name-function 'workspace-tramp-project-name))
+  (setq projectile-project-name-function 'workspace-tramp-project-name)
+  (add-to-list 'projectile-globally-ignored-directories "*target/")
+  (add-to-list 'projectile-globally-ignored-directories "*node_modules/"))
+
 
 (after! vterm
   (add-hook! 'vterm-mode-hook
