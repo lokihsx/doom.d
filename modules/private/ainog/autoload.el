@@ -46,3 +46,70 @@ public class %sCondition
          (first-letter (substring type-name 0 1))
          (rest-letter (substring type-name 1)))
     (concat (downcase first-letter) rest-letter)))
+
+
+;;;###autoload
+(defun ainog-graphql/models-to-graphqls ()
+  (interactive)
+  (shell-command "~/ainog/models-to-graphql-type")
+  (with-temp-buffer
+    (insert-file-contents "~/sss")
+    (goto-char (point-min))
+    (while (search-forward-regexp "#.+\ntype \\([A-Za-z]+\\) {" nil t)
+      (setq module-name (match-string 1))
+      (setq condition (format "# 筛选条件集合
+type %sCondition {
+    # 通过Id筛选
+    id: Int
+    # 通过Id列表筛选
+    idList: [Int]
+    # Id列表筛选方式（和条件，或条件）
+    idListMethod: String
+    # 本次请求筛选方式（和条件，或条件）
+    conditionMethod: String
+}\n" module-name))
+
+      (setq queries (format "# 扩展查询结构
+extend type Query {
+    # 获取列表
+    %sList(condition: %sCondition): [%s]
+    # 获取对象
+    %sObject(condition: %sObject): %s
+}
+
+# 扩展输入结构
+extend type Mutation {
+    # 创建对象
+    create%s(%s: %sInput): %s
+    # 通过ID修改
+    update%s(id: Int, %s: %sInput): %s
+    # 删除
+    delete%s(condition: %sCondition): Int
+}" module-name module-name module-name
+module-name module-name module-name
+module-name module-name module-name module-name
+module-name module-name module-name module-name
+module-name module-name))
+
+
+      (setq export-file-name (format "/tmp/Generate/%s.graphqls" module-name))
+      (previous-line)
+      (setq origin-position (line-beginning-position))
+      (search-forward "}")
+      (setq end-position (line-end-position))
+      (setq origin-obj (buffer-substring origin-position end-position))
+
+      (setq input-statement (replace-regexp-in-string " {" "Input {" origin-obj))
+      (setq input-statement (replace-regexp-in-string ".*# 主键自增ID\n.*\n" "" input-statement))
+      (setq input-statement (replace-regexp-in-string ".*\n.*adminId.*\n" "" input-statement))
+      (setq input-statement (replace-regexp-in-string ".*\n.*memberId.*\n" "" input-statement))
+      (setq input-statement (replace-regexp-in-string ".*# 最后修改时间\n.*\n" "" input-statement))
+      (setq input-statement (replace-regexp-in-string ".*# 创建时间\n.*\n" "" input-statement))
+      ;; (setq input-statement (replace-regexp-in-string ".*}" "}" input-statement))
+
+
+      (setq origin-obj (replace-regexp-in-string "adminId: Int" "admin: Admin" origin-obj))
+      (setq origin-obj (replace-regexp-in-string "typeId: Int" "type: DataDictionary" origin-obj))
+      (setq origin-obj (replace-regexp-in-string "memberId: Int" "member: Member" origin-obj))
+      (setq content (format "%s\n\n%s\n%s\n\n%s" origin-obj condition input-statement queries))
+      (write-region content t export-file-name))))

@@ -19,7 +19,7 @@
 ;;     (setq doom-theme 'doom-spacegrey)
 ;;   (setq doom-theme 'doom-challenger-deep))
 (setq doom-theme 'doom-one)
-;; (setq doom-theme 'doom-dracula)
+(doom/set-frame-opacity 88)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
