@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm /tmp/generate_tmp
+find ~/ainog/ainog-graphql/admin/ -type f ! -iname "*schema.graphqls" -exec rm {} \;
+
+find ~/ainog/ainog-backend/models/src/main/java/com/ainog/backend/web/models -type f | grep -v "Mapper" | grep -v "Dynamic" | grep "java$" | xargs egrep "public|private|^\ +\*|^}" | grep -v "(" | grep -v "* Database" | grep -v "\*/" | grep -v "This"| gawk -F "java:" '{print $2}' | grep -v "\*$" > /tmp/generate_tmp
+sed -i -e "s/ \* \+\(.\+\)/# \1/g" -e "s/public class/type/g" -e "s/private //g" -e "s/Integer/Int/g" -e "s/Date/String/" -e "s/Long/Int/" -e "s/;/:/"  -e "s/}/}\n\n/g" -e "s/^\(\ \+\)\([A-Za-z]\+\)\ \(.\+\)/\1\3 \2/g" /tmp/generate_tmp
