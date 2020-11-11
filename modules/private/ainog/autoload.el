@@ -10,9 +10,9 @@
       package-name)))
 
 ;;;###autoload
-(defun ainog-graphql/module-name ()
-  (let ((str (buffer-name)))
-    (string-match "\\(.+\\)Provider\\|DataFetchers" str)
+(defun ainog-graphql/module-name (&optional module-name)
+  (let ((str (or module-name (buffer-name))))
+    (string-match "\\(.+\\)\\(Provider\\|DataFetchers\\)" str)
     (match-string 1 str)))
 
 ;;;###autoload
@@ -28,9 +28,75 @@
         (module-name (ainog-graphql/module-name)))
     (with-temp-file (format "%s%sCondition.java" default-directory module-name)
       (insert (format "package com.ainog.backend.web.admin.%s;
+import java.util.List;
 
 public class %sCondition
 {
+    // 通过ID筛选
+    private Integer id;
+
+    // 通过ID列表筛选
+    private List<Integer> idList;
+
+    // Id列表筛选方式（和条件，或条件）
+    private String idListMethod;
+
+    // 根据创建时间排序(负数为降序，正数为升序，一次请求中的绝对值越大，相对排序条件越靠前)
+    private Integer orderByCreateTime;
+
+    // 根据最后修改时间排序(负数为降序，正数为升序，一次请求中的绝对值越大，相对排序条件越靠前)
+    private Integer orderByLastModifyTime;
+
+    // 本次请求筛选方式（和条件，或条件）
+    private String conditionMethod;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Integer> getIdList() {
+        return idList;
+    }
+
+    public void setIdList(List<Integer> idList) {
+        this.idList = idList;
+    }
+
+    public String getIdListMethod() {
+        return idListMethod;
+    }
+
+    public void setIdListMethod(String idListMethod) {
+        this.idListMethod = idListMethod;
+    }
+
+    public String getConditionMethod() {
+        return conditionMethod;
+    }
+
+    public void setConditionMethod(String conditionMethod) {
+        this.conditionMethod = conditionMethod;
+    }
+
+    public int getOrderByCreateTime() {
+        return orderByCreateTime;
+    }
+
+    public void setOrderByCreateTime(int orderByCreateTime) {
+        this.orderByCreateTime = orderByCreateTime;
+    }
+
+    public int getOrderByLastModifyTime() {
+        return orderByLastModifyTime;
+    }
+
+    public void setOrderByLastModifyTime(int orderByLastModifyTime) {
+        this.orderByLastModifyTime = orderByLastModifyTime;
+    }
 
 }" package-name module-name))
       (write-file (format "%s%sCondition.java" default-directory module-name)))))
@@ -519,16 +585,16 @@ extend type Query {
         (mutation-statement (format "# 扩展输入结构，用于%s增，删，改
 extend type Mutation {
     # 创建%s对象，通过列表新增
-    create%s(%s: [%sInput]): [%s]
+    %sCreate(%sList: [%sInput]): [%s]
     # 通过ID修改%s对象
-    update%s(id: Int, %s: %sInput): %s
+    %sUpdate(id: Int, %s: %sInput): %s
     # 根据查询条件，删除%s对象
-    delete%s(condition: %sCondition): Int" comment comment
-module-name module-name-camel module-name module-name
+    %sDelete(condition: %sCondition): Int" comment comment
+module-name-camel module-name-camel module-name module-name
 comment
-module-name module-name-camel module-name module-name
+module-name-camel module-name-camel module-name module-name
 comment
-module-name module-name))
+module-name-camel module-name))
         (mutation-statement (if (string-empty-p mutations)
                                 (format "%s\n}\n\n\n" mutation-statement)
                               (format "%s\n    %s\n}\n\n\n" mutation-statement mutations))))
@@ -578,7 +644,6 @@ module-name module-name))
 
 ;;;###autoload
 (defun ainog-graphql/models-to-graphqls ()
-  (interactive)
   (shell-command "~/ainog/models-to-graphql-type")
   (with-temp-buffer
     (insert-file-contents "/tmp/generate_tmp")

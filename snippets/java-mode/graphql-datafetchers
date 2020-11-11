@@ -11,6 +11,8 @@ package com.ainog.backend.web.admin.`(ainog-graphql/package-name)`;
 import static org.mybatis.dynamic.sql.SqlBuilder.*;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import com.ainog.backend.web.models.`(ainog-graphql/module-name)`DynamicSqlSupport;
 import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`;
@@ -38,6 +40,13 @@ public class `(ainog-graphql/module-name)`DataFetchers
             `(ainog-graphql/module-name)`Condition `(ainog-graphql/module-name-camel)`Condition = mapper.convertValue(DataFetchingEnvironment.getArgument("condition"),
                     `(ainog-graphql/module-name)`Condition.class);
 
+            Integer id = `(ainog-graphql/module-name-camel)`Condition.getId();
+            List<Integer> idList = `(ainog-graphql/module-name-camel)`Condition.getIdList();
+            String idListMethod = `(ainog-graphql/module-name-camel)`Condition.getIdListMethod();
+            Integer orderByCreateTime = `(ainog-graphql/module-name-camel)`Condition.getOrderByCreateTime();
+            Integer orderByLastModifyTime = `(ainog-graphql/module-name-camel)`Condition.getOrderByLastModifyTime();
+            String conditionMethod = `(ainog-graphql/module-name-camel)`Condition.getConditionMethod();
+
             return `(ainog-graphql/module-name-camel)`Mapper.select(c -> {
                 // TODO 完善筛选条件
                 return c;
@@ -60,21 +69,29 @@ public class `(ainog-graphql/module-name)`DataFetchers
 
     public DataFetcher create() {
         return DataFetchingEnvironment -> {
+            List<`(ainog-graphql/module-name)`> `(ainog-graphql/module-name-camel)`List = new ArrayList<>();
+
             ObjectMapper mapper = new ObjectMapper();
-            `(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)` = mapper.convertValue(DataFetchingEnvironment.getArgument("`(ainog-graphql/module-name-camel)`"), `(ainog-graphql/module-name)`.class);
+            for (LinkedHashMap map : (ArrayList<LinkedHashMap>) DataFetchingEnvironment.getArgument("`(ainog-graphql/module-name-camel)`List")) {
+                 `(ainog-graphql/module-name)` tmp = mapper.convertValue(map, `(ainog-graphql/module-name)`.class);
+                 // TODO 验证权限
+                 // TODO 根据权限验证，插入对应的管理员ID
+                 tmp.setAdminId(1);
+                 `(ainog-graphql/module-name-camel)`List.add(tmp);
+             }
 
-            // TODO 验证权限
-            // TODO 根据权限验证，插入对应的管理员ID
-            `(ainog-graphql/module-name-camel)`.setAdminId(1);
-
+            List<Integer> `(ainog-graphql/module-name-camel)`Ids = new ArrayList<>();
             // TODO 插入失败异常捕捉
-            if (`(ainog-graphql/module-name-camel)`Mapper.insertSelective(`(ainog-graphql/module-name-camel)`) > 0) {
-                Integer `(ainog-graphql/module-name-camel)`Id = `(ainog-graphql/module-name-camel)`.getId();
-
-                return `(ainog-graphql/module-name-camel)`Mapper.selectByPrimaryKey(`(ainog-graphql/module-name-camel)`Id);
+            if (`(ainog-graphql/module-name-camel)`Mapper.insertMultiple(`(ainog-graphql/module-name-camel)`List) > 0) {
+                for (`(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)` : `(ainog-graphql/module-name-camel)`List) {
+                    `(ainog-graphql/module-name-camel)`Ids.add(`(ainog-graphql/module-name-camel)`.getId());
+                }
             }
 
-            return null;
+            return `(ainog-graphql/module-name-camel)`Mapper.select(c -> {
+                c.where(`(ainog-graphql/module-name)`DynamicSqlSupport.id, isIn(`(ainog-graphql/module-name-camel)`Ids));
+                return c;
+            });
         };
     }
 
@@ -96,6 +113,11 @@ public class `(ainog-graphql/module-name)`DataFetchers
             ObjectMapper mapper = new ObjectMapper();
             `(ainog-graphql/module-name)`Condition `(ainog-graphql/module-name-camel)`Condition = mapper
                     .convertValue(DataFetchingEnvironment.getArgument("condition"), `(ainog-graphql/module-name)`Condition.class);
+
+            Integer id = `(ainog-graphql/module-name-camel)`Condition.getId();
+            List<Integer> idList = `(ainog-graphql/module-name-camel)`Condition.getIdList();
+            String idListMethod = `(ainog-graphql/module-name-camel)`Condition.getIdListMethod();
+            String conditionMethod = `(ainog-graphql/module-name-camel)`Condition.getConditionMethod();
 
             // TODO 验证权限
             return `(ainog-graphql/module-name-camel)`Mapper.delete(c -> {
