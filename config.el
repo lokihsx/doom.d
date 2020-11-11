@@ -68,7 +68,7 @@
 (use-package! evil-terminal-cursor-changer
   :hook (tty-setup . evil-terminal-cursor-changer-activate))
 
-(setq-default line-spacing 0.5)
+(setq-default line-spacing 0.38)
 
 (after! web-mode
   (setq web-mode-style-padding 0
