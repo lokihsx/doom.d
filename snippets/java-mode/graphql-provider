@@ -19,7 +19,7 @@ import com.ainog.backend.web.admin.admin.AdminDataFetchers;
 public class `(ainog-graphql/module-name)`Provider
 {
     @Autowired
-    AdminDataFetchers AdminDataFetchers;
+    AdminDataFetchers adminDataFetchers;
 
     @Autowired
     `(ainog-graphql/module-name)`DataFetchers `(ainog-graphql/module-name-camel)`DataFetchers;
@@ -41,6 +41,6 @@ public class `(ainog-graphql/module-name)`Provider
 
     public TypeRuntimeWiring.Builder build`(ainog-graphql/module-name)`() {
         return newTypeWiring("`(ainog-graphql/module-name)`")
-            .dataFetcher("admin", AdminDataFetchers.getAdmin());
+            .dataFetcher("admin", adminDataFetchers.getAdmin());
     }
 }
