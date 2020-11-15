@@ -72,3 +72,8 @@ when exporting org-mode to html."
              "\\1\\2"
              contents)))
       (list paragraph fixed-contents info))))
+
+(use-package sis
+  :config
+  (sis-ism-lazyman-config nil "rime" 'native)
+  (sis-global-respect-mode))

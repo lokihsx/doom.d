@@ -5,3 +5,5 @@
 
 (package! rime)
 (package! fcitx)
+
+(package! sis)
