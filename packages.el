@@ -53,4 +53,4 @@
 
 (package! evil-terminal-cursor-changer)
 
-;; (package! cnfonts)
+(package! cnfonts)

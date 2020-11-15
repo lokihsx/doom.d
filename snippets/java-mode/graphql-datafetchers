@@ -20,7 +20,6 @@ import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graph
 import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`Mapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.mybatis.dynamic.sql.select.render.SelectStatementProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
