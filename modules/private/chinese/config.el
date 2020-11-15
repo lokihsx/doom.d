@@ -76,4 +76,7 @@ when exporting org-mode to html."
 (use-package sis
   :config
   (sis-ism-lazyman-config nil "rime" 'native)
-  (sis-global-respect-mode))
+  (sis-global-respect-mode)
+  (sis-global-context-mode)
+  (sis-global-cursor-color-mode)
+  (sis-global-inline-mode))
