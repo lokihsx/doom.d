@@ -75,7 +75,12 @@ when exporting org-mode to html."
 
 (use-package sis
   :config
-  (sis-ism-lazyman-config nil "rime" 'native)
+  (if IS-MAC
+      (sis-ism-lazyman-config
+       "com.apple.keylayout.US"
+       "com.sogou.inputmethod.sogou.pinyin")
+    (sis-ism-lazyman-config nil "rime" 'native))
+
   (sis-global-respect-mode)
   (sis-global-context-mode)
   ;; (sis-global-cursor-color-mode)
