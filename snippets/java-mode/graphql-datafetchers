@@ -13,6 +13,7 @@ import static org.mybatis.dynamic.sql.SqlBuilder.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Optional;
 
 import com.ainog.backend.web.models.`(ainog-graphql/module-name)`DynamicSqlSupport;
 import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`;
@@ -30,10 +31,14 @@ import graphql.schema.DataFetcher;
 @ComponentScan("com.ainog.backend.web.models")
 public class `(ainog-graphql/module-name)`DataFetchers
 {
-    @Autowired
+    final
     `(ainog-graphql/module-name)`Mapper `(ainog-graphql/module-name-camel)`Mapper;
 
-    public DataFetcher getList() {
+    public `(ainog-graphql/module-name)`DataFetchers(`(ainog-graphql/module-name)`Mapper `(ainog-graphql/module-name-camel)`Mapper) {
+        this.`(ainog-graphql/module-name-camel)`Mapper = `(ainog-graphql/module-name-camel)`Mapper;
+    }
+
+    public DataFetcher<List<`(ainog-graphql/module-name)`>> getList() {
         return DataFetchingEnvironment -> {
             ObjectMapper mapper = new ObjectMapper();
             `(ainog-graphql/module-name)`Condition `(ainog-graphql/module-name-camel)`Condition = mapper.convertValue(DataFetchingEnvironment.getArgument("condition"),
@@ -53,7 +58,7 @@ public class `(ainog-graphql/module-name)`DataFetchers
         };
     }
 
-    public DataFetcher getObject() {
+    public DataFetcher<Optional<`(ainog-graphql/module-name)`>> getObject() {
         return DataFetchingEnvironment -> {
             ObjectMapper mapper = new ObjectMapper();
             `(ainog-graphql/module-name)`Condition `(ainog-graphql/module-name-camel)`Condition = mapper.convertValue(DataFetchingEnvironment.getArgument("condition"),
@@ -66,7 +71,7 @@ public class `(ainog-graphql/module-name)`DataFetchers
         };
     }
 
-    public DataFetcher create() {
+    public DataFetcher<List<`(ainog-graphql/module-name)`>> create() {
         return DataFetchingEnvironment -> {
             List<`(ainog-graphql/module-name)`> `(ainog-graphql/module-name-camel)`List = new ArrayList<>();
 
@@ -94,7 +99,7 @@ public class `(ainog-graphql/module-name)`DataFetchers
         };
     }
 
-    public DataFetcher updateById() {
+    public DataFetcher<Optional<`(ainog-graphql/module-name)`>> updateById() {
         return DataFetchingEnvironment -> {
             ObjectMapper mapper = new ObjectMapper();
             `(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)` = mapper.convertValue(DataFetchingEnvironment.getArgument("`(ainog-graphql/module-name-camel)`"), `(ainog-graphql/module-name)`.class);
@@ -107,7 +112,7 @@ public class `(ainog-graphql/module-name)`DataFetchers
         };
     }
 
-    public DataFetcher delete() {
+    public DataFetcher<Integer> delete() {
         return DataFetchingEnvironment -> {
             ObjectMapper mapper = new ObjectMapper();
             `(ainog-graphql/module-name)`Condition `(ainog-graphql/module-name-camel)`Condition = mapper
