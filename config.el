@@ -22,7 +22,7 @@
 
 (if IS-MAC
     (doom/set-frame-opacity 80)
-  (doom/set-frame-opacity 90))
+  (doom/set-frame-opacity 100))
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
