@@ -31,12 +31,8 @@ import graphql.schema.DataFetcher;
 @ComponentScan("com.ainog.backend.web.models")
 public class `(ainog-graphql/module-name)`DataFetchers
 {
-    final
+    @Autowired
     `(ainog-graphql/module-name)`Mapper `(ainog-graphql/module-name-camel)`Mapper;
-
-    public `(ainog-graphql/module-name)`DataFetchers(`(ainog-graphql/module-name)`Mapper `(ainog-graphql/module-name-camel)`Mapper) {
-        this.`(ainog-graphql/module-name-camel)`Mapper = `(ainog-graphql/module-name-camel)`Mapper;
-    }
 
     public DataFetcher<List<`(ainog-graphql/module-name)`>> getList() {
         return DataFetchingEnvironment -> {
