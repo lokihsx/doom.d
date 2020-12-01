@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: admin-new-query-test
+# uuid: admin-new-query-test
+# key: admin-new-query-test
+# condition: t
+# --
+
+query {
+    `(file-name-sans-extension (buffer-name))`(condition: {}) {
+        id
+        createBy {
+            id
+            loginName
+        }
+        lastModifyBy {
+            id
+            loginName
+        }
+        $2
+        createTime
+        lastModifyTime
+    }
+}

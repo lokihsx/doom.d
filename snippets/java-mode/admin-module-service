@@ -1,0 +1,79 @@
+# -*- mode: snippet -*-
+# name: admin-module-service
+# key: admin-module-service
+# condition: t
+# --
+package com.ainog.backend.web.admin.`(ainog-graphql/package-name)`;
+
+import com.ainog.backend.web.admin.admin_login.AdminLoginUtils;
+import com.ainog.backend.web.models.`(ainog-graphql/module-name)`DynamicSqlSupport;
+import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`;
+import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`Mapper;
+import com.ainog.backend.web.utils.DeleteCondition;
+import com.ainog.backend.web.utils.QueryCondition;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.mybatis.dynamic.sql.SqlBuilder.*;
+
+@Service
+@RequiredArgsConstructor
+public class `(ainog-graphql/module-name)`Service {
+    private final `(ainog-graphql/module-name)`Mapper `(ainog-graphql/module-name-camel)`Mapper;
+
+    public List<`(ainog-graphql/module-name)`> get`(ainog-graphql/module-name)`s(QueryCondition queryCondition) {
+        return `(ainog-graphql/module-name-camel)`Mapper.select(c -> {
+            if (!queryCondition.getGetByIds().isEmpty()) {
+                c.where(`(ainog-graphql/module-name)`DynamicSqlSupport.id, isIn(queryCondition.getGetByIds()));
+            }
+            // TODO 完善筛选条件
+
+            // TODO 完善排序条件
+            return c;
+        });
+    }
+
+    public List<Integer> create`(ainog-graphql/module-name)`s(List<`(ainog-graphql/module-name)`> `(ainog-graphql/module-name-camel)`s) {
+        List<`(ainog-graphql/module-name)`> createList = AdminLoginUtils.getCreateList(`(ainog-graphql/module-name-camel)`s);
+
+        if (!createList.isEmpty() && `(ainog-graphql/module-name-camel)`Mapper.insertMultiple(createList) > 0) {
+            return createList.stream()
+                    .map(`(ainog-graphql/module-name)`::getId)
+                    .collect(Collectors.toList());
+        }
+
+        return Collections.emptyList();
+    }
+
+    public List<Integer> update`(ainog-graphql/module-name)`s(List<`(ainog-graphql/module-name)`> `(ainog-graphql/module-name-camel)`s) {
+        List<`(ainog-graphql/module-name)`> updateList = AdminLoginUtils.getUpdateList(`(ainog-graphql/module-name-camel)`s);
+        List<Integer> saveIds = new ArrayList<>();
+        // 必须先执行更新动作
+        if (!updateList.isEmpty()) {
+            for (`(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)` : updateList) {
+                // TODO 确保具有更新该字段的权限再进行更新
+                if (`(ainog-graphql/module-name-camel)`Mapper.updateByPrimaryKey(`(ainog-graphql/module-name-camel)`) > 0) {
+                    saveIds.add(`(ainog-graphql/module-name-camel)`.getId());
+                }
+            }
+        }
+
+        return saveIds;
+    }
+
+    public Integer delete`(ainog-graphql/module-name)`s(DeleteCondition deleteCondition) {
+        // TODO 检测删除条件边界
+
+        return `(ainog-graphql/module-name-camel)`Mapper.delete(c -> {
+            //TODO 完善删除条件
+            c.where().and(`(ainog-graphql/module-name)`DynamicSqlSupport.id, isIn(deleteCondition.getDeleteByIds()));
+
+            return c;
+        });
+    }
+}

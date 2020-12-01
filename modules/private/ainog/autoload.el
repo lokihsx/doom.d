@@ -12,7 +12,7 @@
 ;;;###autoload
 (defun ainog-graphql/module-name (&optional module-name)
   (let ((str (or module-name (buffer-name))))
-    (string-match "\\(.+\\)\\(Provider\\|DataFetchers\\)" str)
+    (string-match "\\(.+\\)\\(Provider\\|DataFetchers\\|Service\\)" str)
     (match-string 1 str)))
 
 ;;;###autoload
@@ -735,3 +735,13 @@ module-name-camel module-name))
 
     (delete-region (point-min) (point-max))
     (insert type-str condition-str input-str query-str mutation-str)))
+
+
+(defun ainog-graphql/copy-query-to-save-mutation ()
+  (interactive)
+  (let* ((file-name (ainog-graphql/module-name-camel
+                     (substring (buffer-name) 4))))
+    (with-temp-buffer
+      (insert-file-contents file-name)
+      (goto-line 3)
+      (buffer-substring (point) (- (point-max) 9)))))

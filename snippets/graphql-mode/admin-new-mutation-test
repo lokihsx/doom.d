@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: admin-new-mutation-test
+# uuid: admin-new-mutation-test
+# key: admin-new-mutation-test
+# condition: t
+# --
+
+mutation {
+    `(file-name-sans-extension (buffer-name))`(`(ainog-graphql/module-name-camel (substring (file-name-sans-extension (buffer-name)) 4))`:
+        [
+            {
+                $0
+            }
+        ]
+    ) {
+        `(ainog-graphql/copy-query-to-save-mutation)`
+    }
+}

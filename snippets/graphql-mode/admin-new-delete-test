@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: admin-new-delete-test
+# uuid: admin-new-delete-test
+# key: admin-new-delete-test
+# condition: t
+# --
+
+mutation {
+    `(file-name-sans-extension (buffer-name))`(condition:
+       {
+           deleteByIds: [$0]
+       }
+    )
+}
