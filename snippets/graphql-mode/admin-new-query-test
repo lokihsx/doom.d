@@ -8,15 +8,9 @@
 query {
     `(file-name-sans-extension (buffer-name))`(condition: {}) {
         id
-        createBy {
-            id
-            loginName
-        }
-        lastModifyBy {
-            id
-            loginName
-        }
-        $2
+        createBy
+        lastModifyBy
+        $0
         createTime
         lastModifyTime
     }

@@ -12,8 +12,11 @@
 ;;;###autoload
 (defun ainog-graphql/module-name (&optional module-name)
   (let ((str (or module-name (buffer-name))))
-    (string-match "\\(.+\\)\\(Provider\\|DataFetchers\\|Service\\)" str)
-    (match-string 1 str)))
+    (if (string-match "\\(.+\\)\\(Provider\\|DataFetchers\\|Service\\|QueryResolver\\|MutationResolver\\)" str)
+        (match-string 1 str)
+      (progn
+        (string-match "\\(.+\\)\\(Resolver\\)" str)
+        (match-string 1 str)))))
 
 ;;;###autoload
 (defun ainog-graphql/module-name-camel (&optional module-name)

@@ -1,0 +1,36 @@
+# -*- mode: snippet -*-
+# name: admin-module-resolver-all
+# uuid: admin-module-resolver-all
+# key: admin-module-resolver-all
+# condition: t
+# --
+
+package com.ainog.backend.web.admin.`(ainog-graphql/package-name)`;
+
+import com.ainog.backend.web.admin.admin.AdminAccountService;
+import com.ainog.backend.web.models.admin.AdminAccount;
+import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`;
+import graphql.kickstart.tools.GraphQLResolver;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class `(ainog-graphql/module-name)`Resolver implements GraphQLResolver<`(ainog-graphql/module-name)`> {
+    private final AdminAccountService adminAccountService;
+
+    @PreAuthorize("isAuthenticated()")
+    public Optional<AdminAccount> createBy(`(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)`) {
+        return adminAccountService.getCreateBy(`(ainog-graphql/module-name-camel)`);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    public Optional<AdminAccount> lastModifyBy(`(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)`) {
+        return adminAccountService.getLastModifyBy(`(ainog-graphql/module-name-camel)`);
+    }
+}

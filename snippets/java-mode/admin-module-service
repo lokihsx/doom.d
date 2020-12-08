@@ -57,7 +57,7 @@ public class `(ainog-graphql/module-name)`Service {
         if (!updateList.isEmpty()) {
             for (`(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)` : updateList) {
                 // TODO 确保具有更新该字段的权限再进行更新
-                if (`(ainog-graphql/module-name-camel)`Mapper.updateByPrimaryKey(`(ainog-graphql/module-name-camel)`) > 0) {
+                if (`(ainog-graphql/module-name-camel)`Mapper.updateByPrimaryKeySelective(`(ainog-graphql/module-name-camel)`) > 0) {
                     saveIds.add(`(ainog-graphql/module-name-camel)`.getId());
                 }
             }

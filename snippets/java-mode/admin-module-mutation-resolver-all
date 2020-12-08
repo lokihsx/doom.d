@@ -1,0 +1,38 @@
+# -*- mode: snippet -*-
+# name: admin-module-mutation-resolver-all
+# uuid: admin-module-mutation-resolver-all
+# key: admin-module-mutation-resolver-all
+# condition: t
+# --
+
+package com.ainog.backend.web.admin.`(ainog-graphql/package-name)`;
+
+import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`;
+import com.ainog.backend.web.admin.utils.DeleteCondition;
+import com.ainog.backend.web.admin.utils.QueryCondition;
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class `(ainog-graphql/module-name)`MutationResolver implements GraphQLMutationResolver {
+    private final `(ainog-graphql/module-name)`Service `(ainog-graphql/module-name-camel)`Service;
+
+    @PreAuthorize("isAuthenticated()")
+    public List<`(ainog-graphql/module-name)`> save`(ainog-graphql/module-name)`s(List<`(ainog-graphql/module-name)`> `(ainog-graphql/module-name-camel)`s) {
+        QueryCondition queryCondition = new QueryCondition();
+        queryCondition.getGetByIds().addAll(`(ainog-graphql/module-name-camel)`Service.create`(ainog-graphql/module-name)`s(`(ainog-graphql/module-name-camel)`s));
+        queryCondition.getGetByIds().addAll(`(ainog-graphql/module-name-camel)`Service.update`(ainog-graphql/module-name)`s(`(ainog-graphql/module-name-camel)`s));
+
+        return `(ainog-graphql/module-name-camel)`Service.get`(ainog-graphql/module-name)`s(queryCondition);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    public int delete`(ainog-graphql/module-name)`s(DeleteCondition deleteCondition) {
+        return `(ainog-graphql/module-name-camel)`Service.delete`(ainog-graphql/module-name)`s(deleteCondition);
+    }
+}

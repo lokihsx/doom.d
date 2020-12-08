@@ -1,0 +1,28 @@
+# -*- mode: snippet -*-
+# name: admin-module-query-resolver-all
+# uuid: admin-module-query-resolver-all
+# key: admin-module-query-resolver-all
+# condition: t
+# --
+
+package com.ainog.backend.web.admin.`(ainog-graphql/package-name)`;
+
+import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`;
+import com.ainog.backend.web.admin.utils.QueryCondition;
+import graphql.kickstart.tools.GraphQLQueryResolver;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class `(ainog-graphql/module-name)`QueryResolver implements GraphQLQueryResolver {
+    private final `(ainog-graphql/module-name)`Service `(ainog-graphql/module-name-camel)`Service;
+
+    @PreAuthorize("isAuthenticated()")
+    public List<`(ainog-graphql/module-name)`> `(ainog-graphql/module-name-camel)`s(QueryCondition queryCondition) {
+        return `(ainog-graphql/module-name-camel)`Service.get`(ainog-graphql/module-name)`s(queryCondition);
+    }
+}

@@ -1,0 +1,44 @@
+# -*- mode: snippet -*-
+# name: member-module-resolver-all
+# uuid: member-module-resolver-all
+# key: member-module-resolver-all
+# condition: t
+# --
+
+package com.ainog.backend.web.admin.`(ainog-graphql/package-name)`;
+
+import com.ainog.backend.web.admin.member.MemberService;
+import com.ainog.backend.web.admin.member.MemberAccountService;
+import com.ainog.backend.web.models.member.Member;
+import com.ainog.backend.web.models.member.MemberAccount;
+import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`;
+import graphql.kickstart.tools.GraphQLResolver;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class `(ainog-graphql/module-name)`Resolver implements GraphQLResolver<`(ainog-graphql/module-name)`> {
+    private final MemberService memberService;
+    private final MemberAccountService memberAccountService;
+
+    @PreAuthorize("isAuthenticated()")
+    public Optional<Member> belongTo(`(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)`) {
+        return memberService.getBelongTo(`(ainog-graphql/module-name-camel)`);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    public Optional<MemberAccount> createBy(`(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)`) {
+        return memberAccountService.getCreateBy(`(ainog-graphql/module-name-camel)`);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    public Optional<MemberAccount> lastModifyBy(`(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)`) {
+        return memberAccountService.getLastModifyBy(`(ainog-graphql/module-name-camel)`);
+    }
+}
