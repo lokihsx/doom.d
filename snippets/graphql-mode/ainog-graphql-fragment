@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: ainog-graphql-fragment
+# key: ainog-graphql-fragment
+# --
+
+fragment `(file-name-sans-extension (buffer-name))` on $1 {
+    id
+    belongTo
+    createBy
+    lastModifyBy
+    label
+    description
+    $0
+    createTime
+    lastModifyTime
+}

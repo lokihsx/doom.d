@@ -1,0 +1,63 @@
+# -*- mode: snippet -*-
+# name: ainog-graphql-unit-test
+# key:  ainog-graphql-unit-test
+# --
+package com.ainog.backend.web.admin.`(ainog-graphql/package-name)`;
+
+import com.graphql.spring.boot.test.GraphQLResponse;
+import com.graphql.spring.boot.test.GraphQLTestTemplate;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+public class `(ainog-graphql/module-name)`Tests {
+    private static final String location = "graphql-test/`(ainog-graphql/package-name)`/";
+
+    private static final List<String> fragments = Arrays.asList(
+            location + "`(ainog-graphql/module-name-camel)`Fragment.graphql"
+    );
+
+
+    public static void save`(ainog-graphql/module-name)`s(GraphQLTestTemplate graphQLTestTemplate) throws IOException {
+        String methodName = Thread.currentThread() .getStackTrace()[1].getMethodName();
+        String filename = location + methodName + ".graphql";
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource(filename, fragments);
+        assertNotNull(response);
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.readTree().hasNonNull("errors")).isFalse();
+        assertThat(response.readTree().path("data").isNull()).isFalse();
+
+        // TODO 测试新增和修改是否成功
+    }
+
+    public static void `(ainog-graphql/module-name-camel)`s(GraphQLTestTemplate graphQLTestTemplate) throws IOException {
+        String methodName = Thread.currentThread() .getStackTrace()[1].getMethodName();
+        String filename = location + methodName + ".graphql";
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource(filename, fragments);
+        assertNotNull(response);
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.readTree().hasNonNull("errors")).isFalse();
+        assertThat(response.readTree().path("data").isNull()).isFalse();
+
+        // TODO 测试获取列表是否正常
+    }
+
+    public static void delete`(ainog-graphql/module-name)`s(GraphQLTestTemplate graphQLTestTemplate) throws IOException {
+        String methodName = Thread.currentThread() .getStackTrace()[1].getMethodName();
+        String filename = location + methodName + ".graphql";
+
+        // 删除动作不需要fragments
+        GraphQLResponse response = graphQLTestTemplate.postForResource(filename);
+        assertNotNull(response);
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.readTree().hasNonNull("errors")).isFalse();
+
+        // TODO 测试删除的数据是否和id对应
+    }
+}
