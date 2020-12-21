@@ -131,18 +131,25 @@
 (after! lsp-java
   (if IS-MAC
       (setq lsp-java-vmargs '("-noverify"
-                              "-Xmx1G"
+                              "-Xmx8G"
                               "-XX:+UseG1GC"
                               "-XX:+UseStringDeduplication"
                               "-javaagent:/Users/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"))
                              ; "-Xbootclasspath/a:/Users/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"))
     (setq lsp-java-vmargs '("-noverify"
-                            "-Xmx1G"
+                            "-Xmx8G"
                             "-XX:+UseG1GC"
                             "-XX:+UseStringDeduplication"
                             "-javaagent:/home/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar")))
                             ;"-Xbootclasspath/a:/home/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar")))
 
-  (setq lsp-java-format-settings-url (concat doom-private-dir "googleJavaStyle.xml")
+  (setq lsp-java-format-settings-url (concat "file:/home/loki/.doom.d/googleJavaStyle.xml")
         lsp-java-format-settings-profile "GoogleStyle"
-        lsp-java-format-on-type-enabled t))
+        lsp-java-format-on-type-enabled t
+        lsp-java-save-actions-organize-imports t))
+
+(setq doom-one-brighter-modeline t
+      doom-one-brighter-comments t)
+
+(after! eshell
+  (set-eshell-alias! "cpr" "eshell/cd-to-project"))
