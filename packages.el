@@ -54,3 +54,5 @@
 (package! evil-terminal-cursor-changer)
 
 (package! cnfonts)
+
+(package! solaire-mode :disable t)
