@@ -50,6 +50,12 @@
                                (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\))))))
                       #'yas-insert-snippet)
 
+      ;; window move
+      :in  "C-c h"  #'evil-window-left
+      :in  "C-c j"  #'evil-window-down
+      :in  "C-c k"  #'evil-window-up
+      :in  "C-c l"  #'evil-window-right
+
       (:after help :map help-mode-map
        :n "o"       #'link-hint-open-link)
       (:after helpful :map helpful-mode-map
