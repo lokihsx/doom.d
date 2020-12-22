@@ -116,9 +116,9 @@
       (setq pname (concat (match-string 2 project-root) ":" pname)))
     pname)
   ;; add to projectile project name function replace default action
-  (setq projectile-project-name-function 'workspace-tramp-project-name)
-  (add-to-list 'projectile-globally-ignored-directories "*target/")
-  (add-to-list 'projectile-globally-ignored-directories "*node_modules/"))
+  (setq projectile-project-name-function 'workspace-tramp-project-name))
+  ;; (add-to-list 'projectile-globally-ignored-directories "*target/")
+  ;; (add-to-list 'projectile-globally-ignored-directories "*node_modules/"))
 
 
 (after! vterm
