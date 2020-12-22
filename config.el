@@ -93,8 +93,7 @@
     (or (s-ends-with? ".o" file)
         (s-ends-with? ".log" file)))
   (setq +treemacs-git-mode 'deferred
-        treemacs-collapse-dirs 5
-        treemacs-width 45)
+        treemacs-collapse-dirs 5)
   (treemacs-follow-mode)
   (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
 
