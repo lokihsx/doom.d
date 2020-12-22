@@ -16,9 +16,13 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
 ;; (if window-system
-;; (setq doom-theme 'doom-spacegrey)
+(setq doom-theme 'doom-spacegrey
+      doom-spacegrey-brighter-modeline t
+      doom-spacegrey-brighter-comments t)
 ;;   (setq doom-theme 'doom-challenger-deep))
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-one
+;;       doom-one-brighter-modeline t
+;;       doom-one-brighter-comments t)
 
 ;; (if IS-MAC
 ;;     (doom/set-frame-opacity 80)
@@ -72,7 +76,7 @@
 (use-package! evil-terminal-cursor-changer
   :hook (tty-setup . evil-terminal-cursor-changer-activate))
 
-(setq-default line-spacing 0.38)
+(setq-default line-spacing 0.66)
 
 (after! web-mode
   (setq web-mode-style-padding 0
@@ -147,8 +151,7 @@
         lsp-java-format-on-type-enabled t
         lsp-java-save-actions-organize-imports t))
 
-(setq doom-one-brighter-modeline t
-      doom-one-brighter-comments t)
+
 
 (after! eshell
   (set-eshell-alias! "cpr" "eshell/cd-to-project"))
