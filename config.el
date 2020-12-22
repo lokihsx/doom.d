@@ -146,7 +146,7 @@
                             "-javaagent:/home/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar")))
                             ;"-Xbootclasspath/a:/home/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar")))
 
-  (setq lsp-java-format-settings-url (concat "file:/home/loki/.doom.d/googleJavaStyle.xml")
+  (setq lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
         lsp-java-format-settings-profile "GoogleStyle"
         lsp-java-format-on-type-enabled t
         lsp-java-save-actions-organize-imports t))
