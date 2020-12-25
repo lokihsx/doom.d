@@ -56,3 +56,6 @@
 (package! cnfonts)
 
 (package! solaire-mode :disable t)
+
+;; (package! golden-ratio)
+(package! zoom)

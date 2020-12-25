@@ -16,17 +16,16 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
 ;; (if window-system
-(setq doom-theme 'doom-spacegrey
-      doom-spacegrey-brighter-modeline t
-      doom-spacegrey-brighter-comments t)
+;; (setq doom-theme 'doom-spacegrey
+;;       doom-spacegrey-brighter-modeline t
+;;       doom-spacegrey-brighter-comments t
+;;       doom-spacegrey-padded-modeline t)
 ;;   (setq doom-theme 'doom-challenger-deep))
-;; (setq doom-theme 'doom-one
-;;       doom-one-brighter-modeline t
-;;       doom-one-brighter-comments t)
+(setq doom-theme 'doom-one
+      doom-one-brighter-modeline t
+      doom-one-brighter-comments t)
 
-;; (if IS-MAC
-;;     (doom/set-frame-opacity 80)
-;;   (doom/set-frame-opacity 90))
+;;(doom/set-frame-opacity 88)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -121,8 +120,8 @@
     pname)
   ;; add to projectile project name function replace default action
   (setq projectile-project-name-function 'workspace-tramp-project-name))
-  ;; (add-to-list 'projectile-globally-ignored-directories "*target/")
-  ;; (add-to-list 'projectile-globally-ignored-directories "*node_modules/"))
+;; (add-to-list 'projectile-globally-ignored-directories "*target/")
+;; (add-to-list 'projectile-globally-ignored-directories "*node_modules/"))
 
 
 (after! vterm
@@ -138,13 +137,13 @@
                               "-XX:+UseG1GC"
                               "-XX:+UseStringDeduplication"
                               "-javaagent:/Users/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"))
-                             ; "-Xbootclasspath/a:/Users/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"))
+                                        ; "-Xbootclasspath/a:/Users/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"))
     (setq lsp-java-vmargs '("-noverify"
                             "-Xmx8G"
                             "-XX:+UseG1GC"
                             "-XX:+UseStringDeduplication"
                             "-javaagent:/home/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar")))
-                            ;"-Xbootclasspath/a:/home/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar")))
+                                        ;"-Xbootclasspath/a:/home/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar")))
 
   (setq lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
         lsp-java-format-settings-profile "GoogleStyle"
@@ -155,3 +154,27 @@
 
 (after! eshell
   (set-eshell-alias! "cpr" "eshell/cd-to-project"))
+
+;; ;; add to ~/.doom.d/config.el
+;; (use-package! golden-ratio
+;;   :after-call pre-command-hook
+;;   :config
+;;   (golden-ratio-mode +1)
+;;   (setq golden-ratio-auto-scale t)
+;;   ;; Using this hook for resizing windows is less precise than
+;;   ;; `doom-switch-window-hook'.
+;;   (remove-hook 'window-configuration-change-hook #'golden-ratio)
+;;   (add-hook 'doom-switch-window-hook #'golden-ratio))
+
+;; in ~/.doom.d/config.el
+(use-package zoom
+  :hook (doom-first-input . zoom-mode)
+  :config
+  (setq zoom-size '(0.382 . 0.618)
+        zoom-ignored-major-modes '(dired-mode vterm-mode help-mode helpful-mode rxt-help-mode help-mode-menu org-mode)
+        zoom-ignored-buffer-names '("*doom:scratch*" "*info*" "*helpful variable: argv*")
+        zoom-ignored-buffer-name-regexps '("^\\*calc" "\\*helpful variable: .*\\*")))
+        ;; zoom-ignore-predicates (list (lambda () (< (count-lines (point-min) (point-max)) 20)))))
+
+
+;; (advice-add 'windmove-do-window-select :before #'writeroom-mode)
