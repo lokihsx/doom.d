@@ -21,9 +21,13 @@
 ;;       doom-spacegrey-brighter-comments t
 ;;       doom-spacegrey-padded-modeline t)
 ;;   (setq doom-theme 'doom-challenger-deep))
-(setq doom-theme 'doom-one
-      doom-one-brighter-modeline t
-      doom-one-brighter-comments t)
+;; (setq doom-theme 'doom-one
+;;       doom-one-brighter-modeline t
+;;       doom-one-brighter-comments t)
+
+(setq doom-theme 'doom-horizon
+      doom-horizon-brighter-modeline t
+      doom-horizon-brighter-comments t)
 
 ;;(doom/set-frame-opacity 88)
 
@@ -132,13 +136,15 @@
 
 (after! lsp-java
   (if IS-MAC
-      (setq lsp-java-vmargs '("-noverify"
+      (setq lsp-java-vmargs '(
+                              ;;"-noverify"
                               "-Xmx8G"
                               "-XX:+UseG1GC"
                               "-XX:+UseStringDeduplication"
                               "-javaagent:/Users/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"))
                                         ; "-Xbootclasspath/a:/Users/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"))
-    (setq lsp-java-vmargs '("-noverify"
+    (setq lsp-java-vmargs '(
+                            ;;"-noverify"
                             "-Xmx8G"
                             "-XX:+UseG1GC"
                             "-XX:+UseStringDeduplication"
@@ -171,10 +177,9 @@
   :hook (doom-first-input . zoom-mode)
   :config
   (setq zoom-size '(0.382 . 0.618)
-        zoom-ignored-major-modes '(dired-mode vterm-mode help-mode helpful-mode rxt-help-mode help-mode-menu org-mode)
+        zoom-ignored-major-modes '(dired-mode help-mode helpful-mode rxt-help-mode help-mode-menu org-mode)
         zoom-ignored-buffer-names '("*doom:scratch*" "*info*" "*helpful variable: argv*")
         zoom-ignored-buffer-name-regexps '("^\\*calc" "\\*helpful variable: .*\\*")))
         ;; zoom-ignore-predicates (list (lambda () (< (count-lines (point-min) (point-max)) 20)))))
 
-
-;; (advice-add 'windmove-do-window-select :before #'writeroom-mode)
+;;(setenv "JAVA_HOME" "/usr/lib/jvm/java-11-openjdk/")
