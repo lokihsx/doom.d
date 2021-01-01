@@ -25,9 +25,9 @@
 ;;       doom-one-brighter-modeline t
 ;;       doom-one-brighter-comments t)
 
-(setq doom-theme 'doom-horizon
-      doom-horizon-brighter-modeline t
-      doom-horizon-brighter-comments t)
+(setq doom-theme 'doom-sourcerer
+      doom-sourcerer-brighter-modeline t
+      doom-sourcerer-brighter-comments t)
 
 ;;(doom/set-frame-opacity 88)
 
