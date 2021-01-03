@@ -8,8 +8,8 @@
 package com.ainog.backend.web.admin.`(ainog-graphql/package-name)`;
 
 import com.ainog.backend.web.models.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`;
-import com.ainog.backend.web.admin.utils.DeleteCondition;
-import com.ainog.backend.web.admin.utils.QueryCondition;
+import com.ainog.backend.web.utils.BaseDeleteCondition;
+import com.ainog.backend.web.utils.BaseQueryCondition;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,7 +24,7 @@ public class `(ainog-graphql/module-name)`MutationResolver implements GraphQLMut
 
     @PreAuthorize("isAuthenticated()")
     public List<`(ainog-graphql/module-name)`> save`(ainog-graphql/module-name)`s(List<`(ainog-graphql/module-name)`> `(ainog-graphql/module-name-camel)`s) {
-        QueryCondition queryCondition = new QueryCondition();
+        BaseQueryCondition queryCondition = new BaseQueryCondition();
         queryCondition.getGetByIds().addAll(`(ainog-graphql/module-name-camel)`Service.create`(ainog-graphql/module-name)`s(`(ainog-graphql/module-name-camel)`s));
         queryCondition.getGetByIds().addAll(`(ainog-graphql/module-name-camel)`Service.update`(ainog-graphql/module-name)`s(`(ainog-graphql/module-name-camel)`s));
 
@@ -32,7 +32,7 @@ public class `(ainog-graphql/module-name)`MutationResolver implements GraphQLMut
     }
 
     @PreAuthorize("isAuthenticated()")
-    public int delete`(ainog-graphql/module-name)`s(DeleteCondition deleteCondition) {
+    public int delete`(ainog-graphql/module-name)`s(BaseDeleteCondition deleteCondition) {
         return `(ainog-graphql/module-name-camel)`Service.delete`(ainog-graphql/module-name)`s(deleteCondition);
     }
 }

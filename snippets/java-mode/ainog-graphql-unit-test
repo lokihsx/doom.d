@@ -2,27 +2,48 @@
 # name: ainog-graphql-unit-test
 # key:  ainog-graphql-unit-test
 # --
-package com.ainog.backend.web.admin.`(ainog-graphql/package-name)`;
 
-import com.graphql.spring.boot.test.GraphQLResponse;
-import com.graphql.spring.boot.test.GraphQLTestTemplate;
+package com.ainog.backend.web.admin;
 
+import org.ainog.backend.web.admin.AdminApplication;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import com.graphql.spring.boot.test.GraphQLResponse;
+import com.graphql.spring.boot.test.GraphQLTestTemplate;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@SpringBootTest(classes = {AdminApplication.class},
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class `(ainog-graphql/module-name)`Tests {
-    private static final String location = "graphql-test/`(ainog-graphql/package-name)`/";
+    @Autowired
+    GraphQLTestTemplate graphQLTestTemplate;
 
-    private static final List<String> fragments = Arrays.asList(
-            location + "`(ainog-graphql/module-name-camel)`Fragment.graphql"
-    );
+    private final String location = "graphql-test/`(ainog-graphql/module-name-camel)`/";
+    private final String fragmentLocation = "graphql-test/fragments/";
 
+    private final List<String> fragments =
+            Arrays.asList(fragmentLocation + "`(ainog-graphql/module-name-camel)`Fragment.graphql");
 
-    public static void save`(ainog-graphql/module-name)`s(GraphQLTestTemplate graphQLTestTemplate) throws IOException {
+    @Test
+    @Order(1)
+    public void adminLoginTest() throws IOException {
+        AdminLoginTestUtils.adminLoginTest(graphQLTestTemplate);
+    }
+
+    @Test
+    @Order(100)
+    public void save`(ainog-graphql/module-name)`s() throws IOException {
         String methodName = Thread.currentThread() .getStackTrace()[1].getMethodName();
         String filename = location + methodName + ".graphql";
 
@@ -35,7 +56,9 @@ public class `(ainog-graphql/module-name)`Tests {
         // TODO 测试新增和修改是否成功
     }
 
-    public static void `(ainog-graphql/module-name-camel)`s(GraphQLTestTemplate graphQLTestTemplate) throws IOException {
+    @Test
+    @Order(110)
+    public void `(ainog-graphql/module-name-camel)`s() throws IOException {
         String methodName = Thread.currentThread() .getStackTrace()[1].getMethodName();
         String filename = location + methodName + ".graphql";
 
@@ -48,7 +71,9 @@ public class `(ainog-graphql/module-name)`Tests {
         // TODO 测试获取列表是否正常
     }
 
-    public static void delete`(ainog-graphql/module-name)`s(GraphQLTestTemplate graphQLTestTemplate) throws IOException {
+    @Test
+    @Order(120)
+    public void delete`(ainog-graphql/module-name)`s() throws IOException {
         String methodName = Thread.currentThread() .getStackTrace()[1].getMethodName();
         String filename = location + methodName + ".graphql";
 
@@ -59,5 +84,11 @@ public class `(ainog-graphql/module-name)`Tests {
         assertThat(response.readTree().hasNonNull("errors")).isFalse();
 
         // TODO 测试删除的数据是否和id对应
+    }
+
+    @Test
+    @Order(1001)
+    public void adminLogoutTest() throws IOException {
+        AdminLoginTestUtils.adminLogoutTest(graphQLTestTemplate);
     }
 }
