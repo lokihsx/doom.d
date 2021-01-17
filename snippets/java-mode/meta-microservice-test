@@ -1,0 +1,139 @@
+# -*- mode: snippet -*-
+# name: meta-microservice-test
+# key: meta-microservice-test
+# condition: t
+# --
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.List;
+import java.util.UUID;
+import com.ainog.backend.interop.BaseDeleteCondition;
+import com.ainog.backend.interop.BaseQueryCondition;
+import com.ainog.backend.interop.`(ainog-graphql/module-name)`DeleteCondition;
+import com.ainog.backend.interop.`(ainog-graphql/module-name)`QueryCondition;
+import com.ainog.backend.interop.OperateReply;
+import com.ainog.backend.interop.Operator;
+import com.ainog.backend.interop.`(ainog-graphql/module-name)`Operate;
+import com.ainog.backend.interop.`(ainog-graphql/module-name)`OperateRequest;
+import com.ainog.backend.interop.`(ainog-graphql/module-name)`Reply;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import io.grpc.internal.testing.StreamRecorder;
+
+@SpringBootTest
+@TestMethodOrder(OrderAnnotation.class)
+public class `(ainog-graphql/module-name)`MetaServiceTests {
+    @Autowired
+    private `(ainog-graphql/module-name)`MetaService `(ainog-graphql/module-name-camel)`MetaService;
+
+    private static final String id = UUID.randomUUID().toString();
+
+    @Test
+    @Order(10)
+    public void loadContext() {
+
+    }
+
+    @Test
+    @Order(20)
+    public void insertTest() {
+        `(ainog-graphql/module-name)`Operate op = `(ainog-graphql/module-name)`Operate.newBuilder()
+                .setId(id)
+                .setLabel("test1")
+                .setDescription("test1")
+                .build();
+
+        Operator operator = Operator.newBuilder().setId("root").build();
+
+        `(ainog-graphql/module-name)`OperateRequest request = `(ainog-graphql/module-name)`OperateRequest.newBuilder()
+                .setOperator(operator)
+                .add`(ainog-graphql/module-name)`s(op)
+                .build();
+
+        StreamRecorder<OperateReply> responseObserver = StreamRecorder.create();
+
+        `(ainog-graphql/module-name-camel)`MetaService.insert`(ainog-graphql/module-name)`s(request, responseObserver);
+        List<OperateReply> results = responseObserver.getValues();
+        assertEquals(1, results.size());
+
+        for (OperateReply result : results) {
+            assertEquals(result.getIds(0), id);
+        }
+    }
+
+    @Test
+    @Order(30)
+    public void updateTest() {
+        `(ainog-graphql/module-name)`Operate op = `(ainog-graphql/module-name)`Operate.newBuilder()
+                .setId(id)
+                .setLabel("test1-modify")
+                .setDescription("<unset!>")
+                .build();
+
+        Operator operator = Operator.newBuilder().setId("root").build();
+
+        `(ainog-graphql/module-name)`OperateRequest request = `(ainog-graphql/module-name)`OperateRequest.newBuilder()
+                .setOperator(operator)
+                .add`(ainog-graphql/module-name)`s(op)
+                .build();
+
+        StreamRecorder<OperateReply> responseObserver = StreamRecorder.create();
+
+        `(ainog-graphql/module-name-camel)`MetaService.update`(ainog-graphql/module-name)`s(request, responseObserver);
+
+        List<OperateReply> results = responseObserver.getValues();
+        assertEquals(1, results.size());
+
+        for (OperateReply result : results) {
+            assertEquals(result.getIds(0), id);
+        }
+    }
+
+    @Test
+    @Order(40)
+    public void queryTest() {
+        `(ainog-graphql/module-name)`QueryCondition condition = `(ainog-graphql/module-name)`QueryCondition.newBuilder()
+            .setBaseQueryCondition(BaseQueryCondition.newBuilder()
+                                   .addIds(id)
+                                   .setPerPage(5)
+                                   .build())
+            .build();
+
+        StreamRecorder<`(ainog-graphql/module-name)`Reply> responseObserver = StreamRecorder.create();
+        `(ainog-graphql/module-name-camel)`MetaService.get`(ainog-graphql/module-name)`s(condition, responseObserver);
+
+        List<`(ainog-graphql/module-name)`Reply> results = responseObserver.getValues();
+        assertEquals(1, results.size());
+
+        for (`(ainog-graphql/module-name)`Reply result : results) {
+            assertEquals(result.getId(), id);
+            assertEquals(result.getLabel(), "test1-modify");
+            assertEquals(result.getDescription(), "test1");
+        }
+    }
+
+    @Test
+    @Order(50)
+    public void deleteTest() {
+        `(ainog-graphql/module-name)`DeleteCondition condition = `(ainog-graphql/module-name)`DeleteCondition.newBuilder()
+            .setBaseDeleteCondition(BaseDeleteCondition.newBuilder()
+                                   .addIds(id)
+                                   .build())
+            .build();
+
+        StreamRecorder<OperateReply> responseObserver = StreamRecorder.create();
+        `(ainog-graphql/module-name-camel)`MetaService.delete`(ainog-graphql/module-name)`s(condition, responseObserver);
+
+        List<OperateReply> results = responseObserver.getValues();
+        assertEquals(1, results.size());
+
+        for (OperateReply result : results) {
+            assertEquals(result.getIds(0), id);
+        }
+    }
+
+}

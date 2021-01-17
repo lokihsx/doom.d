@@ -1,0 +1,136 @@
+# -*- mode: snippet -*-
+# name: meta-microservice
+# key: meta-microservice
+# condition: t
+# --
+
+import static org.mybatis.dynamic.sql.SqlBuilder.isIn;
+import java.util.List;
+import java.util.stream.Collectors;
+import com.ainog.backend.interop.BaseDeleteCondition;
+import com.ainog.backend.interop.BaseQueryCondition;
+import com.ainog.backend.interop.OperateReply;
+import com.ainog.backend.interop.`(file-name-sans-extension (buffer-name))`Grpc.`(file-name-sans-extension (buffer-name))`ImplBase;
+import com.ainog.backend.interop.`(ainog-graphql/module-name)`OperateRequest;
+import com.ainog.backend.interop.`(ainog-graphql/module-name)`Reply;
+import com.ainog.backend.interop.`(ainog-graphql/module-name)`QueryCondition;
+import com.ainog.backend.interop.`(ainog-graphql/module-name)`DeleteCondition;
+import com.ainog.backend.models.entities.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`;
+import com.ainog.backend.models.mapper.`(ainog-graphql/package-name)`.`(ainog-graphql/module-name)`Mapper;
+import com.ainog.backend.models.mapper.`(ainog-graphql/module-name)`DynamicSqlSupport;
+import com.ainog.backend.web.utils.ProtoTransform;
+import com.ainog.backend.web.utils.SaveUtils;
+import io.grpc.stub.StreamObserver;
+import lombok.RequiredArgsConstructor;
+import net.devh.boot.grpc.server.service.GrpcService;
+
+@GrpcService
+@RequiredArgsConstructor
+public class `(ainog-graphql/module-name)`MetaService extends `(ainog-graphql/module-name)`MetaServiceImplBase {
+    private final `(ainog-graphql/module-name)`Mapper `(ainog-graphql/module-name-camel)`Mapper;
+
+    @Override
+    public void insert`(ainog-graphql/module-name)`s(`(ainog-graphql/module-name)`OperateRequest request,
+            StreamObserver<OperateReply> responseObserver) {
+        List<`(ainog-graphql/module-name)`> opList =
+                SaveUtils.GetInsertList(request.get`(ainog-graphql/module-name)`sList(),
+                        `(ainog-graphql/module-name)`.class, request.getOperator().getId());
+
+        `(ainog-graphql/module-name-camel)`Mapper.insertMultiple(opList);
+
+        OperateReply.Builder response = OperateReply.newBuilder();
+        response.setErrCode(0);
+        response.addAllIds(
+                opList.stream().map(`(ainog-graphql/module-name)`::getId).collect(Collectors.toList()));
+
+        responseObserver.onNext(response.build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void update`(ainog-graphql/module-name)`s(`(ainog-graphql/module-name)`OperateRequest request,
+            StreamObserver<OperateReply> responseObserver) {
+
+        List<`(ainog-graphql/module-name)`> opList =
+                SaveUtils.GetUpdateList(request.get`(ainog-graphql/module-name)`sList(),
+                        `(ainog-graphql/module-name)`.class, request.getOperator().getId());
+
+        for (`(ainog-graphql/module-name)` op : opList) {
+            `(ainog-graphql/module-name-camel)`Mapper.updateByPrimaryKeySelective(op);
+        }
+
+        OperateReply.Builder response = OperateReply.newBuilder();
+        response.setErrCode(0);
+        response.addAllIds(
+                opList.stream().map(`(ainog-graphql/module-name)`::getId).collect(Collectors.toList()));
+
+        responseObserver.onNext(response.build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void get`(ainog-graphql/module-name)`s(`(ainog-graphql/module-name)`QueryCondition request,
+            StreamObserver<`(ainog-graphql/module-name)`Reply> responseObserver) {
+        List<`(ainog-graphql/module-name)`> queries = `(ainog-graphql/module-name-camel)`Mapper.select(c -> {
+            if (request.getBaseQueryCondition().getIdsList().size() > 0) {
+                c.where().and(`(ainog-graphql/module-name)`DynamicSqlSupport.id, isIn(request.getBaseQueryCondition().getIdsList()));
+            }
+
+            if (request.getBaseQueryCondition().getCreateBysList().size() > 0) {
+                c.where().and(`(ainog-graphql/module-name)`DynamicSqlSupport.createBy,
+                        isIn(request.getBaseQueryCondition().getCreateBysList()));
+            }
+
+            if (request.getBaseQueryCondition().getLastModifyBysList().size() > 0) {
+                c.where().and(`(ainog-graphql/module-name)`DynamicSqlSupport.lastModifyBy,
+                        isIn(request.getBaseQueryCondition().getLastModifyBysList()));
+            }
+
+            if (request.getBaseQueryCondition().getOrderByCreateTime() > 0) {
+                c.orderBy(`(ainog-graphql/module-name)`DynamicSqlSupport.createTime);
+            } else if (request.getBaseQueryCondition().getOrderByCreateTime() < 0) {
+                c.orderBy(`(ainog-graphql/module-name)`DynamicSqlSupport.createTime.descending());
+            }
+
+            if (request.getBaseQueryCondition().getOrderByLastModifyTime() > 0) {
+                c.orderBy(`(ainog-graphql/module-name)`DynamicSqlSupport.lastModifyTime);
+            } else if (request.getBaseQueryCondition().getOrderByLastModifyTime() < 0) {
+                c.orderBy(`(ainog-graphql/module-name)`DynamicSqlSupport.lastModifyTime.descending());
+            }
+
+            c.limit(request.getBaseQueryCondition().getPerPage());
+            c.offset((long) request.getBaseQueryCondition().getPerPage() * request.getBaseQueryCondition().getPage());
+
+            return c;
+        });
+
+        for (`(ainog-graphql/module-name)` `(ainog-graphql/module-name-camel)` : queries) {
+            `(ainog-graphql/module-name)`Reply.Builder response = `(ainog-graphql/module-name)`Reply.newBuilder();
+            ProtoTransform.toProtoBuffer(response, `(ainog-graphql/module-name-camel)`,
+                    `(ainog-graphql/module-name)`.class);
+            responseObserver.onNext(response.build());
+        }
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void delete`(ainog-graphql/module-name)`s(`(ainog-graphql/module-name)`DeleteCondition request,
+            StreamObserver<OperateReply> responseObserver) {
+        OperateReply.Builder response = OperateReply.newBuilder();
+        if (request.getBaseDeleteCondition().getIdsCount() == 0) {
+            response.setErrCode(1);
+        } else {
+            response.setErrCode(0);
+            `(ainog-graphql/module-name-camel)`Mapper.delete(c -> {
+                c.where().and(`(ainog-graphql/module-name)`DynamicSqlSupport.id, isIn(request.getBaseDeleteCondition().getIdsList()));
+
+                // TODO 完善删除条件
+                return c;
+            });
+            response.addAllIds(request.getBaseDeleteCondition().getIdsList());
+        }
+
+        responseObserver.onNext(response.build());
+        responseObserver.onCompleted();
+    }
+}
