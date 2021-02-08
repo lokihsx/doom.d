@@ -21,13 +21,13 @@
 ;;       doom-spacegrey-brighter-comments t
 ;;       doom-spacegrey-padded-modeline t)
 ;;   (setq doom-theme 'doom-challenger-deep))
-;; (setq doom-theme 'doom-one
-;;       doom-one-brighter-modeline t
-;;       doom-one-brighter-comments t)
+(setq doom-theme 'doom-one
+      doom-one-brighter-modeline t
+      doom-one-brighter-comments t)
 
-(setq doom-theme 'doom-sourcerer
-      doom-sourcerer-brighter-modeline t
-      doom-sourcerer-brighter-comments t)
+;; (setq doom-theme 'doom-sourcerer
+;;       doom-sourcerer-brighter-modeline t
+;;       doom-sourcerer-brighter-comments t)
 
 ;;(doom/set-frame-opacity 88)
 
@@ -182,4 +182,14 @@
         zoom-ignored-buffer-name-regexps '("^\\*calc" "\\*helpful variable: .*\\*")))
         ;; zoom-ignore-predicates (list (lambda () (< (count-lines (point-min) (point-max)) 20)))))
 
+
+;; (when IS-LINUX
+;;  (setq browse-url-browser-function 'browse-url-generic
+;;       browse-url-generic-program "google-chrome-stable"
+;;       browse-url-generic-args '("--new-window")))
+
 ;;(setenv "JAVA_HOME" "/usr/lib/jvm/java-11-openjdk/")
+
+
+(setq markdown-preview-host "0.0.0.0"
+      markdown-preview-http-host "0.0.0.0")

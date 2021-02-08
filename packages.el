@@ -59,3 +59,5 @@
 
 ;; (package! golden-ratio)
 (package! zoom)
+
+(package! markdown-preview-mode)
