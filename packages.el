@@ -53,11 +53,7 @@
 
 (package! evil-terminal-cursor-changer)
 
-(package! cnfonts)
-
 (package! solaire-mode :disable t)
 
 ;; (package! golden-ratio)
 (package! zoom)
-
-(package! markdown-preview-mode)

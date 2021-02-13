@@ -31,11 +31,10 @@
   :init
   (when IS-MAC
     (setq rime-librime-root "~/.emacs.d/librime/dist"))
+  (setq rime-user-data-dir "~/.emacs.d/rime")
   :custom
   (default-input-method "rime")
   (rime-show-candidate 'posframe)
-  ;; :init
-  ;; (setq rime-user-data-dir (format "%smodules/private/chinese/rime-config" doom-private-dir))
   :config
   ;; 临时英文状态提示
   (setq mode-line-mule-info '((:eval (rime-lighter))))

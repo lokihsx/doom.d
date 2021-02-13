@@ -189,7 +189,3 @@
 ;;       browse-url-generic-args '("--new-window")))
 
 ;;(setenv "JAVA_HOME" "/usr/lib/jvm/java-11-openjdk/")
-
-
-(setq markdown-preview-host "0.0.0.0"
-      markdown-preview-http-host "0.0.0.0")
