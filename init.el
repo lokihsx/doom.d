@@ -24,6 +24,7 @@
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy
+        +prescient
         +childframe
         +icons)               ; a search engine for love and life
 
@@ -195,4 +196,5 @@
        markdown
        pdf
        ainog
-       eaf)
+       ;;eaf
+       )
