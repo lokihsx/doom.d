@@ -56,25 +56,46 @@
 ;;
 
 ;; remember frame status
-(when-let (dims (doom-store-get 'last-frame-size))
-  (cl-destructuring-bind ((left . top) width height fullscreen) dims
+;;
+;; (when-let (dims (doom-store-get 'last-frame-size))
+;;   (cl-destructuring-bind ((left . top) width height fullscreen) dims
+;;     (setq initial-frame-alist
+;;           (append initial-frame-alist
+;;                   `((left . ,left)
+;;                     (top . ,top)
+;;                     (width . ,width)
+;;                     (height . ,height)
+;;                     (fullscreen . ,fullscreen))))))
+
+;; (defun save-frame-dimensions ()
+;;   (doom-store-put 'last-frame-size
+;;                   (list (frame-position)
+;;                         (frame-width)
+;;                         (frame-height)
+;;                         (frame-parameter nil 'fullscreen))))
+
+;; (add-hook 'kill-emacs-hook #'save-frame-dimensions)
+
+(let* ((sw (x-display-pixel-width))
+       (sh (x-display-pixel-height))
+       (toggle-condition (> (/ sw sh) (/ 16 9)))
+       (ratio 0.618)
+       (ww (round (* sw ratio)))
+       (lm (round (* (/ sw 2) (- 1 ratio)))))
+  (if toggle-condition
     (setq initial-frame-alist
           (append initial-frame-alist
-                  `((left . ,left)
-                    (top . ,top)
-                    (width . ,width)
-                    (height . ,height)
-                    (fullscreen . ,fullscreen))))))
-
-(defun save-frame-dimensions ()
-  ;; (doom-store-put 'last-frame-size
-  ;;                 (list (frame-position)
-  ;;                       (frame-width)
-  ;;                       (frame-height)
-  ;;                       (frame-parameter nil 'fullscreen)))
-  )
-
-(add-hook 'kill-emacs-hook #'save-frame-dimensions)
+                  `((left . ,lm)
+                    (top . 0)
+                    (width . (text-pixels . ,ww))
+                    (height . (text-pixels . ,sh))
+                    (fullscreen . nil)
+                    ;; enable mouse to drag
+                    ;;(drag-internal-border . 1)
+                    ;;(internal-border-width . 5)
+                    ;; drop title bar
+                    (undecorated . t))))
+  (toggle-frame-fullscreen)))
 
 (use-package! evil-terminal-cursor-changer
   :hook (tty-setup . evil-terminal-cursor-changer-activate))
@@ -160,31 +181,12 @@
   (after! eshell
     (set-eshell-alias! "cpr" "eshell/cd-to-project"))
 
-  ;; ;; add to ~/.doom.d/config.el
-  ;; (use-package! golden-ratio
-  ;;   :after-call pre-command-hook
-  ;;   :config
-  ;;   (golden-ratio-mode +1)
-  ;;   (setq golden-ratio-auto-scale t)
-  ;;   ;; Using this hook for resizing windows is less precise than
-  ;;   ;; `doom-switch-window-hook'.
-  ;;   (remove-hook 'window-configuration-change-hook #'golden-ratio)
-  ;;   (add-hook 'doom-switch-window-hook #'golden-ratio))
-
-  ;; in ~/.doom.d/config.el
-  (use-package zoom
-    :hook (doom-first-input . zoom-mode)
-    :config
-    (setq zoom-size '(0.382 . 0.618)
-          zoom-ignored-major-modes '(dired-mode help-mode helpful-mode rxt-help-mode help-mode-menu org-mode)
-          zoom-ignored-buffer-names '("*doom:scratch*" "*info*" "*helpful variable: argv*")
-          zoom-ignored-buffer-name-regexps '("^\\*calc" "\\*helpful variable: .*\\*")))
-  ;; zoom-ignore-predicates (list (lambda () (< (count-lines (point-min) (point-max)) 20)))))
-
-
-  ;; (when IS-LINUX
-  ;;  (setq browse-url-browser-function 'browse-url-generic
-  ;;       browse-url-generic-program "google-chrome-stable"
-  ;;       browse-url-generic-args '("--new-window")))
-
-  ;;(setenv "JAVA_HOME" "/usr/lib/jvm/java-11-openjdk/")
+;; in ~/.doom.d/config.el
+(use-package zoom
+  :hook (doom-first-input . zoom-mode)
+  :config
+  (setq zoom-size '(0.382 . 0.618)
+        zoom-ignored-major-modes '(dired-mode help-mode helpful-mode rxt-help-mode help-mode-menu org-mode)
+        zoom-ignored-buffer-names '("*doom:scratch*" "*info*" "*helpful variable: argv*")
+        zoom-ignored-buffer-name-regexps '("^\\*calc" "\\*helpful variable: .*\\*")))
+;; zoom-ignore-predicates (list (lambda () (< (count-lines (point-min) (point-max)) 20)))))

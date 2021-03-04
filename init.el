@@ -196,5 +196,6 @@
        markdown
        pdf
        ainog
-       ;;eaf
+       ainog-graph
+       eaf
        )
