@@ -3,7 +3,7 @@
 (defvar ainog-graph-ws nil
   "is server connect")
 
-(defun init-ainog-graph ()
+(defun ainog-graph/init-editor ()
   (interactive)
   (setq ainog-graph-ws (websocket-open
             "ws://localhost:18889"
@@ -56,19 +56,6 @@
                 (type . set))
               )))))
 
-'((a . 1))
-(json-encode
- '((header . add-links)
-   (links . (
-             ((label . "emacs 添加1")
-              (description . "emacs 添加1")
-              (source . add1)
-              (target . add2))
-             ((label . "emacs 添加2")
-              (description . "emacs 添加2")
-              (source . add2)
-              (target . add1))
-          ))))
 (defun add-links ()
   (interactive)
   (ainog-graph/send-request
@@ -83,3 +70,5 @@
                (source . add2)
                (target . add1))
               )))))
+
+(provide 'ainog-graph)
