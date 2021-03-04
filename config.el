@@ -142,50 +142,49 @@
                               "-XX:+UseG1GC"
                               "-XX:+UseStringDeduplication"
                               "-javaagent:/Users/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"))
-                                        ; "-Xbootclasspath/a:/Users/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"))
-    (setq lsp-java-vmargs '(
-                            ;;"-noverify"
-                            "-Xmx8G"
-                            "-XX:+UseG1GC"
-                            "-XX:+UseStringDeduplication"
-                            "-javaagent:/home/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar")))
+      (setq lsp-java-vmargs `(
+                              ;;"-noverify"
+                              "-Xmx8G"
+                              "-XX:+UseG1GC"
+                              "-XX:+UseStringDeduplication"
+                              ,(format "-javaagent:%s/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar" (getenv "HOME")))))
                                         ;"-Xbootclasspath/a:/home/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar")))
 
-  (setq lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
-        lsp-java-format-settings-profile "GoogleStyle"
-        lsp-java-format-on-type-enabled t
-        lsp-java-save-actions-organize-imports t))
+    (setq lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
+          lsp-java-format-settings-profile "GoogleStyle"
+          lsp-java-format-on-type-enabled t
+          lsp-java-save-actions-organize-imports t))
 
 
 
-(after! eshell
-  (set-eshell-alias! "cpr" "eshell/cd-to-project"))
+  (after! eshell
+    (set-eshell-alias! "cpr" "eshell/cd-to-project"))
 
-;; ;; add to ~/.doom.d/config.el
-;; (use-package! golden-ratio
-;;   :after-call pre-command-hook
-;;   :config
-;;   (golden-ratio-mode +1)
-;;   (setq golden-ratio-auto-scale t)
-;;   ;; Using this hook for resizing windows is less precise than
-;;   ;; `doom-switch-window-hook'.
-;;   (remove-hook 'window-configuration-change-hook #'golden-ratio)
-;;   (add-hook 'doom-switch-window-hook #'golden-ratio))
+  ;; ;; add to ~/.doom.d/config.el
+  ;; (use-package! golden-ratio
+  ;;   :after-call pre-command-hook
+  ;;   :config
+  ;;   (golden-ratio-mode +1)
+  ;;   (setq golden-ratio-auto-scale t)
+  ;;   ;; Using this hook for resizing windows is less precise than
+  ;;   ;; `doom-switch-window-hook'.
+  ;;   (remove-hook 'window-configuration-change-hook #'golden-ratio)
+  ;;   (add-hook 'doom-switch-window-hook #'golden-ratio))
 
-;; in ~/.doom.d/config.el
-(use-package zoom
-  :hook (doom-first-input . zoom-mode)
-  :config
-  (setq zoom-size '(0.382 . 0.618)
-        zoom-ignored-major-modes '(dired-mode help-mode helpful-mode rxt-help-mode help-mode-menu org-mode)
-        zoom-ignored-buffer-names '("*doom:scratch*" "*info*" "*helpful variable: argv*")
-        zoom-ignored-buffer-name-regexps '("^\\*calc" "\\*helpful variable: .*\\*")))
-        ;; zoom-ignore-predicates (list (lambda () (< (count-lines (point-min) (point-max)) 20)))))
+  ;; in ~/.doom.d/config.el
+  (use-package zoom
+    :hook (doom-first-input . zoom-mode)
+    :config
+    (setq zoom-size '(0.382 . 0.618)
+          zoom-ignored-major-modes '(dired-mode help-mode helpful-mode rxt-help-mode help-mode-menu org-mode)
+          zoom-ignored-buffer-names '("*doom:scratch*" "*info*" "*helpful variable: argv*")
+          zoom-ignored-buffer-name-regexps '("^\\*calc" "\\*helpful variable: .*\\*")))
+  ;; zoom-ignore-predicates (list (lambda () (< (count-lines (point-min) (point-max)) 20)))))
 
 
-;; (when IS-LINUX
-;;  (setq browse-url-browser-function 'browse-url-generic
-;;       browse-url-generic-program "google-chrome-stable"
-;;       browse-url-generic-args '("--new-window")))
+  ;; (when IS-LINUX
+  ;;  (setq browse-url-browser-function 'browse-url-generic
+  ;;       browse-url-generic-program "google-chrome-stable"
+  ;;       browse-url-generic-args '("--new-window")))
 
-;;(setenv "JAVA_HOME" "/usr/lib/jvm/java-11-openjdk/")
+  ;;(setenv "JAVA_HOME" "/usr/lib/jvm/java-11-openjdk/")
