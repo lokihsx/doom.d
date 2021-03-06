@@ -16,14 +16,14 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
 ;; (if window-system
-;; (setq doom-theme 'doom-spacegrey
-;;       doom-spacegrey-brighter-modeline t
-;;       doom-spacegrey-brighter-comments t
-;;       doom-spacegrey-padded-modeline t)
+(setq doom-theme 'doom-ayu-mirage
+      doom-ayu-mirage-brighter-modeline t
+      ;; doom-ayu-mirage-brighter-comments t
+      doom-ayu-mirage-padded-modeline t)
 ;;   (setq doom-theme 'doom-challenger-deep))
-(setq doom-theme 'doom-one
-      doom-one-brighter-modeline t
-      doom-one-brighter-comments t)
+;; (setq doom-theme 'doom-one
+;;       doom-one-brighter-modeline t
+;;       doom-one-brighter-comments t)
 
 ;; (setq doom-theme 'doom-sourcerer
 ;;       doom-sourcerer-brighter-modeline t
@@ -76,10 +76,10 @@
 
 ;; (add-hook 'kill-emacs-hook #'save-frame-dimensions)
 
-(let* ((sw (x-display-pixel-width))
+(let* ((sw (float (x-display-pixel-width)))
        (sh (x-display-pixel-height))
-       (toggle-condition (> (/ sw sh) (/ 16 9)))
-       (ratio 0.618)
+       (toggle-condition (> (/ sw sh) (/ 16 10.0)))
+       (ratio (if toggle-condition (/ 1.6 (/ sw sh))))
        (ww (round (* sw ratio)))
        (lm (round (* (/ sw 2) (- 1 ratio)))))
   (if toggle-condition
@@ -95,12 +95,12 @@
                     ;;(internal-border-width . 5)
                     ;; drop title bar
                     (undecorated . t))))
-  (toggle-frame-fullscreen)))
+    (toggle-frame-fullscreen)))
 
 (use-package! evil-terminal-cursor-changer
   :hook (tty-setup . evil-terminal-cursor-changer-activate))
 
-(setq-default line-spacing 0.66)
+(setq-default line-spacing 0.518)
 
 (after! web-mode
   (setq web-mode-style-padding 0
@@ -156,19 +156,21 @@
              (define-key vterm-mode-map (kbd "C-\\") #'toggle-input-method)))
 
 (after! lsp-java
-  (if IS-MAC
-      (setq lsp-java-vmargs '(
-                              ;;"-noverify"
-                              "-Xmx8G"
-                              "-XX:+UseG1GC"
-                              "-XX:+UseStringDeduplication"
-                              "-javaagent:/Users/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"))
-      (setq lsp-java-vmargs `(
-                              ;;"-noverify"
-                              "-Xmx8G"
-                              "-XX:+UseG1GC"
-                              "-XX:+UseStringDeduplication"
-                              ,(format "-javaagent:%s/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar" (getenv "HOME")))))
+  ;; (if IS-MAC
+  ;;     (setq lsp-java-vmargs '(
+  ;;                             ;;"-noverify"
+  ;;                             "-Xmx2G"
+  ;;                             "-XX:+UseG1GC"
+  ;;                             "-XX:+UseStringDeduplication"
+  ;;                             "-javaagent:/Users/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"))
+  (setq lsp-java-vmargs `(
+                          ;;"-noverify"
+                          "-Xmx2G"
+                          "-XX:+UseG1GC"
+                          "-XX:+UseStringDeduplication"
+                          ,(format
+                            "-javaagent:%s/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"
+                            (getenv "HOME"))))
                                         ;"-Xbootclasspath/a:/home/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar")))
 
     (setq lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
