@@ -78,8 +78,8 @@
 
 (let* ((sw (float (x-display-pixel-width)))
        (sh (x-display-pixel-height))
-       (toggle-condition (> (/ sw sh) (/ 16 10.0)))
-       (ratio (if toggle-condition (/ 1.6 (/ sw sh))))
+       (toggle-condition (> (/ sw sh) (/ 16 9.0)))
+       (ratio (if toggle-condition (/ 1.6 (/ sw sh)) 0.618))
        (ww (round (* sw ratio)))
        (lm (round (* (/ sw 2) (- 1 ratio)))))
   (if toggle-condition

@@ -2,6 +2,7 @@
 
 (defvar ainog-graph-ws nil
   "is server connect")
+
 (defun ainog-graph/init-editor ()
   (interactive)
   (setq ainog-graph-ws (websocket-open
@@ -12,7 +13,8 @@
                         "{\"header\": \"register-editor\"}"))
             :on-message (lambda (_websocket frame)
                           (message (websocket-frame-text frame))
-                          (ainog-graph/message-handler (websocket-frame-text frame))))))
+                          (ainog-graph/message-handler (websocket-frame-text frame)))
+            )))
 
 (defun ainog-graph/message-handler(msg)
   (let* ((htable (json-parse-string msg))
@@ -116,9 +118,9 @@
 
 (defun ainog-graph/navigate-to-link ()
   (interactive)
-  (ainog-graph/send-request
+    (ainog-graph/send-request
      `((header . ,(which-function))
-       (nodeId . 'newLink'))))
+       (nodeId . newLink))))
 
 (defun ainog-graph/delete-graph ()
   (interactive))
@@ -130,6 +132,6 @@
   (interactive)
     (ainog-graph/send-request
      `((header . ,(which-function))
-       (nodeId . 'newLink'))))
+       (nodeId . newLink))))
 
 (provide 'ainog-graph)
