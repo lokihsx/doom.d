@@ -76,26 +76,26 @@
 
 ;; (add-hook 'kill-emacs-hook #'save-frame-dimensions)
 
-(let* ((sw (float (x-display-pixel-width)))
-       (sh (x-display-pixel-height))
-       (toggle-condition (> (/ sw sh) (/ 16 9.0)))
-       (ratio (if toggle-condition (/ 1.6 (/ sw sh)) 0.618))
-       (ww (round (* sw ratio)))
-       (lm (round (* (/ sw 2) (- 1 ratio)))))
-  (if toggle-condition
-    (setq initial-frame-alist
-          (append initial-frame-alist
-                  `((left . ,lm)
-                    (top . 0)
-                    (width . (text-pixels . ,ww))
-                    (height . (text-pixels . ,sh))
-                    (fullscreen . nil)
-                    ;; enable mouse to drag
-                    ;;(drag-internal-border . 1)
-                    ;;(internal-border-width . 5)
-                    ;; drop title bar
-                    (undecorated . t))))
-    (toggle-frame-fullscreen)))
+;; (let* ((sw (float (x-display-pixel-width)))
+;;        (sh (x-display-pixel-height))
+;;        (toggle-condition (> (/ sw sh) (/ 16 9.0)))
+;;        (ratio (if toggle-condition (/ 1.6 (/ sw sh)) 0.618))
+;;        (ww (round (* sw ratio)))
+;;        (lm (round (* (/ sw 2) (- 1 ratio)))))
+;;   (if toggle-condition
+;;     (setq initial-frame-alist
+;;           (append initial-frame-alist
+;;                   `((left . ,lm)
+;;                     (top . 0)
+;;                     (width . (text-pixels . ,ww))
+;;                     (height . (text-pixels . ,sh))
+;;                     (fullscreen . nil)
+;;                     ;; enable mouse to drag
+;;                     ;;(drag-internal-border . 1)
+;;                     ;;(internal-border-width . 5)
+;;                     ;; drop title bar
+;;                     (undecorated . t))))
+;;     (toggle-frame-fullscreen)))
 
 (use-package! evil-terminal-cursor-changer
   :hook (tty-setup . evil-terminal-cursor-changer-activate))
