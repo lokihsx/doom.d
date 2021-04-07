@@ -542,12 +542,13 @@
         :desc "Open terminal here"    "T" #'+term/here)
        ;; Hacks
        (:when (or (featurep! :term vterm)
-                  (featurep! :private vterm))
+                  (featurep! :private myterm))
         :desc "Toggle vterm popup"    "t" #'+vterm/toggle
-        :desc "Open vterm here"       "T" #'+vterm/here)
-       (:when (featurep! :term eshell)
+        :desc "Open vterm here"       "T" #'+vterm/right)
+       (:when (or (featurep! :term eshell)
+                  (featurep! :private myterm))
         :desc "Toggle eshell popup"   "e" #'+eshell/toggle
-        :desc "Open eshell here"      "E" #'+eshell/here)
+        :desc "Open eshell here"      "E" #'+eshell/right)
        (:when (featurep! :os macos)
         :desc "Reveal in Finder"           "o" #'+macos/reveal-in-finder
         :desc "Reveal project in Finder"   "O" #'+macos/reveal-project-in-finder

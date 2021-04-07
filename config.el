@@ -16,20 +16,19 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
 ;; (if window-system
-(setq doom-theme 'doom-ayu-mirage
-      doom-ayu-mirage-brighter-modeline t
-      ;; doom-ayu-mirage-brighter-comments t
-      doom-ayu-mirage-padded-modeline t)
-;;   (setq doom-theme 'doom-challenger-deep))
-;; (setq doom-theme 'doom-one
-;;       doom-one-brighter-modeline t
-;;       doom-one-brighter-comments t)
+;; (setq doom-theme 'doom-ayu-mirage
+;;       doom-ayu-mirage-brighter-modeline t
+;;       ;; doom-ayu-mirage-brighter-comments t
+;;       doom-ayu-mirage-padded-modeline t)
+(setq doom-theme 'doom-one
+      doom-one-brighter-modeline t
+      doom-one-brighter-comments t)
 
 ;; (setq doom-theme 'doom-sourcerer
 ;;       doom-sourcerer-brighter-modeline t
 ;;       doom-sourcerer-brighter-comments t)
 
-;;(doom/set-frame-opacity 88)
+(doom/set-frame-opacity 88)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -76,26 +75,27 @@
 
 ;; (add-hook 'kill-emacs-hook #'save-frame-dimensions)
 
-;; (let* ((sw (float (x-display-pixel-width)))
-;;        (sh (x-display-pixel-height))
-;;        (toggle-condition (> (/ sw sh) (/ 16 9.0)))
-;;        (ratio (if toggle-condition (/ 1.6 (/ sw sh)) 0.618))
-;;        (ww (round (* sw ratio)))
-;;        (lm (round (* (/ sw 2) (- 1 ratio)))))
-;;   (if toggle-condition
-;;     (setq initial-frame-alist
-;;           (append initial-frame-alist
-;;                   `((left . ,lm)
-;;                     (top . 0)
-;;                     (width . (text-pixels . ,ww))
-;;                     (height . (text-pixels . ,sh))
-;;                     (fullscreen . nil)
-;;                     ;; enable mouse to drag
-;;                     ;;(drag-internal-border . 1)
-;;                     ;;(internal-border-width . 5)
-;;                     ;; drop title bar
-;;                     (undecorated . t))))
-;;     (toggle-frame-fullscreen)))
+(when (eq window-system 'x)
+  (let* ((sw (float (x-display-pixel-width)))
+         (sh (x-display-pixel-height))
+         (toggle-condition (> (/ sw sh) (/ 16 9.0)))
+         (ratio (if toggle-condition (/ 1.6 (/ sw sh)) 0.618))
+         (ww (round (* sw ratio)))
+         (lm (round (* (/ sw 2) (- 1 ratio)))))
+    (if toggle-condition
+        (setq initial-frame-alist
+              (append initial-frame-alist
+                      `((left . ,lm)
+                        (top . 0)
+                        (width . (text-pixels . ,ww))
+                        (height . (text-pixels . ,sh))
+                        (fullscreen . nil)
+                        ;; enable mouse to drag
+                        ;;(drag-internal-border . 1)
+                        ;;(internal-border-width . 5)
+                        ;; drop title bar
+                        (undecorated . t))))
+      (toggle-frame-fullscreen))))
 
 (use-package! evil-terminal-cursor-changer
   :hook (tty-setup . evil-terminal-cursor-changer-activate))
@@ -173,15 +173,15 @@
                             (getenv "HOME"))))
                                         ;"-Xbootclasspath/a:/home/loki/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar")))
 
-    (setq lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
-          lsp-java-format-settings-profile "GoogleStyle"
-          lsp-java-format-on-type-enabled t
-          lsp-java-save-actions-organize-imports t))
+  (setq lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
+        lsp-java-format-settings-profile "GoogleStyle"
+        lsp-java-format-on-type-enabled t
+        lsp-java-save-actions-organize-imports t))
 
 
 
-  (after! eshell
-    (set-eshell-alias! "cpr" "eshell/cd-to-project"))
+(after! eshell
+  (set-eshell-alias! "cpr" "eshell/cd-to-project"))
 
 ;; in ~/.doom.d/config.el
 (use-package zoom
