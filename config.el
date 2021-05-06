@@ -28,7 +28,7 @@
 ;;       doom-sourcerer-brighter-modeline t
 ;;       doom-sourcerer-brighter-comments t)
 
-(doom/set-frame-opacity 88)
+;; (doom/set-frame-opacity 88)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -75,30 +75,31 @@
 
 ;; (add-hook 'kill-emacs-hook #'save-frame-dimensions)
 
-(when (eq window-system 'x)
-  (let* ((sw (float (x-display-pixel-width)))
-         (sh (x-display-pixel-height))
-         (toggle-condition (> (/ sw sh) (/ 16 9.0)))
-         (ratio (if toggle-condition (/ 1.6 (/ sw sh)) 0.618))
-         (ww (round (* sw ratio)))
-         (lm (round (* (/ sw 2) (- 1 ratio)))))
-    (if toggle-condition
-        (setq initial-frame-alist
-              (append initial-frame-alist
-                      `((left . ,lm)
-                        (top . 0)
-                        (width . (text-pixels . ,ww))
-                        (height . (text-pixels . ,sh))
-                        (fullscreen . nil)
-                        ;; enable mouse to drag
-                        ;;(drag-internal-border . 1)
-                        ;;(internal-border-width . 5)
-                        ;; drop title bar
-                        (undecorated . t))))
-      (toggle-frame-fullscreen))))
+;; (when (eq window-system 'x)
+;;   (let* ((sw (float (x-display-pixel-width)))
+;;          (sh (x-display-pixel-height))
+;;          (toggle-condition (> (/ sw sh) (/ 16 9.0)))
+;;          (ratio (if toggle-condition (/ 1.6 (/ sw sh)) 0.618))
+;;          (ww (round (* sw ratio)))
+;;          (lm (round (* (/ sw 2) (- 1 ratio)))))
+;;     (if toggle-condition
+;;         (setq initial-frame-alist
+;;               (append initial-frame-alist
+;;                       `((left . ,lm)
+;;                         (top . 0)
+;;                         (width . (text-pixels . ,ww))
+;;                         (height . (text-pixels . ,sh))
+;;                         (fullscreen . nil)
+;;                         ;; enable mouse to drag
+;;                         ;;(drag-internal-border . 1)
+;;                         ;;(internal-border-width . 5)
+;;                         ;; drop title bar
+;;                         (undecorated . t))))
+;;       (toggle-frame-fullscreen))))
 
-(use-package! evil-terminal-cursor-changer
-  :hook (tty-setup . evil-terminal-cursor-changer-activate))
+(when (eq window-system 'tty)
+  (use-package! evil-terminal-cursor-changer
+    :hook (tty-setup . evil-terminal-cursor-changer-activate)))
 
 (setq-default line-spacing 0.518)
 
@@ -192,3 +193,6 @@
         zoom-ignored-buffer-names '("*doom:scratch*" "*info*" "*helpful variable: argv*")
         zoom-ignored-buffer-name-regexps '("^\\*calc" "\\*helpful variable: .*\\*")))
 ;; zoom-ignore-predicates (list (lambda () (< (count-lines (point-min) (point-max)) 20)))))
+
+
+(ivy-posframe-mode t)
