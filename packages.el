@@ -57,3 +57,7 @@
 
 ;; (package! golden-ratio)
 (package! zoom)
+
+(package! beacon)
+
+(package! prettier)

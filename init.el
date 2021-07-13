@@ -14,6 +14,7 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
+(setq EMACS27+ t)
 (doom! :input
        ;;chinese
        ;;japanese
@@ -25,7 +26,7 @@
        ;;ido               ; the other *other* search engine...
        (ivy
         +childframe
-        +prescient
+        ;; +prescient
         +fuzzy
         +icons)               ; a search engine for love and life
 
@@ -80,7 +81,7 @@
        ;;eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
-       ;;vterm             ; the best terminal emulation in Emacs
+       vterm             ; the best terminal emulation in Emacs
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
@@ -97,7 +98,7 @@
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       lsp
+       (lsp)
        magit               ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -194,12 +195,14 @@
        (default +bindings +smartparens)
        framemove
        chinese
-       myterm
        protobuf
        graphql
        markdown
        pdf
        ainog
        ainog-graph
-       ;;eaf
-       )
+       i3wm)
+       ;; eaf)
+
+(when noninteractive
+  (add-to-list 'doom-env-blacklist "^I3SOCK"))

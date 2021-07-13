@@ -50,12 +50,6 @@
                                (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\))))))
                       #'yas-insert-snippet)
 
-      ;; window move
-      :in  "C-c h"  #'evil-window-left
-      :in  "C-c j"  #'evil-window-down
-      :in  "C-c k"  #'evil-window-up
-      :in  "C-c l"  #'evil-window-right
-
       (:after help :map help-mode-map
        :n "o"       #'link-hint-open-link)
       (:after helpful :map helpful-mode-map
@@ -256,7 +250,6 @@
 
 ;;
 ;;; <leader>
-
 (map! :leader
       :desc "Eval expression"       ";"    #'pp-eval-expression
       :desc "M-x"                   ":"    #'execute-extended-command
@@ -524,7 +517,9 @@
         :desc "View search"    "v"  #'org-search-view)
        :desc "Default browser"    "b"  #'browse-url-of-file
        :desc "Start debugger"     "d"  #'+debugger/start
-       :desc "New frame"          "f"  #'make-frame
+       ;; :desc "New frame"          "f"  #'make-frame
+       :desc "Follow Focus"       "f"  #'i3wm/follow-focus
+       :desc "Undo Follow Focus"       "F"  #'i3wm/undo-follow-focus
        :desc "REPL"               "r"  #'+eval/open-repl-other-window
        :desc "REPL (same window)" "R"  #'+eval/open-repl-same-window
        :desc "Dired"              "-"  #'dired-jump
@@ -540,11 +535,9 @@
        (:when (featurep! :term term)
         :desc "Toggle terminal popup" "t" #'+term/toggle
         :desc "Open terminal here"    "T" #'+term/here)
-       ;; Hacks
-       (:when (or (featurep! :term vterm)
-                  (featurep! :private myterm))
+       (:when (featurep! :term vterm)
         :desc "Toggle vterm popup"    "t" #'+vterm/toggle
-        :desc "Open vterm here"       "T" #'+vterm/right)
+        :desc "Open vterm here"       "T" #'+vterm/here)
        (:when (or (featurep! :term eshell)
                   (featurep! :private myterm))
         :desc "Toggle eshell popup"   "e" #'+eshell/toggle
@@ -592,6 +585,7 @@
        :desc "Test project"                 "T" #'projectile-test-project
        :desc "Pop up scratch buffer"        "x" #'doom/open-project-scratch-buffer
        :desc "Switch to scratch buffer"     "X" #'doom/switch-to-project-scratch-buffer
+       :desc "project manager panel"        "m" #'+pm/toggle
        (:when (and (featurep! :tools taskrunner)
                    (or (featurep! :completion ivy)
                        (featurep! :completion helm)))
@@ -682,11 +676,10 @@
        (:when (featurep! :ui zen)
         :desc "Zen mode"                   "z" #'writeroom-mode)))
 
-;; my customize shortcut
-(map! :n "gi" #'indent-region)
-
 (after! which-key
   (let ((prefix-re (regexp-opt (list doom-leader-key doom-leader-alt-key))))
     (cl-pushnew `((,(format "\\`\\(?:C-w\\|%s w\\) m\\'" prefix-re))
                   nil . "maximize")
                 which-key-replacement-alist)))
+
+(global-set-key (kbd "C-c f") #'other-frame-follow)
