@@ -85,11 +85,9 @@
 ;;                         (undecorated . t))))
 ;;       (toggle-frame-fullscreen))))
 
-(when (eq window-system 'tty)
-  (use-package! evil-terminal-cursor-changer
-    :hook (tty-setup . evil-terminal-cursor-changer-activate)))
-
-(setq-default line-spacing 0.518)
+(use-package! evil-terminal-cursor-changer
+  :when (not window-system)
+  :hook (tty-setup . evil-terminal-cursor-changer-activate))
 
 (after! web-mode
   (setq web-mode-style-padding 0
@@ -98,12 +96,21 @@
         web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2
-        web-mode-enable-current-element-highlight t))
+        web-mode-enable-current-element-highlight t)
+
+  (when (featurep! :lang web +lsp)
+    (setf (alist-get 'web-mode lsp--formatting-indent-alist) 'web-mode-code-indent-offset)))
+
+(after! typescript-mode
+  (setq typescript-indent-level 2))
+  ;; (when (featurep! :lang javascript +lsp)
+  ;;   (setf (alist-get 'javascript-mode lsp--formatting-indent-alist) 'typescript-indent-level)))
+
 
 ;; (after! js2-mode
 ;;   (setq js2-basic-offset 2))
 
-(setq-default company-idle-delay 0)
+(setq-default company-idle-delay 0.5)
 
 (after! treemacs
   (defun treemacs-custom-filter (file _)
@@ -141,27 +148,26 @@
 (after! vterm
   (add-hook! 'vterm-mode-hook (define-key vterm-mode-map (kbd "C-\\") #'toggle-input-method)))
 
-(after! lsp-java
-  (setq lsp-java-vmargs `(
-                          ;;"-noverify"
-                          "-Xmx2G"
-                          "-XX:+UseG1GC"
-                          "-XX:+UseStringDeduplication"
-                          ,(format
-                            "-javaagent:%s/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"
-                            (getenv "HOME"))))
+;; (after! lsp-java
+;;   (setq lsp-java-vmargs `(
+;;                           ;;"-noverify"
+;;                           "-Xmx2G"
+;;                           "-XX:+UseG1GC"
+;;                           "-XX:+UseStringDeduplication"
+;;                           ,(format
+;;                             "-javaagent:%s/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"
+;;                             (getenv "HOME"))))
 
-  (setq lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
-        lsp-java-format-settings-profile "GoogleStyle"
-        lsp-java-format-on-type-enabled t
-        lsp-java-save-actions-organize-imports t))
+;;   (setq lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
+;;         lsp-java-format-settings-profile "GoogleStyle"
+;;         lsp-java-format-on-type-enabled t
+;;         lsp-java-save-actions-organize-imports t))
 
 
 
 (after! eshell
   (set-eshell-alias! "cpr" "eshell/cd-to-project"))
 
-;; in ~/.doom.d/config.el
 ;; (use-package zoom
 ;;   :hook (doom-first-input . zoom-mode)
 ;;   :config
@@ -171,17 +177,17 @@
 ;;         zoom-ignored-buffer-name-regexps '("^\\*calc" "\\*helpful variable: .*\\*")))
 ;; zoom-ignore-predicates (list (lambda () (< (count-lines (point-min) (point-max)) 20)))))
 
-(use-package! beacon
-  :custom
-  (beacon-blink-when-focused t)
-  :config
-  (beacon-mode t))
+;; (use-package! beacon
+;;   :custom
+;;   (beacon-blink-when-focused t)
+;;   :config
+;;   (beacon-mode t))
 
-(use-package! prettier
-  :config
-  (add-hook 'js2-mode-hook 'prettier-mode)
-  (add-hook 'typescript-mode-hook 'prettier-mode)
-  (add-hook 'web-mode-hook 'prettier-mode))
+;; (use-package! prettier
+;;   :config
+;;   (add-hook 'js2-mode-hook 'prettier-mode)
+;;   (add-hook 'typescript-mode-hook 'prettier-mode)
+;;   (add-hook 'web-mode-hook 'prettier-mode))
 
 (defadvice org-capture
     (before make-full-window-frame activate)

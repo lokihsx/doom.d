@@ -15,13 +15,14 @@
 ;;      directory (for easy access to its source code).
 
 (setq EMACS27+ t)
+
 (doom! :input
        ;;chinese
        ;;japanese
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company ; the ultimate code completion backend
+       company             ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy
@@ -200,8 +201,7 @@
        markdown
        pdf
        ainog
-       ainog-graph
-       i3wm)
+       ainog-graph)
        ;; eaf)
 
 (when noninteractive

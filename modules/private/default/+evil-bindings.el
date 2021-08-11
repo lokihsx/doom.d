@@ -518,8 +518,9 @@
        :desc "Default browser"    "b"  #'browse-url-of-file
        :desc "Start debugger"     "d"  #'+debugger/start
        ;; :desc "New frame"          "f"  #'make-frame
-       :desc "Follow Focus"       "f"  #'i3wm/follow-focus
-       :desc "Undo Follow Focus"       "F"  #'i3wm/undo-follow-focus
+       (:when (featurep! :private i3wm)
+        :desc "Follow Focus"       "f"  #'i3wm/follow-focus
+        :desc "Undo Follow Focus"       "F"  #'i3wm/undo-follow-focus)
        :desc "REPL"               "r"  #'+eval/open-repl-other-window
        :desc "REPL (same window)" "R"  #'+eval/open-repl-same-window
        :desc "Dired"              "-"  #'dired-jump
