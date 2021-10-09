@@ -3,4 +3,4 @@
 (use-package! graphql-mode
   :mode ("\\.graphqls$" . graphql-mode)
   :config
-  (setq graphql-indent-level 4))
+  (setq graphql-indent-level 2))

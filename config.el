@@ -13,7 +13,7 @@
   (load! "font"))
 
 (setq doom-theme 'doom-vibrant
-      ;; doom-vibrant-brighter-modeline t
+      doom-vibrant-brighter-modeline t
       doom-vibrant-brighter-comments t)
 
 ;; (doom/set-frame-opacity 88)
@@ -43,25 +43,25 @@
 ;;
 
 ;; remember frame status
-;;
-;; (when-let (dims (doom-store-get 'last-frame-size))
-;;   (cl-destructuring-bind ((left . top) width height fullscreen) dims
-;;     (setq initial-frame-alist
-;;           (append initial-frame-alist
-;;                   `((left . ,left)
-;;                     (top . ,top)
-;;                     (width . ,width)
-;;                     (height . ,height)
-;;                     (fullscreen . ,fullscreen))))))
 
-;; (defun save-frame-dimensions ()
-;;   (doom-store-put 'last-frame-size
-;;                   (list (frame-position)
-;;                         (frame-width)
-;;                         (frame-height)
-;;                         (frame-parameter nil 'fullscreen))))
+(when-let (dims (doom-store-get 'last-frame-size))
+  (cl-destructuring-bind ((left . top) width height fullscreen) dims
+    (setq initial-frame-alist
+          (append initial-frame-alist
+                  `((left . ,left)
+                    (top . ,top)
+                    (width . ,width)
+                    (height . ,height)
+                    (fullscreen . ,fullscreen))))))
 
-;; (add-hook 'kill-emacs-hook #'save-frame-dimensions)
+(defun save-frame-dimensions ()
+  (doom-store-put 'last-frame-size
+                  (list (frame-position)
+                        (frame-width)
+                        (frame-height)
+                        (frame-parameter nil 'fullscreen))))
+
+(add-hook 'kill-emacs-hook #'save-frame-dimensions)
 
 ;; (when (eq window-system 'x)
 ;;   (let* ((sw (float (x-display-pixel-width)))
@@ -89,6 +89,9 @@
   :when (not window-system)
   :hook (tty-setup . evil-terminal-cursor-changer-activate))
 
+(after! lsp-mode
+  (setq lsp-ui-doc-enable nil))
+
 (after! web-mode
   (setq web-mode-style-padding 0
         web-mode-script-padding 0
@@ -98,8 +101,9 @@
         web-mode-code-indent-offset 2
         web-mode-enable-current-element-highlight t)
 
-  (when (featurep! :lang web +lsp)
-    (setf (alist-get 'web-mode lsp--formatting-indent-alist) 'web-mode-code-indent-offset)))
+  (after! lsp-mode
+    (when (featurep! :lang web +lsp)
+      (setf (alist-get 'web-mode lsp--formatting-indent-alist) 'web-mode-code-indent-offset))))
 
 (after! typescript-mode
   (setq typescript-indent-level 2))
@@ -110,7 +114,7 @@
 ;; (after! js2-mode
 ;;   (setq js2-basic-offset 2))
 
-(setq-default company-idle-delay 0.5)
+(setq-default company-idle-delay 0)
 
 (after! treemacs
   (defun treemacs-custom-filter (file _)
@@ -118,7 +122,8 @@
         (s-ends-with? ".log" file)))
   (setq +treemacs-git-mode 'deferred
         treemacs-collapse-dirs 5
-        ;; treemacs-width 66
+        treemacs-width 55
+        treemacs-recenter-after-file-follow 'always
         treemacs-position 'left)
   (treemacs-follow-mode)
   (push #'treemacs-custom-filter treemacs-ignored-file-predicates))
@@ -148,20 +153,20 @@
 (after! vterm
   (add-hook! 'vterm-mode-hook (define-key vterm-mode-map (kbd "C-\\") #'toggle-input-method)))
 
-;; (after! lsp-java
-;;   (setq lsp-java-vmargs `(
-;;                           ;;"-noverify"
-;;                           "-Xmx2G"
-;;                           "-XX:+UseG1GC"
-;;                           "-XX:+UseStringDeduplication"
-;;                           ,(format
-;;                             "-javaagent:%s/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"
-;;                             (getenv "HOME"))))
+(after! lsp-java
+  (setq lsp-java-vmargs `(
+                          ;;"-noverify"
+                          "-Xmx4G"
+                          "-XX:+UseG1GC"
+                          "-XX:+UseStringDeduplication"
+                          ,(format
+                            "-javaagent:%s/.m2/repository/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar"
+                            (getenv "HOME")))
 
-;;   (setq lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
-;;         lsp-java-format-settings-profile "GoogleStyle"
-;;         lsp-java-format-on-type-enabled t
-;;         lsp-java-save-actions-organize-imports t))
+        lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
+        lsp-java-format-settings-profile "GoogleStyle"
+        lsp-java-format-on-type-enabled t
+        lsp-java-save-actions-organize-imports t))
 
 
 
@@ -189,40 +194,45 @@
 ;;   (add-hook 'typescript-mode-hook 'prettier-mode)
 ;;   (add-hook 'web-mode-hook 'prettier-mode))
 
-(defadvice org-capture
-    (before make-full-window-frame activate)
-  "Advise capture to be the only window when used as a popup"
-  (when (featurep! :completion ivy +childframe)
-    (ivy-posframe-mode -1)))
 
-(defadvice org-capture
-    (after make-full-window-frame activate)
-  "Advise capture to be the only window when used as a popup"
-  (if (equal "emacs-capture" (frame-parameter nil 'name))
-      (delete-other-windows)))
+(when (featurep! :editor format)
+  (setq-hook! 'web-mode-hook +format-with-lsp nil)
+  (setq-hook! 'c-mode-hook +format-with-lsp nil))
 
-(defadvice org-capture-finalize
-    (after delete-capture-frame activate)
-  "Advise capture-finalize to close the frame"
-  (when (featurep! :completion ivy +childframe)
-    (ivy-posframe-mode 1))
-  (if (equal "emacs-capture" (frame-parameter nil 'name))
-      (delete-frame)))
+;; (defadvice org-capture
+;;     (before make-full-window-frame activate)
+;;   "Advise capture to be the only window when used as a popup"
+;;   (when (featurep! :completion ivy +childframe)
+;;     (ivy-posframe-mode -1)))
+
+;; (defadvice org-capture
+;;     (after make-full-window-frame activate)
+;;   "Advise capture to be the only window when used as a popup"
+;;   (if (equal "emacs-capture" (frame-parameter nil 'name))
+;;       (delete-other-windows)))
+
+;; (defadvice org-capture-finalize
+;;     (after delete-capture-frame activate)
+;;   "Advise capture-finalize to close the frame"
+;;   (when (featurep! :completion ivy +childframe)
+;;     (ivy-posframe-mode 1))
+;;   (if (equal "emacs-capture" (frame-parameter nil 'name))
+;;       (delete-frame)))
+
+(add-hook 'org-capture-after-finalize-hook (lambda () (delete-frame (selected-frame))))
 
 (defun transform-square-brackets-to-round-ones(string-to-transform)
   "Transforms [ into ( and ] into ), other chars left unchanged."
   (concat
    (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform)))
 
-(setq org-capture-templates `(("p" "Protocol" entry (file+headline ,(concat org-directory "notes.org") "Inbox")
+(setq org-capture-templates `(("p" "Protocol" entry (file+headline ,(concat org-directory "/journal/" (format-time-string "%Y-%m-%d.org")) "Notes")
                                "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
                               ("m" "Temp Minds" item
                                (file+headline "notes.org" "Minds")
                                "%?\nEntered on %U\n \%i\n %a")
                               ("L" "Protocol Link" entry (file+headline ,(concat org-directory "notes.org") "Inbox")
                                "* %? [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")))
-
-(setq org-refile-targets (quote (("TODO.org" :maxlevel . 2))))
 
 (defun pm-get-doc-buffer ()
   (let ((dev-doc (concat (doom-project-root) "dev_doc.org"))
@@ -314,19 +324,24 @@
     (follow-mode 1)))
 
 
-(advice-add 'find-file
-            :around
-            (lambda (origin filename &optional wildcards)
-              (if (interactive-p)
-                  (call-interactively origin filename wildcards)
-                (funcall origin filename wildcards))
-              (when (frame-parameter (selected-frame) 'is-follow-frame)
-                (setq buf (current-buffer))
-                (follow-mode 1)
-                (other-window 1)
-                (switch-to-buffer buf))))
+;; (advice-add 'find-file
+;;             :around
+;;             (lambda (origin filename &optional wildcards)
+;;               (if (interactive-p)
+;;                   (call-interactively origin filename wildcards)
+;;                 (funcall origin filename wildcards))
+;;               (when (frame-parameter (selected-frame) 'is-follow-frame)
+;;                 (setq buf (current-buffer))
+;;                 (follow-mode 1)
+;;                 (other-window 1)
+;;                 (switch-to-buffer buf))))
 
 
 (map! :map web-mode-map
       :nv "[m" #'web-mode-tag-match
       :nv "]m" #'web-mode-tag-match)
+
+
+(setq org-journal-date-prefix "#+TITLE: "
+      org-journal-date-format "%Y-%m-%d %A"
+      org-journal-file-format "%Y-%m-%d.org")

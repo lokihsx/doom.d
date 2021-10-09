@@ -34,7 +34,7 @@
   (setq rime-user-data-dir "~/.emacs.d/rime")
   :custom
   (default-input-method "rime")
-  (rime-show-candidate 'popup)
+  (rime-show-candidate 'posframe)
   :config
   ;; 临时英文状态提示
   (setq mode-line-mule-info '((:eval (rime-lighter))))
