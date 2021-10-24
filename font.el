@@ -25,11 +25,10 @@
 ;; <https://github.com/tumashu/cnfonts>
 (set-face-attribute
  'default nil
- :font (font-spec :name "-CTDB-Fira Code-semibold-normal-normal-*-*-*-*-*-d-0-iso10646-1"
+ :font (font-spec :name "-JB-JetBrains Mono-bold-italic-normal-*-*-*-*-*-m-0-iso10646-1"
                   :weight 'normal
                   :slant 'normal
-                  :size 11.5))
-
+                  :size 10.0))
 (dolist (charset '(kana han symbol cjk-misc bopomofo))
   (set-fontset-font
    (frame-parameter nil 'font)
@@ -37,4 +36,4 @@
    (font-spec :name "-MS  -Microsoft YaHei-bold-normal-normal-*-*-*-*-*-*-0-iso10646-1"
               :weight 'normal
               :slant 'normal
-              :size 13.5)))
+              :size 12.0)))

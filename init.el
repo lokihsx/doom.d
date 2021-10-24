@@ -204,6 +204,7 @@
        graphql
        markdown
        pdf
+       i3wm
        ainog
        ainog-graph)
        ;; eaf)

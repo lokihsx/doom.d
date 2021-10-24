@@ -504,6 +504,7 @@
 
        (:when (featurep! :lang org +journal)
         (:prefix ("j" . "journal")
+         :desc "Toggle"        "o" #'+org-journal/toggle
          :desc "New Entry"      "j" #'org-journal-new-entry
          :desc "Search Forever" "s" #'org-journal-search-forever)))
 
@@ -539,6 +540,8 @@
        (:when (featurep! :term vterm)
         :desc "Toggle vterm popup"    "t" #'+vterm/toggle
         :desc "Open vterm here"       "T" #'+vterm/here)
+       (:when (featurep! :lang org +journal)
+        :desc "Toggle org journal" "j" #'+org-journal/toggle)
        (:when (or (featurep! :term eshell)
                   (featurep! :private myterm))
         :desc "Toggle eshell popup"   "e" #'+eshell/toggle
