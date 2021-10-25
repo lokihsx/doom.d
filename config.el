@@ -406,17 +406,27 @@
          (buf-pos (cl-position filename (mapcar (lambda (win) (buffer-file-name (window-buffer win))) (window-list-1 nil nil t))
                                :test #'equal))
          (tar-win (and buf-pos (nth buf-pos (window-list-1 nil nil t)))))
-  ))
+    (if buf-pos
+        (select-window tar-win)
+      (progn
+        (find-file-other-window filename)
+        (shrink-window-horizontally 60)))))
 
 ;;;###autoload
 (defun +org-journal/toggle (&rest args)
   (interactive)
   (let* ((filename (format-time-string (format "%sjournal/%s" (file-truename org-directory) org-journal-file-format)))
          (bufname (buffer-file-name (current-buffer))))
-    (message filename)
-    (if (and (string= filename bufname) (frame-parameter (selected-frame) 'journal-frame))
-        (delete-frame)
-      (+org-journal/frame-goto) args)))
+    (if (featurep! :private i3wm)
+        (if (and (string= filename bufname) (frame-parameter (selected-frame) 'journal-frame))
+            (delete-frame)
+          (+org-journal/frame-goto) args)
+      (progn
+          (if (string= filename (buffer-file-name (current-buffer)))
+            (progn
+              (save-buffer)
+              (kill-buffer-and-window))
+            (+org-journal/window-goto))))))
 
 (after! org-journal
   (setq org-journal-date-format "%F %A"
