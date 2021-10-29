@@ -187,7 +187,7 @@
                             "-javaagent:%s/.m2/repository/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar"
                             (getenv "HOME")))
 
-        lsp-java-format-settings-url (concat "file:" (file-truename (concat doom-private-dir "googleJavaStyle.xml")))
+        lsp-java-format-settings-url (concat "file:" (file-truename (format "%s/googleJavaStyle.xml" doom-private-dir)))
         lsp-java-format-settings-profile "GoogleStyle"
         lsp-java-format-on-type-enabled t
         lsp-java-save-actions-organize-imports t))
@@ -465,3 +465,9 @@
   (if (featurep! :private i3wm)
         (setq org-journal-find-file '+org-journal/frame-goto)
     (setq org-journal-find-file '+org-journal/window-goto)))
+
+
+(setq doom-modeline-buffer-file-name-style 'file-name)
+(custom-set-faces!
+  '(mode-line :family "Noto Sans" :height 1.0)
+  '(mode-line-inactive :family "Noto Sans" :height 0.9))
