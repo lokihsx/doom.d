@@ -9,3 +9,5 @@
 (package! fcitx)
 
 (package! sis)
+
+(package! pangu-spacing)

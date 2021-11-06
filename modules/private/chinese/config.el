@@ -11,11 +11,11 @@
 ;;         default-input-method "pyim"))
 
 
-;; (use-package! pangu-spacing
-;;   :hook (text-mode . pangu-spacing-mode)
-;;   :config
-;;   ;; Always insert `real' space in org-mode.
-;;   (setq-hook! 'org-mode-hook pangu-spacing-real-insert-separtor t))
+(use-package! pangu-spacing
+  :hook (text-mode . pangu-spacing-mode)
+  :config
+  ;; Always insert `real' space in org-mode.
+  (setq-hook! 'org-mode-hook pangu-spacing-real-insert-separtor t))
 
 
 (use-package! fcitx
