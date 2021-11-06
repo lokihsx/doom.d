@@ -393,7 +393,6 @@
         ("NO"   . +org-todo-cancel)
         ("KILL" . +org-todo-cancel))))
 
-;;;###autoload
 (defun +org-journal/frame-goto (&rest args)
   (let* ((filename (format-time-string (format "%sjournal/%s" (file-truename org-directory) org-journal-file-format)))
          (buf-pos (cl-position filename (mapcar (lambda (win) (buffer-file-name (window-buffer win))) (window-list-1 nil nil t))
@@ -418,10 +417,9 @@
             (modify-frame-parameters (selected-frame) (list (cons 'journal-frame t)))
             (when
               (start-process-shell-command "Journal" nil
-                                           (format "i3-msg \"[id=%s]\" resize shrink width 600px"
+                                           (format "i3-msg \"[id=%s]\" resize shrink width 888px"
                                                    (frame-parameter (selected-frame) 'outer-window-id))))))))))
 
-;;;###autoload
 (defun +org-journal/window-goto (&rest args)
   (let* ((filename (format-time-string (format "%sjournal/%s" (file-truename org-directory) org-journal-file-format)))
          (buf-pos (cl-position filename (mapcar (lambda (win) (buffer-file-name (window-buffer win))) (window-list-1 nil nil t))
@@ -433,9 +431,9 @@
         (find-file-other-window filename)
         (shrink-window-horizontally 60)))))
 
-;;;###autoload
 (defun +org-journal/toggle (&rest args)
   (interactive)
+  (require 'org-journal)
   (let* ((filename (format-time-string (format "%sjournal/%s" (file-truename org-directory) org-journal-file-format)))
          (bufname (buffer-file-name (current-buffer))))
     (if (featurep! :private i3wm)
@@ -451,17 +449,19 @@
 
 (after! org-journal
   (setq org-journal-date-format "%F %A"
-        org-journal-carryover-items "TODO=\"TODO\"|TODO=\"PROJ\"|TODO=\"STRT\"|TODO=\"WAIT\"|TODO=\"HOLD\"|TODO=\"IDEA\""
-        org-capture-templates `(("p" "Protocol" entry (file+headline ,(format-time-string "journal/%Y-%m.org") "")
-                                 "* CAPTURE %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-                                ;; ("m" "Temp Minds" entry
-                                ;;  (file+headline ,(format-time-string "journal/%Y-%m-%d.org") "")
-                                ;;  "* IDEA %?\nEntered on %U\n \%i\n %a")
+        org-journal-time-format "%F %R"
+        org-journal-hide-entries-p nil
+        org-journal-carryover-items "TODO=\"TODO\"|TODO=\"PROJ\"|TODO=\"STRT\"|TODO=\"WAIT\"|TODO=\"HOLD\"|TODO=\"IDEA\"|TODO=\"LOOP\""
+        org-capture-templates `(("p" "Protocol" entry
+                                 (file+headline ,(format-time-string (format "journal/%s" org-journal-file-format)) ,(format-time-string "%F %A"))
+                                 "* NOTE %u %?\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n")
+                                 ;; "* NOTE %u %^{Title}\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n%?")
                                 ("m" "Temp Minds" entry
                                  (file+headline ,(format-time-string (format "journal/%s" org-journal-file-format)) ,(format-time-string "%F %A"))
-                                 ,(format-time-string "* IDEA %R %?"))
-                                ("L" "Protocol Link" entry (file+headline ,(format-time-string "journal/%Y-%m.org") ,(format-time-string "%F %A"))
-                                 "* CAPTURE %? [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")))
+                                 ,(format-time-string "* IDEA %F %R %?"))
+                                ("L" "Protocol Link" entry
+                                 (file+headline ,(format-time-string (format "journal/%s" org-journal-file-format)) ,(format-time-string "%F %A"))
+                                 "* NOTE %? [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")))
   (if (featurep! :private i3wm)
         (setq org-journal-find-file '+org-journal/frame-goto)
     (setq org-journal-find-file '+org-journal/window-goto)))
