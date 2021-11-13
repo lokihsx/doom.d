@@ -519,9 +519,6 @@
        :desc "Default browser"    "b"  #'browse-url-of-file
        :desc "Start debugger"     "d"  #'+debugger/start
        ;; :desc "New frame"          "f"  #'make-frame
-       (:when (featurep! :private i3wm)
-        :desc "Follow Focus"       "f"  #'i3wm/follow-focus
-        :desc "Undo Follow Focus"       "F"  #'i3wm/undo-follow-focus)
        :desc "REPL"               "r"  #'+eval/open-repl-other-window
        :desc "REPL (same window)" "R"  #'+eval/open-repl-same-window
        :desc "Dired"              "-"  #'dired-jump
@@ -540,6 +537,11 @@
        (:when (featurep! :term vterm)
         :desc "Toggle vterm popup"    "t" #'+vterm/toggle
         :desc "Open vterm here"       "T" #'+vterm/here)
+       (:when (featurep! :private i3wm)
+        :desc "Toggle new frame"      "w" #'i3/open-new-frame
+        :desc "Follow Focus"          "f" #'i3/follow-focus
+        :desc "close generate frame"  "F" #'i3/close-frame
+        :desc "close generate frame"  "W" #'i3/close-frame)
        (:when (featurep! :lang org +journal)
         :desc "Toggle org journal" "j" #'+org-journal/toggle)
        (:when (or (featurep! :term eshell)

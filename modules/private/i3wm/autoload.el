@@ -1,6 +1,6 @@
 ;;; private/i3wm/autoload.el -*- lexical-binding: t; -*-
 
-;;;autoload
+;;;###autoload
 (defun i3-get-next-workspace ()
   (let* ((ws-nums (mapcar (apply-partially #'i3-field 'num) (i3-get-workspaces)))
          (ws-range (number-sequence 1 (seq-max ws-nums)))
@@ -51,7 +51,6 @@
 ;;;###autoload
 (defun i3-get-visible-windows-names-by-workspaces (workspaces)
   (mapcar (apply-partially #'i3-field 'name) (i3-get-visible-windows-by-workspaces workspaces)))
-
 
 ;;;###autoload
 (defun i3-get-window-id-by-name (name)

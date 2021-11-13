@@ -54,6 +54,10 @@
   "Returns a list of current workspaces. See i3 wm IPC docs for details."
   (i3-command 1))
 
+(defun i3-get-outputs()
+  "Returns a list of current workspaces. See i3 wm IPC docs for details."
+  (i3-command 3))
+
 (defun i3-command (command &optional payload)
   "Sends command to i3 and returns the response. See i3 wm IPC docs for details."
   (let ((proc (i3-get-or-make-client))

@@ -6,6 +6,15 @@
 (use-package! i3-integration
   :load-path "./")
 
+(use-package! i3-follow-focus
+  :load-path "./")
+
+(use-package! beacon
+  :custom
+  (beacon-blink-when-focused t)
+  :config
+  (beacon-mode t))
+
 (defun i3wm/follow-focus (&optional win)
   (interactive (i3-tar-window-choice))
   (unless (get-buffer "*FollowFocus*")
