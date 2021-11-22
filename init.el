@@ -15,9 +15,8 @@
 ;;      directory (for easy access to its source code).
 
 (setq EMACS27+ t)
-
 (doom! :input
-       ;;chinese
+       ;; chinese
        ;;japanese
        ;;layout            ; auie,ctsrnm is the superior home row
 
@@ -87,6 +86,7 @@
 
        :tools
        ;;ansible
+       ;;biblio            ; Writes a PhD for you (citation needed)
        (debugger +lsp)          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
@@ -205,10 +205,7 @@
        graphql
        markdown
        pdf
-       i3wm
+       ;;i3wm
        ainog
        ainog-graph)
        ;; eaf)
-
-(when noninteractive
-  (add-to-list 'doom-env-blacklist "^I3SOCK"))
