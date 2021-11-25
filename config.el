@@ -414,8 +414,8 @@
             (modify-frame-parameters (selected-frame) (list (cons 'journal-frame t)))
             (start-process-shell-command "Journal" nil
                                          (format "i3-msg \"[id=%s]\" resize shrink width 888px"
-                                                 (frame-parameter (selected-frame) 'outer-window-id)))
-            (org-journal-new-entry "")))))))
+                                                 (frame-parameter (selected-frame) 'outer-window-id)))))
+        (org-journal-new-entry "")))))
 
 (defun +org-journal/window-goto (&rest args)
   (let* ((filename (format-time-string (format "%sjournal/%s" (file-truename org-directory) org-journal-file-format)))
@@ -470,3 +470,7 @@
 (custom-set-faces!
   '(mode-line :family "Noto Sans" :height 1.0)
   '(mode-line-inactive :family "Noto Sans" :height 0.9))
+
+
+;; do not use mouse cursor in emacs
+(setq mouse-avoidance-mode 'banish)

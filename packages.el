@@ -56,3 +56,5 @@
 (package! solaire-mode :disable t)
 
 (package! zoom)
+
+;;(package! benchmark-init)
