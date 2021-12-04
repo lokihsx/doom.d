@@ -148,7 +148,7 @@
         (s-ends-with? ".log" file)))
   (setq +treemacs-git-mode 'deferred
         treemacs-collapse-dirs 5
-        treemacs-width 55
+        treemacs-width 45
         treemacs-recenter-after-file-follow 'always
         treemacs-position 'left)
   (treemacs-follow-mode)
@@ -454,8 +454,8 @@
         org-journal-carryover-items "TODO=\"TODO\"|TODO=\"PROJ\"|TODO=\"STRT\"|TODO=\"WAIT\"|TODO=\"HOLD\"|TODO=\"IDEA\"|TODO=\"LOOP\""
         org-capture-templates `(("p" "Protocol" entry
                                  (file+headline ,(format-time-string (format "journal/%s" org-journal-file-format)) ,(format-time-string "%F %A"))
-                                 "* NOTE %u %?\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n")
-                                 ;; "* NOTE %u %^{Title}\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n%?")
+                                 ;;"* NOTE %u %?\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n")
+                                  "* NOTE %u %^{Title}\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n%?")
                                 ("m" "Temp Minds" entry
                                  (file+headline ,(format-time-string (format "journal/%s" org-journal-file-format)) ,(format-time-string "%F %A"))
                                  ,(format-time-string "* IDEA %F %R %?"))
@@ -466,10 +466,10 @@
         (setq org-journal-find-file '+org-journal/frame-goto)
     (setq org-journal-find-file '+org-journal/window-goto)))
 
-(setq doom-modeline-buffer-file-name-style 'file-name)
-(custom-set-faces!
-  '(mode-line :family "Noto Sans" :height 1.0)
-  '(mode-line-inactive :family "Noto Sans" :height 0.9))
+(setq doom-modeline-buffer-file-name-style 'relative-to-project)
+;; (custom-set-faces!
+;;   '(mode-line :family "Noto Sans" :height 1.0)
+;;   '(mode-line-inactive :family "Noto Sans" :height 1.0))
 
 
 ;; do not use mouse cursor in emacs

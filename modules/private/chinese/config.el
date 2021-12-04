@@ -11,6 +11,10 @@
 ;;         default-input-method "pyim"))
 
 
+(use-package! cnfonts
+:config
+(cnfonts-enable))
+
 (use-package! pangu-spacing
   :hook (text-mode . pangu-spacing-mode)
   :config
