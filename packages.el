@@ -51,10 +51,10 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-(package! evil-terminal-cursor-changer)
-
 (package! solaire-mode :disable t)
 
-(package! zoom)
+;;(package! evil-terminal-cursor-changer)
+
+;;(package! zoom)
 
 ;;(package! benchmark-init)
