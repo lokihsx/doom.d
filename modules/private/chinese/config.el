@@ -11,9 +11,9 @@
 ;;         default-input-method "pyim"))
 
 
-;;(use-package! cnfonts
-;;  :config
-;;  (cnfonts-enable))
+(use-package! cnfonts
+ :config
+ (cnfonts-enable))
 
 (use-package! pangu-spacing
   :hook (text-mode . pangu-spacing-mode)
@@ -76,15 +76,15 @@ when exporting org-mode to html."
              contents)))
       (list paragraph fixed-contents info))))
 
-(use-package sis
-  :config
-  (if IS-MAC
-      (sis-ism-lazyman-config
-       "com.apple.keylayout.US"
-       "com.sogou.inputmethod.sogou.pinyin")
-    (sis-ism-lazyman-config nil "rime" 'native))
+;; (use-package sis
+;;   :config
+;;   (if IS-MAC
+;;       (sis-ism-lazyman-config
+;;        "com.apple.keylayout.US"
+;;        "com.sogou.inputmethod.sogou.pinyin")
+;;     (sis-ism-lazyman-config nil "rime" 'native))
 
-  (sis-global-respect-mode)
-  (sis-global-context-mode)
+;;  (sis-global-respect-mode)
+;;  (sis-global-context-mode)
   ;; (sis-global-cursor-color-mode)
-  (sis-global-inline-mode))
+;;  (sis-global-inline-mode))

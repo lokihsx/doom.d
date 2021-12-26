@@ -194,12 +194,11 @@
 (after! lsp-java
   (setq lsp-java-vmargs `(
                           ;;"-noverify"
-                          "-Xmx4G"
+                          "-Xmx2G"
                           "-XX:+UseG1GC"
                           "-XX:+UseStringDeduplication"
                           ,(format
-                            "-javaagent:%s/.m2/repository/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar"
-                            (getenv "HOME")))
+                            "-javaagent:%slombok-1.18.22.jar" (file-truename doom-private-dir)))
 
         lsp-java-format-settings-url (concat "file:" (file-truename (format "%s/googleJavaStyle.xml" doom-private-dir)))
         lsp-java-format-settings-profile "GoogleStyle"
