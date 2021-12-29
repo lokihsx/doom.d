@@ -45,14 +45,14 @@
 (setq doom-font (font-spec :family "Monaco" :size 20))
 (setq doom-font (font-spec :family "Monaco" :size 20))
 
-;; (when (window-system)
-;;   (load! "font"))
+(when (string= (window-system) "x")
+  (load! "font"))
 
 (setq doom-theme 'doom-vibrant
       doom-vibrant-brighter-modeline t
       doom-vibrant-brighter-comments t)
 
-;; (doom/set-frame-opacity 88)
+(doom/set-frame-opacity 88)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/Documents/")
@@ -478,16 +478,6 @@
     (setq org-journal-find-file '+org-journal/window-goto)))
 
 (setq doom-modeline-buffer-file-name-style 'relative-to-project)
-;; (custom-set-faces!
-;;   '(mode-line :family "Noto Sans" :height 1.0)
-;;   '(mode-line-inactive :family "Noto Sans" :height 1.0))
-
 
 ;; do not use mouse cursor in emacs
 (setq mouse-avoidance-mode 'banish)
-
-(setq-default line-spacing 0.2)
-
-;; treemacs font
-(setq doom-variable-pitch-font (font-spec :family "Noto Sans" :size 22))
-(setq doom-themes-treemacs-line-spacing 6)
