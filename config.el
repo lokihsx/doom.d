@@ -33,20 +33,7 @@
 (setq user-full-name "Loki Huang"
       user-mail-address "lokihsx@gmail.com")
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two4
-(setq doom-font (font-spec :family "Monaco" :size 20))
-(setq doom-font (font-spec :family "Monaco" :size 20))
-
-(when (string= (window-system) "x")
-  (load! "font"))
+(load! "font")
 
 (setq doom-theme 'doom-vibrant
       doom-vibrant-brighter-modeline t
