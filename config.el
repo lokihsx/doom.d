@@ -67,24 +67,24 @@
 
 ;; remember frame status
 
-(when-let (dims (doom-store-get 'last-frame-size))
-  (cl-destructuring-bind ((left . top) width height fullscreen) dims
-    (setq initial-frame-alist
-          (append initial-frame-alist
-                  `((left . ,left)
-                    (top . ,top)
-                    (width . ,width)
-                    (height . ,height)
-                    (fullscreen . ,fullscreen))))))
+;; (when-let (dims (doom-store-get 'last-frame-size))
+;;   (cl-destructuring-bind ((left . top) width height fullscreen) dims
+;;     (setq initial-frame-alist
+;;           (append initial-frame-alist
+;;                   `((left . ,left)
+;;                     (top . ,top)
+;;                     (width . ,width)
+;;                     (height . ,height)
+;;                     (fullscreen . ,fullscreen))))))
 
-(defun save-frame-dimensions ()
-  (doom-store-put 'last-frame-size
-                  (list (frame-position)
-                        (frame-width)
-                        (frame-height)
-                        (frame-parameter nil 'fullscreen))))
+;; (defun save-frame-dimensions ()
+;;   (doom-store-put 'last-frame-size
+;;                   (list (frame-position)
+;;                         (frame-width)
+;;                         (frame-height)
+;;                         (frame-parameter nil 'fullscreen))))
 
-(add-hook 'kill-emacs-hook #'save-frame-dimensions)
+;; (add-hook 'kill-emacs-hook #'save-frame-dimensions)
 
 ;; (when (eq window-system 'x)
 ;;   (let* ((sw (float (x-display-pixel-width)))
@@ -176,7 +176,8 @@
 
 
 (after! vterm
-  (add-hook! 'vterm-mode-hook (define-key vterm-mode-map (kbd "C-\\") #'toggle-input-method)))
+  (add-hook! 'vterm-mode-hook (define-key vterm-mode-map (kbd "C-\\") #'toggle-input-method))
+  (setq vterm-shell "/bin/zsh"))
 
 (after! lsp-java
   (setq lsp-java-vmargs `(
