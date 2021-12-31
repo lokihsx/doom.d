@@ -35,11 +35,11 @@
 
 (load! "font")
 
-(setq doom-theme 'doom-vibrant
-      doom-vibrant-brighter-modeline t
-      doom-vibrant-brighter-comments t)
+(setq doom-theme 'modus-vivendi)
+      ;; modus-vivendi-brighter-modeline t
+      ;; modus-vivendi-brighter-comments t)
 
-(doom/set-frame-opacity 88)
+(doom/set-frame-opacity 66)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/Documents/")
