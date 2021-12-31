@@ -1,3 +1,10 @@
+;; theme setting
+(setq doom-theme 'modus-vivendi)
+      ;; modus-vivendi-brighter-modeline t
+      ;; modus-vivendi-brighter-comments t)
+
+(doom/set-frame-opacity 60)
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -14,7 +21,7 @@
 (setq-default line-spacing 0.3)
 
 ;; treemacs font
-(setq doom-variable-pitch-font (font-spec :family "Noto Sans" :size 16))
+(setq doom-variable-pitch-font (font-spec :family "Noto Sans" :size 14))
 (setq doom-themes-treemacs-line-spacing 6)
 
 ;; (custom-set-faces!

@@ -33,13 +33,7 @@
 (setq user-full-name "Loki Huang"
       user-mail-address "lokihsx@gmail.com")
 
-(load! "font")
-
-(setq doom-theme 'modus-vivendi)
-      ;; modus-vivendi-brighter-modeline t
-      ;; modus-vivendi-brighter-comments t)
-
-(doom/set-frame-opacity 66)
+(load! "appearance")
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/Documents/")
