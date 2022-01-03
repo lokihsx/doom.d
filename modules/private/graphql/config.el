@@ -3,4 +3,5 @@
 (use-package! graphql-mode
   :mode ("\\.graphqls$" . graphql-mode)
   :config
-  (setq graphql-indent-level 2))
+  (setq graphql-indent-level 2)
+  (add-hook 'graphql-mode-hook #'display-line-numbers-mode))
