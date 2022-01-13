@@ -33,7 +33,16 @@
 (setq user-full-name "Loki Huang"
       user-mail-address "lokihsx@gmail.com")
 
-(load! "appearance")
+
+(if (display-graphic-p)
+    (load! "appearance")
+  (progn
+    (setq doom-theme 'modus-vivendi)
+    (set-face-background 'default "unspecified-bg")))
+  ;; (progn
+  ;;     (setq doom-theme 'doom-vibrant
+  ;;           doom-vibrant-brighter-comments t
+  ;;           doom-vibrant-brighter-modeline t)))
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/Documents/")

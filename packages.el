@@ -53,7 +53,7 @@
 
 (package! solaire-mode :disable t)
 
-;;(package! evil-terminal-cursor-changer)
+(package! evil-terminal-cursor-changer)
 
 ;;(package! zoom)
 
