@@ -144,6 +144,22 @@
 
 (setq-default company-idle-delay 0)
 
+;;;###autoload
+(defun +treemacs/goto ()
+  "Initialize or toggle treemacs.
+
+Ensures that only the current project is present and all other projects have
+been removed.
+
+Use `treemacs' command for old functionality."
+  (interactive)
+  (require 'treemacs)
+  (pcase (treemacs-current-visibility)
+    (`visible (select-window (treemacs-get-local-window)))
+    (_ (if (doom-project-p)
+           (treemacs-add-and-display-current-project)
+         (treemacs)))))
+
 (after! treemacs
   (defun treemacs-custom-filter (file _)
     (or (s-ends-with? ".o" file)
