@@ -34,15 +34,12 @@
       user-mail-address "lokihsx@gmail.com")
 
 
+
 (if (display-graphic-p)
     (load! "appearance")
-  (progn
-    (setq doom-theme 'modus-vivendi)
-    (set-face-background 'default "unspecified-bg")))
-  ;; (progn
-  ;;     (setq doom-theme 'doom-vibrant
-  ;;           doom-vibrant-brighter-comments t
-  ;;           doom-vibrant-brighter-modeline t)))
+   (progn
+     (setq doom-theme 'modus-vivendi))
+     (set-face-background 'default "unspecified-bg"))
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/Documents/")
@@ -201,7 +198,7 @@ Use `treemacs' command for old functionality."
 (after! lsp-java
   (setq lsp-java-vmargs `(
                           ;;"-noverify"
-                          "-Xmx2G"
+                          "-Xmx1G"
                           "-XX:+UseG1GC"
                           "-XX:+UseStringDeduplication"
                           ,(format
@@ -488,3 +485,42 @@ Use `treemacs' command for old functionality."
 
 ;; do not use mouse cursor in emacs
 (setq mouse-avoidance-mode 'banish)
+
+
+
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-directory "~/Documents/org")
+
+    (setq org-roam-ui-sync-theme nil
+          org-roam-ui-follow nil
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start nil))
+
+(setq org-roam-ui-custom-theme
+    '((bg . "#iE2029")
+        (bg-alt . "#282a36")
+        (fg . "#f8f8f2")
+        (fg-alt . "#6272a4")
+        (red . "#ff5555")
+        (orange . "#f1fa8c")
+        (yellow ."#ffb86c")
+        (green . "#50fa7b")
+        (cyan . "#8be9fd")
+        (blue . "#ff79c6")
+        (violet . "#8be9fd")
+        (magenta . "#bd93f9")))
+
+(setq org-roam-mode-section-functions
+      (list #'org-roam-backlinks-section
+            #'org-roam-reflinks-section
+            ;; #'org-roam-unlinked-references-section
+            ))

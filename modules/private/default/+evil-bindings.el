@@ -98,7 +98,18 @@
       :n "C--"    #'text-scale-decrease
       ;; Frame-local font resizing
       :n "M-C-="  #'doom/increase-font-size
-      :n "M-C--"  #'doom/decrease-font-size)
+      :n "M-C--"  #'doom/decrease-font-size
+
+      ;; backward char
+      :i "C-h" #'delete-backward-char
+
+      ;; ;; window switch
+      ;; :ni "s-h" #'evil-window-left
+      ;; :ni "s-j" #'evil-window-down
+      ;; :ni "s-k" #'evil-window-up
+      ;; :ni "s-l" #'evil-window-right
+      )
+
 
 
 ;;
@@ -689,3 +700,5 @@
                 which-key-replacement-alist)))
 
 (global-set-key (kbd "C-c f") #'other-frame-follow)
+
+

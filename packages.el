@@ -58,3 +58,5 @@
 ;;(package! zoom)
 
 ;;(package! benchmark-init)
+
+(package! org-roam-ui)
