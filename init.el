@@ -199,10 +199,10 @@
 
        :config
        ;;literate
-       ;;(default +bindings +smartparens)
+       (default +bindings +smartparens)
 
        :private
-       (default +bindings +smartparens)
+       ;; (default +bindings +smartparens)
        framemove
        chinese
        protobuf
