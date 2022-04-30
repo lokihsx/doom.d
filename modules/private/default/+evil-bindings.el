@@ -699,6 +699,5 @@
                   nil . "maximize")
                 which-key-replacement-alist)))
 
-(global-set-key (kbd "C-c f") #'other-frame-follow)
-
-
+(global-set-key (kbd "C-h") #'delete-backward-char)
+;;(global-set-key (kbd "C-c f") #'other-frame-follow)

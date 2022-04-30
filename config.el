@@ -127,11 +127,15 @@
         web-mode-enable-current-element-highlight t)
 
   (after! lsp-mode
+    (setq lsp-log-io t)
     (when (featurep! :lang web +lsp)
-      (setf (alist-get 'web-mode lsp--formatting-indent-alist) 'web-mode-code-indent-offset))))
+      (setf (alist-get 'web-mode lsp--formatting-indent-alist) 'web-mode-code-indent-offset))
+    (advice-add 'dap-ui--update-controls :override #'ignore)))
+
+(advice-add 'better-jumper-jump-backward :after 'evil-scroll-line-to-center)
 
 (after! typescript-mode
-  (setq typescript-indent-level 2))
+  (setq typescript-indent-level 4))
 ;; (when (featurep! :lang javascript +lsp)
 ;;   (setf (alist-get 'javascript-mode lsp--formatting-indent-alist) 'typescript-indent-level)))
 
@@ -524,3 +528,10 @@ Use `treemacs' command for old functionality."
             #'org-roam-reflinks-section
             ;; #'org-roam-unlinked-references-section
             ))
+
+
+(use-package! vertico-posframe
+  :after vertico
+  :config
+  (vertico-posframe-mode 1)
+  (setq vertico-posframe-width 166))

@@ -60,3 +60,5 @@
 ;;(package! benchmark-init)
 
 (package! org-roam-ui)
+
+(package! vertico-posframe)
