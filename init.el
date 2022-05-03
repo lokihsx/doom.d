@@ -202,7 +202,6 @@
        (default +bindings +smartparens)
 
        :private
-       ;; (default +bindings +smartparens)
        framemove
        chinese
        protobuf
