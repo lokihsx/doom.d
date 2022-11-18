@@ -534,7 +534,7 @@ Use `treemacs' command for old functionality."
   :after vertico
   :config
   (vertico-posframe-mode 1)
-  (setq vertico-posframe-width 166
+  (setq vertico-posframe-width 77
         vertico-posframe-parameters '((left-fringe . 32)
                                       (right-fringe . 32))))
 

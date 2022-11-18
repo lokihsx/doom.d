@@ -1,9 +1,15 @@
 ;;; keybindings.el -*- lexical-binding: t; -*-
 
-(map! :leader
-      ;;; global map
-      :i "C-h" #'delete-backward-char
+(map!
+ ;;; global map
+ :i "C-h" #'delete-backward-char
 
+ :g "C-c h" #'evil-window-left
+ :g "C-c j" #'evil-window-down
+ :g "C-c k" #'evil-window-up
+ :g "C-c l" #'evil-window-right)
+
+(map! :leader
       ;;; <leader> o --- open
       (:prefix-map ("o" . "open")
        :desc "Org agenda"       "A"  #'org-agenda
