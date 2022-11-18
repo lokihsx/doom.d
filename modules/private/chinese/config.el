@@ -59,6 +59,8 @@
 
 (use-package! youdao-dictionary
   :config
+  (setq youdao-dictionary-app-key "4a420e11ef2826b6"
+        youdao-dictionary-secret-key "S8YNSlnSM7MDXdjk4LDS6sBWPZhkVh9N")
   ;; (global-set-key (kbd "s-y") 'youdao-dictionary-search-at-point+)
   (global-set-key (kbd "C-c y") 'youdao-dictionary-search-at-point+))
 

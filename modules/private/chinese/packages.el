@@ -8,6 +8,6 @@
 
 ;;(package! sis)
 
-(package! pangu-spacing)
+;;(package! pangu-spacing)
 
 (package! cnfonts)

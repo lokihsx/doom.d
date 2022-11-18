@@ -237,7 +237,8 @@ Use `treemacs' command for old functionality."
 (when (featurep! :editor format)
   (setq +format-on-save-enabled-modes '(not emacs-lisp-mode sql-mode tex-mode latex-mode org-msg-edit-mode protobuf-mode))
   (setq-hook! 'web-mode-hook +format-with-lsp nil)
-  (setq-hook! 'c-mode-hook +format-with-lsp nil))
+  (setq-hook! 'c-mode-hook +format-with-lsp nil)
+  (setq-hook! 'yaml-mode-hook +format-with-lsp nil))
 
 ;; (defadvice org-capture
 ;;     (before make-full-window-frame activate)
@@ -468,7 +469,8 @@ Use `treemacs' command for old functionality."
 
 (after! org-journal
   (setq org-journal-date-format "%F %A"
-        org-journal-time-format "%F %R"
+        ;; org-journal-time-format "%F %R"
+        org-journal-time-format ""
         org-journal-hide-entries-p nil
         org-journal-carryover-items "TODO=\"TODO\"|TODO=\"PROJ\"|TODO=\"STRT\"|TODO=\"WAIT\"|TODO=\"HOLD\"|TODO=\"IDEA\"|TODO=\"LOOP\""
         org-capture-templates `(("p" "Protocol" entry
@@ -534,7 +536,7 @@ Use `treemacs' command for old functionality."
   :after vertico
   :config
   (vertico-posframe-mode 1)
-  (setq vertico-posframe-width 77
+  (setq vertico-posframe-width 128
         vertico-posframe-parameters '((left-fringe . 32)
                                       (right-fringe . 32))))
 
