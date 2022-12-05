@@ -545,4 +545,4 @@ Use `treemacs' command for old functionality."
 
 
 ;; pandoc export to docx
-(setq org-pandoc-options-for-docx '((reference-doc . (concat doom-private-dir "custom-reference.docx")))
+(setq org-pandoc-options-for-docx (list (cons 'reference-doc (concat doom-private-dir "custom-reference.docx"))))
