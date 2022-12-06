@@ -7,7 +7,9 @@
  :g "C-c h" #'evil-window-left
  :g "C-c j" #'evil-window-down
  :g "C-c k" #'evil-window-up
- :g "C-c l" #'evil-window-right)
+ :g "C-c l" #'evil-window-right
+
+ :g "C-c d" #'open-in-dolphin)
 
 (map! :leader
       ;;; <leader> o --- open

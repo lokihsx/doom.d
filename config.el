@@ -541,4 +541,11 @@ Use `treemacs' command for old functionality."
                                       (right-fringe . 32))))
 
 
+(defun open-in-dolphin (file)
+  (interactive
+   (list (buffer-file-name)))
+  (let ((path (file-name-directory file)))
+    (shell-command (concat "dolphin " path))))
+
+
 (load! "keybindings")
