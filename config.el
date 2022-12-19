@@ -167,7 +167,7 @@ Use `treemacs' command for old functionality."
         (s-ends-with? ".log" file)))
   (setq +treemacs-git-mode 'deferred
         treemacs-collapse-dirs 5
-        treemacs-width 45
+        treemacs-width 66
         treemacs-recenter-after-file-follow 'always
         treemacs-position 'left)
   (treemacs-follow-mode)
