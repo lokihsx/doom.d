@@ -205,5 +205,6 @@
        chinese
        protobuf
        ;;i3wm
+       xisoft
        ainog)
        ;; eaf)
